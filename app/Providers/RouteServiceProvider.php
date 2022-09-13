@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Routing\Concerns\MapsRouteRegistrars;
 use App\Routing\Registrars\DefaultRegistrar;
+use App\Routing\Registrars\OrganizationRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -17,6 +18,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected array $registrars = [
         DefaultRegistrar::class,
+        OrganizationRegistrar::class,
 
     ];
 
