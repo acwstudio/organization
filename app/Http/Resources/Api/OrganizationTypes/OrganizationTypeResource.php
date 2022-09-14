@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\OrganizationTypes;
 
+use App\Http\Resources\Api\Organizations\OrganizationCollection;
 use App\Http\Resources\Api\Organizations\OrganizationIdentifierResource;
 use App\Http\Resources\Api\Organizations\OrganizationResource;
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
@@ -25,7 +26,7 @@ class OrganizationTypeResource extends JsonResource
             'id'         => $this->id,
             'type'       => OrganizationType::TYPE_RESOURCE,
             'attributes' => [
-                'paren_id'    => $this->parent_id,
+                'parent_id'    => $this->parent_id,
                 'name'        => $this->name,
                 'description' => $this->description,
                 'slug'        => $this->slug,
@@ -62,11 +63,11 @@ class OrganizationTypeResource extends JsonResource
     protected function relations(): array
     {
         $relations = [
-            OrganizationResource::class     => $this->whenLoaded('organizations'),
+            OrganizationCollection::class     => $this->whenLoaded('organizations'),
             OrganizationTypeResource::class => $this->whenLoaded('parent'),
-//            OrganizationTypeResource::class => $this->whenLoaded('children'),
+            OrganizationTypeCollection::class => $this->whenLoaded('children'),
         ];
-
+//        dump(OrganizationTypeResource::class.' ');
         return $relations;
     }
 }
