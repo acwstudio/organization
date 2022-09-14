@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('slug');
             $table->boolean('active');
+            $table->smallInteger('level');
             $table->softDeletes();
             $table->timestamps();
         });
