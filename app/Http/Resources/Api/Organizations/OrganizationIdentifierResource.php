@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\Api\Organizations;
 
+use App\Models\Organization;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin Organization */
 class OrganizationIdentifierResource extends JsonResource
 {
     /**
@@ -14,6 +16,9 @@ class OrganizationIdentifierResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'type' => Organization::TYPE_RESOURCE
+        ];
     }
 }

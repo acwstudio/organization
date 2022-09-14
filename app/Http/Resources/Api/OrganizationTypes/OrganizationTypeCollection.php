@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Api\Organizations;
+namespace App\Http\Resources\Api\OrganizationTypes;
 
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesCollectionTrait;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class OrganizationCollection extends ResourceCollection
+class OrganizationTypeCollection extends ResourceCollection
 {
     use IncludeRelatedEntitiesCollectionTrait;
 
@@ -17,6 +17,9 @@ class OrganizationCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data'     => $this->collection,
+            'included' => $this->mergeIncludedRelations($request),
+        ];
     }
 }
