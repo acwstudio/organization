@@ -21,7 +21,10 @@ trait IncludeRelatedEntitiesResourceTrait
             if ($relation instanceof Model) {
                 $newRelations[] = $key::collection([$relation]);
             }
-            if ($relation instanceof MissingValue || $relation instanceof Collection) {
+            if ($relation instanceof Collection) {
+                $newRelations[] = new $key($relation);
+            }
+            if ($relation instanceof MissingValue) {
                 $newRelations[] = $key::collection($relation);
             }
         }
