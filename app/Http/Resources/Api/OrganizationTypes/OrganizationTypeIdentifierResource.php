@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Resources\Api\Organizations;
+namespace App\Http\Resources\Api\OrganizationTypes;
 
-use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
+use App\Models\OrganizationType;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrganizationResource extends JsonResource
+/** @mixin OrganizationType */
+class OrganizationTypeIdentifierResource extends JsonResource
 {
-    use IncludeRelatedEntitiesResourceTrait;
-
     /**
      * Transform the resource into an array.
      *
@@ -17,6 +16,9 @@ class OrganizationResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'type' => OrganizationType::TYPE_RESOURCE
+        ];
     }
 }

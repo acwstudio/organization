@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Organization extends Model
 {
     use HasFactory;
+
+    const TYPE_RESOURCE = 'organization';
 }

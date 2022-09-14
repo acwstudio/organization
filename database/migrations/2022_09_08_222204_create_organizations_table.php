@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->unsignedInteger('city_id');
-            $table->unsignedInteger('organization_types_id');
+            $table->unsignedInteger('organization_type_id');
             $table->string('name');
             $table->string('abbreviation');
             $table->text('description');

@@ -1,34 +1,42 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\OrganizationTypes;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\Organizations\OrganizationResource;
-use App\Services\Api\OrganizationService;
+use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeCollection;
+use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeResource;
+use App\Services\Api\OrganizationTypeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class OrganizationController extends Controller
+class OrganizationTypeController extends Controller
 {
-    private OrganizationService $organizationService;
+    /**
+     * @var OrganizationTypeService
+     */
+    private OrganizationTypeService $organizationTypeService;
 
-    public function __construct(OrganizationService $organizationService)
+    /**
+     * @param OrganizationTypeService $organizationTypeService
+     */
+    public function __construct(OrganizationTypeService $organizationTypeService)
     {
-        $this->organizationService = $organizationService;
+        $this->organizationTypeService = $organizationTypeService;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
         $perPage = $request->get('per_page');
 
-        $organizations = $this->organizationService->index()->paginate($perPage);
+        $organizationTypes = $this->organizationTypeService->index()->paginate($perPage);
 
-        return (new OrganizationResource($organizations))->response();
+        return (new OrganizationTypeCollection($organizationTypes))->response();
     }
 
     /**
