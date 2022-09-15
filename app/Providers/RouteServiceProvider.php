@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Routing\Concerns\MapsRouteRegistrars;
+use App\Routing\Registrars\CityRegistar;
 use App\Routing\Registrars\DefaultRegistrar;
 use App\Routing\Registrars\OrganizationRegistrar;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -19,7 +20,7 @@ class RouteServiceProvider extends ServiceProvider
     protected array $registrars = [
         DefaultRegistrar::class,
         OrganizationRegistrar::class,
-
+        CityRegistar::class,
     ];
 
     /**
