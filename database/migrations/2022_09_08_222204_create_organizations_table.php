@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('plaque_image');
             $table->string('preview_image');
             $table->string('base_image');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

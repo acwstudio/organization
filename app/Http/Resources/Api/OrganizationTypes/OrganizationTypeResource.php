@@ -62,12 +62,10 @@ class OrganizationTypeResource extends JsonResource
 
     protected function relations(): array
     {
-        $relations = [
+        return [
             OrganizationCollection::class     => $this->whenLoaded('organizations'),
             OrganizationTypeResource::class => $this->whenLoaded('parent'),
             OrganizationTypeCollection::class => $this->whenLoaded('children'),
         ];
-//        dump(OrganizationTypeResource::class.' ');
-        return $relations;
     }
 }
