@@ -96,6 +96,9 @@ namespace App\Models{
  * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\City|null $city
+ * @property-read \App\Models\OrganizationType|null $organizationType
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Organization newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Organization query()
@@ -116,6 +119,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereSite($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  */
 	class Organization extends \Eloquent {}
 }

@@ -38,15 +38,15 @@ class RegionResource extends JsonResource
             'relationships' => [
                 'cities' => [
                     'links' => [
-                        'self' => '',
-                        'related' => ''
+                        'self' => route('region.relationships.cities', ['id' => $this->id]),
+                        'related' => route('region.cities', ['id' => $this->id]),
                     ],
                     'data' => CityIdentifierResource::collection($this->whenLoaded('cities'))
                 ],
                 'federalDistrict' => [
                     'links' => [
-                        'self' => '',
-                        'related' => ''
+                        'self' => route('regions.relationships.federal-district', ['id' => $this->id]),
+                        'related' => route('regions.federal-district', ['id' => $this->id]),
                     ],
                     'data' => new FederalDistrictIdentifierResource($this->whenLoaded('federalDistrict'))
                 ]

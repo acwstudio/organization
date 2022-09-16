@@ -16,9 +16,10 @@ class OrganizationsOrganizationTypeRelationshipsController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $organization = Organization::findOrFail($id);
+        $organizationType = Organization::findOrFail($id)->organizationType;
 
-        return (new OrganizationTypeIdentifierResource($organization))->response();
+        return $organizationType ?
+            (new OrganizationTypeIdentifierResource($organizationType))->response() : response()->json(null, 204);
     }
 
     public function update(int $id)

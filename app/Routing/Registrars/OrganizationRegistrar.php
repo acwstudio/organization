@@ -94,7 +94,7 @@ final class OrganizationRegistrar implements RouteRegistrar
             ])->name('organization-types.relationships.parent');
 
             $registrar->get('organization-types/{id}/parent',[
-                OrganizationTypesParentRelatedController::class
+                OrganizationTypesParentRelatedController::class, 'index'
             ])->name('organization-types.parent');
         });
     }
