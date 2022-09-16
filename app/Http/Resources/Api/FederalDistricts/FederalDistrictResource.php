@@ -35,8 +35,8 @@ class FederalDistrictResource extends JsonResource
             'relationships' => [
                 'regions' => [
                     'links' => [
-                        'self' => '',
-                        'related' => ''
+                        'self' => route('federal-district.relationships.regions', ['id' => $this->id]),
+                        'related' => route('federal-district.regions', ['id' => $this->id]),
                     ],
                     'data' => RegionIdentifierResource::collection($this->whenLoaded('regions'))
                 ]

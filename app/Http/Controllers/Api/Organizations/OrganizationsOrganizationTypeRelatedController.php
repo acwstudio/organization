@@ -16,8 +16,9 @@ class OrganizationsOrganizationTypeRelatedController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $organization = Organization::findOrFail($id);
+        $organizationType = Organization::findOrFail($id)->organizationType;
 
-        return (new OrganizationTypeResource($organization))->response();
+        return $organizationType ?
+            (new OrganizationTypeResource($organizationType))->response() : response()->json(null, 204);
     }
 }
