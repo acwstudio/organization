@@ -46,11 +46,13 @@ class OrganizationController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function show($id)
     {
-        //
+        $organization = $this->organizationService->show($id)->first();
+
+        return (new OrganizationResource($organization))->response();
     }
 
     /**

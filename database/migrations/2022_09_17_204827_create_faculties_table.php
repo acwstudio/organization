@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('faculties', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('federal_district_id');
+            $table->string('organization_id');
             $table->string('name');
             $table->text('description');
             $table->string('slug');
             $table->boolean('active');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('organization_id')->references('id')->on('organizations');
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('faculties');
     }
 };

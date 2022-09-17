@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\FederalDistricts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictCollection;
+use App\Http\Resources\Api\FederalDistricts\FederalDistrictResource;
 use App\Services\Api\FederalDistrictService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -46,18 +47,20 @@ class FederalDistrictController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
-        //
+        $federalDistrict = $this->federalDistrictService->show($id)->first();
+
+        return (new FederalDistrictResource($federalDistrict))->response();
     }
 
     /**

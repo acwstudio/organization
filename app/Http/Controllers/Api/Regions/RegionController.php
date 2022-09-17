@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Regions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Regions\RegionCollection;
+use App\Http\Resources\Api\Regions\RegionResource;
 use App\Services\Api\RegionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -53,11 +54,13 @@ class RegionController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
-        //
+        $region = $this->regionService->show($id)->first();
+
+        return (new RegionResource($region))->response();
     }
 
     /**

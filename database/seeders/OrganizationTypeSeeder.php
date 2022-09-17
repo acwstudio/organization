@@ -8,6 +8,7 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Facades\Excel;
 
 class OrganizationTypeSeeder extends Seeder
@@ -19,7 +20,11 @@ class OrganizationTypeSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+
         DB::table('organization_types')->truncate();
+
+        Schema::enableForeignKeyConstraints();
 
         $types = config('data-seed.organization-types');
 

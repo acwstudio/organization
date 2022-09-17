@@ -19,4 +19,15 @@ final class RegionRepository
             ->allowedFilters(['name','id'])
             ->allowedSorts(['name']);
     }
+
+    /**
+     * @param Region $region
+     * @return QueryBuilder
+     */
+    public function show(Region $region): QueryBuilder
+    {
+        return QueryBuilder::for(Region::class)
+            ->where('id', $region->id)
+            ->allowedIncludes(['cities','federalDistrict']);
+    }
 }
