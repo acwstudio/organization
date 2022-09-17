@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Cities\CityCollection;
+use App\Http\Resources\Api\Cities\CityResource;
 use App\Services\Api\CityService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -53,11 +54,13 @@ class CityController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
-        //
+        $city = $this->cityService->show($id)->first();
+
+        return (new CityResource($city))->response();
     }
 
     /**

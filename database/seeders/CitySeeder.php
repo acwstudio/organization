@@ -10,6 +10,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class CitySeeder extends Seeder
 {
@@ -20,9 +21,13 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+
         DB::table('federal_districts')->truncate();
         DB::table('regions')->truncate();
         DB::table('cities')->truncate();
+
+        Schema::enableForeignKeyConstraints();
 
         $geoDistricts = DB::connection('mysql_city')->table('geo_district')->get();
         $geoRegions = DB::connection('mysql_city')->table('geo_regions')->get();

@@ -13,18 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('organization_types', function (Blueprint $table) {
+        Schema::create('regions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('federal_district_id');
             $table->string('name');
             $table->text('description');
             $table->string('slug');
             $table->boolean('active');
-            $table->smallInteger('level');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('parent_id')->references('id')->on('organization_types');
+            $table->foreign('federal_district_id')->references('id')->on('federal_districts');
         });
     }
 
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organization_types');
+        Schema::dropIfExists('regions');
     }
 };

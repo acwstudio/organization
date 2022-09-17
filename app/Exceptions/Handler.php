@@ -2,7 +2,13 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -47,4 +53,53 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param Request $request
+     * @param Throwable $e
+     * @return Response
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e)
+    {
+        if($e instanceof QueryException || $e instanceof ModelNotFoundException){
+            $e = new NotFoundHttpException('Resource not found');
+        }
+
+        return parent::render($request, $e);
+    }
+
+    protected function prepareJsonResponse($request, Throwable $e)
+    {
+        return response()->json([
+            'errors' => [
+                [
+                    'title' => \Str::title(\Str::snake(class_basename($e), ' ')),
+                    'details' => $e->getMessage(),
+                ]
+            ]
+        ], $this->isHttpException($e) ? $e->getStatusCode() : 500);
+    }
+
+    protected function invalidJson($request, ValidationException $exception)
+    {
+        $errors = (collect($exception->validator->errors()))
+            ->map(function ($error, $key) {
+                return [
+                    'title' => 'Validation Error',
+                    'details' => $error[0],
+                    'source' => [
+                        'pointer' => '/' . str_replace('.',  '/', $key)
+                    ]
+                ];
+            })->values();
+
+        return response()->json([
+            'success' => false,
+            'errors' => $errors
+        ], $exception->status);
+    }
+
 }

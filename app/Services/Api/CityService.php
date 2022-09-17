@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Api;
 
+use App\Models\City;
 use App\Repositories\Api\CityRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -28,5 +29,16 @@ final class CityService
     public function index(): QueryBuilder
     {
         return $this->cityRepository->index();
+    }
+
+    /**
+     * @param int $id
+     * @return QueryBuilder
+     */
+    public function show(int $id): QueryBuilder
+    {
+        $item = City::findOrFail($id);
+
+        return $this->cityRepository->show($item);
     }
 }

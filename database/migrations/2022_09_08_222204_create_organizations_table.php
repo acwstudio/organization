@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->unsignedInteger('city_id');
-            $table->unsignedInteger('organization_type_id');
+            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('organization_type_id');
             $table->string('name');
             $table->string('abbreviation');
             $table->text('description');
@@ -30,6 +30,9 @@ return new class extends Migration
             $table->string('base_image');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('organization_type_id')->references('id')->on('organization_types');
         });
     }
 

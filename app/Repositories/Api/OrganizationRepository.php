@@ -15,8 +15,19 @@ final class OrganizationRepository
     public function index(): QueryBuilder
     {
         return QueryBuilder::for(Organization::class)
-            ->allowedIncludes([''])
-            ->allowedFilters([''])
-            ->allowedSorts(['']);
+            ->allowedIncludes(['organizationType','city'])
+            ->allowedFilters(['name','id'])
+            ->allowedSorts(['name']);
+    }
+
+    /**
+     * @param Organization $organization
+     * @return QueryBuilder
+     */
+    public function show(Organization $organization): QueryBuilder
+    {
+        return QueryBuilder::for(Organization::class)
+            ->where('id', $organization->id)
+            ->allowedIncludes(['organizationType','city']);
     }
 }

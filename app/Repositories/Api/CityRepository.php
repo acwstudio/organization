@@ -19,4 +19,15 @@ final class CityRepository
             ->allowedFilters(['name','id'])
             ->allowedSorts(['name']);
     }
+
+    /**
+     * @param int $id
+     * @return QueryBuilder
+     */
+    public function show(City $city): QueryBuilder
+    {
+        return QueryBuilder::for(City::class)
+            ->where('id', $city->id)
+            ->allowedIncludes(['organizations','region']);
+    }
 }

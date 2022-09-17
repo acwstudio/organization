@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Api;
 
+use App\Models\Organization;
 use App\Repositories\Api\OrganizationRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -25,5 +26,16 @@ final class OrganizationService
     public function index(): QueryBuilder
     {
         return $this->organizationRepository->index();
+    }
+
+    /**
+     * @param int $id
+     * @return QueryBuilder
+     */
+    public function show(int $id): QueryBuilder
+    {
+        $item = Organization::findOrFail($id);
+
+        return $this->organizationRepository->show($item);
     }
 }
