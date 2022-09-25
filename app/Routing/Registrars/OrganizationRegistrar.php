@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Routing\Registrars;
 
+use App\Http\Controllers\Api\Organizations\OrganizationChildrenRelatedController;
+use App\Http\Controllers\Api\Organizations\OrganizationChildrenRelationshipsController;
 use App\Http\Controllers\Api\Organizations\OrganizationController;
 use App\Http\Controllers\Api\Organizations\OrganizationsCityRelatedController;
 use App\Http\Controllers\Api\Organizations\OrganizationsCityRelationshipsController;
 use App\Http\Controllers\Api\Organizations\OrganizationsOrganizationTypeRelatedController;
 use App\Http\Controllers\Api\Organizations\OrganizationsOrganizationTypeRelationshipsController;
+use App\Http\Controllers\Api\Organizations\OrganizationsParentRelatedController;
+use App\Http\Controllers\Api\Organizations\OrganizationsParentRelationshipsController;
 use App\Http\Controllers\Api\OrganizationTypes\OrganizationTypeChildrenRelatedController;
 use App\Http\Controllers\Api\OrganizationTypes\OrganizationTypeChildrenRelationshipsController;
 use App\Http\Controllers\Api\OrganizationTypes\OrganizationTypeController;
@@ -54,6 +58,32 @@ final class OrganizationRegistrar implements RouteRegistrar
             $registrar->get('organizations/{id}/city',[
                 OrganizationsCityRelatedController::class,'index'
             ])->name('organizations.city');
+
+            // Organization to children relations
+            $registrar->get('organizations/{id}/relationships/children', [
+                OrganizationChildrenRelationshipsController::class,'index'
+            ])->name('organization.relationships.children');
+
+            $registrar->patch('organizations/{id}/relationships/children', [
+                OrganizationChildrenRelationshipsController::class,'update'
+            ])->name('organization.relationships.children');
+
+            $registrar->get('organizations/{id}/children', [
+                OrganizationChildrenRelatedController::class,'index'
+            ])->name('organization.children');
+
+            // Organizations to parent relations
+            $registrar->get('organizations/{id}/relationships/parent', [
+                OrganizationsParentRelationshipsController::class,'index'
+            ])->name('organizations.relationships.parent');
+
+            $registrar->patch('organizations/{id}/relationships/parent', [
+                OrganizationsParentRelationshipsController::class,'update'
+            ])->name('organizations.relationships.parent');
+
+            $registrar->get('organizations/{id}/parent', [
+                OrganizationsParentRelatedController::class,'index'
+            ])->name('organizations.parent');
 
             /*****************  ORGANIZATION TYPE ROUTES **************/
             $registrar->resource('organization-types', OrganizationTypeController::class);

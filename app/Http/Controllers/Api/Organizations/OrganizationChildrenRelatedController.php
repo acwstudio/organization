@@ -3,21 +3,19 @@
 namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\Cities\CityResource;
+use App\Http\Resources\Api\Organizations\OrganizationCollection;
 use App\Models\Organization;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class OrganizationsCityRelatedController extends Controller
+class OrganizationChildrenRelatedController extends Controller
 {
     /**
-     * @param string $id
+     * @param int $id
      * @return JsonResponse
      */
     public function index(string $id): JsonResponse
     {
-        $city = Organization::findOrFail($id)->city;
-
-        return $city ? (new CityResource($city))->response() : response()->json(null, 204);
+        return (new OrganizationCollection(Organization::findOrFail($id)->children))->response();
     }
 }

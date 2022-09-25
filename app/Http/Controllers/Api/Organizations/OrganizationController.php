@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Organizations\OrganizationCollection;
 use App\Http\Resources\Api\Organizations\OrganizationResource;
+use App\Models\Organization;
 use App\Services\Api\OrganizationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,7 +30,7 @@ class OrganizationController extends Controller
 
         $organizations = $this->organizationService->index()->paginate($perPage);
 
-        return (new OrganizationResource($organizations))->response();
+        return (new OrganizationCollection($organizations))->response();
     }
 
     /**
@@ -45,10 +47,10 @@ class OrganizationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return JsonResponse
      */
-    public function show($id)
+    public function show(string $id)
     {
         $organization = $this->organizationService->show($id)->first();
 
