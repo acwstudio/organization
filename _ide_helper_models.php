@@ -25,7 +25,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Organization[] $organizations
  * @property-read int|null $organizations_count
- * @property-read \App\Models\Region|null $region
+ * @property-read \App\Models\Region $region
  * @method static \Illuminate\Database\Eloquent\Builder|City findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|City newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|City newQuery()
@@ -42,6 +42,37 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|City withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  */
 	class City extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Faculty
+ *
+ * @property int $id
+ * @property string $organization_id
+ * @property string $name
+ * @property string $description
+ * @property string $slug
+ * @property int $active
+ * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereOrganizationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faculty withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
+ */
+	class Faculty extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -79,7 +110,8 @@ namespace App\Models{
 /**
  * App\Models\Organization
  *
- * @property int $id
+ * @property string $id
+ * @property string|null $parent_id
  * @property int $city_id
  * @property int $organization_type_id
  * @property string $name
@@ -96,8 +128,11 @@ namespace App\Models{
  * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\City|null $city
- * @property-read \App\Models\OrganizationType|null $organizationType
+ * @property-read \Illuminate\Database\Eloquent\Collection|Organization[] $children
+ * @property-read int|null $children_count
+ * @property-read \App\Models\City $city
+ * @property-read \App\Models\OrganizationType $organizationType
+ * @property-read Organization|null $parent
  * @method static \Illuminate\Database\Eloquent\Builder|Organization findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Organization newQuery()
@@ -113,6 +148,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereOrganizationTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization wherePlaqueImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization wherePreviewImage($value)
@@ -177,7 +213,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\City[] $cities
  * @property-read int|null $cities_count
- * @property-read \App\Models\FederalDistrict|null $federalDistrict
+ * @property-read \App\Models\FederalDistrict $federalDistrict
  * @method static \Illuminate\Database\Eloquent\Builder|Region findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Region newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Region newQuery()

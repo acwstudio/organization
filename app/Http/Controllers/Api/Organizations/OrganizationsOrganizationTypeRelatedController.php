@@ -11,10 +11,10 @@ use Illuminate\Http\Request;
 class OrganizationsOrganizationTypeRelatedController extends Controller
 {
     /**
-     * @param int $id
+     * @param string $id
      * @return JsonResponse
      */
-    public function index(int $id): JsonResponse
+    public function index(string $id): JsonResponse
     {
         $organizationType = Organization::findOrFail($id)->organizationType;
 

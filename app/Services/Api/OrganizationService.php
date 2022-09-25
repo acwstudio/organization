@@ -29,10 +29,10 @@ final class OrganizationService
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return QueryBuilder
      */
-    public function show(int $id): QueryBuilder
+    public function show(string $id): QueryBuilder
     {
         $item = Organization::findOrFail($id);
 

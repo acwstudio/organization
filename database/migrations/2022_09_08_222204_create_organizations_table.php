@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('parent_id')->nullable();
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('organization_type_id');
             $table->string('name');
@@ -33,6 +34,11 @@ return new class extends Migration
 
             $table->foreign('city_id')->references('id')->on('cities');
             $table->foreign('organization_type_id')->references('id')->on('organization_types');
+
+        });
+
+        Schema::table('organizations', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('organizations');
         });
     }
 
@@ -43,6 +49,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('organizations', function (Blueprint $table) {
+            $table->dropForeign('organizations_parent_id_foreign');
+        });
+
         Schema::dropIfExists('organizations');
     }
 };

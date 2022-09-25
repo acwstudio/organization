@@ -17,6 +17,9 @@ class OrganizationCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data'     => $this->collection,
+            'included' => $this->mergeIncludedRelations($request),
+        ];
     }
 }
