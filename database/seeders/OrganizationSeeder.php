@@ -27,46 +27,65 @@ class OrganizationSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $organizations = Items::fromFile(public_path() . "/schools_fyi_aux.json");
+//        $this->test($organizations);
+//        dd('ok');
         $i = 0;
         foreach ($organizations as $key_org => $organization) {
-//            dump(str_contains($organization->name, 'Университет'));
-//            dump($organization->name);
-
+//            dump(str_contains($organization->name, 'Российский университет дружбы народов'));
             if (str_contains($organization->name, 'ниверситет')) {
                 if (!str_contains($organization->name, 'илиал')) {
-                    dump('**  ' . $organization->name . '  ' . $i++);
-                    dump($organization->description);
-//                    $cityId = City::where('name', $organization->town)->first()->id;
-//                    dd(Str::uuid()->toString());
+//                    dump('**  ' . $organization->name . '  ' . $i++);
+
                     $organizationId = DB::table('organizations')->insertGetId([
-                        'id' => Str::uuid()->toString(),
-                        'parent_id' => null,
-                        'city_id' => $this->getCityId($organization),
+                        'id'                   => Str::uuid()->toString(),
+                        'parent_id'            => null,
+                        'city_id'              => $this->getCityId($organization),
                         'organization_type_id' => $this->getOrganizationTypeId($organization),
-                        'name' => $organization->name,
-                        'abbreviation' => '',
-                        'description' => $organization->description[0],
-                        'site' => $organization->contacts->site,
-                        'email' => $organization->contacts->mail,
-                        'phone' => $organization->contacts->phone,
-                        'address' => $organization->contacts->address,
-                        'slug' => SlugService::createSlug(OrganizationType::class, 'slug', $organization->name),
-                        'plaque_image' => '',
-                        'preview_image' => '',
-                        'base_image' => '',
+                        'name'                 => $organization->name,
+                        'abbreviation'         => '',
+                        'description'          => $organization->description[0],
+                        'site'                 => $organization->contacts->site,
+                        'email'                => $organization->contacts->mail,
+                        'phone'                => $organization->contacts->phone,
+                        'address'              => $organization->contacts->address,
+                        'slug'                 => SlugService::createSlug(OrganizationType::class, 'slug', $organization->name),
+                        'plaque_image'         => '',
+                        'preview_image'        => '',
+                        'base_image'           => '',
+                        'created_at'           => now(),
                     ]);
-//                    foreach ($organization->levels as $level) {
-//                        dump('----  ' . $level->name);
-//                        foreach ($level->directions as $direction) {
-//                            dump('++++++  ' . $direction->name);
-//                            foreach ($direction->faculties as $faculty) {
-//                                dump('########  ' . $faculty->name);
-//                                dump('########  ' . $faculty->spetialty);
-//                            }
-//                        }
-//                    }
+                }
+            } elseif (str_contains($organization->name, 'кадемия')) {
+//                dump('**  ' . $organization->name . '  ' . $i++);
+                $organizationId = DB::table('organizations')->insertGetId([
+                    'id'                   => Str::uuid()->toString(),
+                    'parent_id'            => null,
+                    'city_id'              => $this->getCityId($organization),
+                    'organization_type_id' => $this->getOrganizationTypeId($organization),
+                    'name'                 => $organization->name,
+                    'abbreviation'         => '',
+                    'description'          => $organization->description[0],
+                    'site'                 => $organization->contacts->site,
+                    'email'                => $organization->contacts->mail,
+                    'phone'                => $organization->contacts->phone,
+                    'address'              => $organization->contacts->address,
+                    'slug'                 => SlugService::createSlug(OrganizationType::class, 'slug', $organization->name),
+                    'plaque_image'         => '',
+                    'preview_image'        => '',
+                    'base_image'           => '',
+                    'created_at'           => now(),
+                ]);
+            } elseif (str_contains($organization->name, 'нститут')) {
+//                dump(str_contains($organization->name, 'нститут экологии'));
+                if (!str_contains($organization->name, 'илиал')) {
+//                    dump('**  ' . $organization->name . '  ' . $i++);
                 }
             }
+
+            if (str_contains($organization->name, 'ниверситета')) {
+//                dump('**  ' . $organization->name . '  ' . $i++);
+            }
+
 //            dump('**  ' . $organization->name);
 //            foreach ($organization->levels as $level) {
 //                dump('----  ' . $level->name);
@@ -79,11 +98,8 @@ class OrganizationSeeder extends Seeder
 //                }
 //            }
             $this->getCityId($organization);
-//            dump('                ');
-//            dd('stop');
         }
 
-        dd('ok');
     }
 
     private function getCityId($organization)
@@ -91,13 +107,10 @@ class OrganizationSeeder extends Seeder
         if ($organization->town === 'Малаховка') {
             return City::where('name', 'Люберцы')->first()->id;
         } elseif ($organization->town === 'Благовещенск') {
-//            dump($organization->contacts);
             return City::where('name', 'Благовещенск (Амурская область)')->first()->id;
         } elseif ($organization->town === 'Киров') {
-//            dump($organization->contacts);
             return City::where('name', 'Киров (Кировская область)')->first()->id;
         } elseif ($organization->town === 'Зеленоград') {
-//            dump($organization->contacts);
             if (explode(' ', $organization->contacts->phone)[1] === '(800)') {
                 return City::where('name', 'Москва')->first()->id;
             } else {
@@ -123,6 +136,23 @@ class OrganizationSeeder extends Seeder
             return OrganizationType::where('name', 'Университет с особым статусом')->first()->id;
         } elseif (str_contains($organization->name, 'ниверситет')) {
             return OrganizationType::where('name', 'Университет')->first()->id;
+        } elseif (str_contains($organization->name, 'кадемия')) {
+            return OrganizationType::where('name', 'Академия')->first()->id;
+        }
+    }
+
+    private function test($organizations)
+    {
+        $i = 0;
+        foreach ($organizations as $organization) {
+//            dump($i++);
+            if (str_contains($organization->name, 'Российский университет дружбы народов')) {
+//                dd($organization->levels[0]->directions);
+                foreach ($organization->levels[0]->directions as $key => $item) {
+//                    dump($item->faculties[0]->spetialty);
+                    dump($item->name . '  ' . $i++);
+                }
+            }
         }
     }
 }

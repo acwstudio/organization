@@ -4,6 +4,8 @@ namespace App\Http\Resources\Api\Organizations;
 
 use App\Http\Resources\Api\Cities\CityIdentifierResource;
 use App\Http\Resources\Api\Cities\CityResource;
+use App\Http\Resources\Api\Faculties\FacultyCollection;
+use App\Http\Resources\Api\Faculties\FacultyIdentifierResource;
 use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeIdentifierResource;
 use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeResource;
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
@@ -46,17 +48,38 @@ class OrganizationResource extends JsonResource
             'relationships' => [
                 'city' => [
                     'links' => [
-                        'self' => '',
-                        'related' => ''
+                        'self' => route('organizations.relationships.city', ['id' => $this->id]),
+                        'related' => route('organizations.city', ['id' => $this->id])
                     ],
                     'data' => new CityIdentifierResource($this->whenLoaded('city'))
                 ],
                 'organizationType' => [
                     'links' => [
-                        'self' => '',
-                        'related' => ''
+                        'self' => route('organizations.relationships.organization-type', ['id' => $this->id]),
+                        'related' => route('organizations.organization-type', ['id' => $this->id])
                     ],
                     'data' => new OrganizationTypeIdentifierResource($this->whenLoaded('organizationType'))
+                ],
+                'faculties' => [
+                    'links' => [
+                        'self' => route('organizations.relationships.faculties', ['id' => $this->id]),
+                        'related' => route('organizations.faculties', ['id' => $this->id])
+                    ],
+                    'data' => FacultyIdentifierResource::collection($this->whenLoaded('faculties'))
+                ],
+                'parent' => [
+                    'links' => [
+                        'self' => route('organizations.relationships.parent', ['id' => $this->id]),
+                        'related' => route('organizations.parent', ['id' => $this->id])
+                    ],
+                    'data' => new OrganizationIdentifierResource($this->whenLoaded('parent'))
+                ],
+                'children' => [
+                    'links' => [
+                        'self' => route('organization.relationships.children', ['id' => $this->id]),
+                        'related' => route('organization.children', ['id' => $this->id])
+                    ],
+                    'data' => OrganizationIdentifierResource::collection($this->whenLoaded('children'))
                 ]
             ]
         ];
@@ -66,7 +89,10 @@ class OrganizationResource extends JsonResource
     {
         return [
             CityResource::class             => $this->whenLoaded('city'),
-            OrganizationTypeResource::class => $this->whenLoaded('organizationType')
+            OrganizationTypeResource::class => $this->whenLoaded('organizationType'),
+            FacultyCollection::class        => $this->whenLoaded('faculties'),
+            OrganizationResource::class     => $this->whenLoaded('parent'),
+            OrganizationCollection::class   => $this->whenLoaded('children'),
         ];
     }
 }

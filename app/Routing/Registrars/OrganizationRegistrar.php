@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace App\Routing\Registrars;
 
+use App\Http\Controllers\Api\Faculties\FacultiesOrganizationRelatedController;
+use App\Http\Controllers\Api\Faculties\FacultiesOrganizationRelationshipsController;
+use App\Http\Controllers\Api\Faculties\FacultyController;
 use App\Http\Controllers\Api\Organizations\OrganizationChildrenRelatedController;
 use App\Http\Controllers\Api\Organizations\OrganizationChildrenRelationshipsController;
 use App\Http\Controllers\Api\Organizations\OrganizationController;
+use App\Http\Controllers\Api\Organizations\OrganizationFacultiesRelatedController;
+use App\Http\Controllers\Api\Organizations\OrganizationFacultiesRelationshipsController;
 use App\Http\Controllers\Api\Organizations\OrganizationsCityRelatedController;
 use App\Http\Controllers\Api\Organizations\OrganizationsCityRelationshipsController;
 use App\Http\Controllers\Api\Organizations\OrganizationsOrganizationTypeRelatedController;
@@ -29,6 +34,22 @@ final class OrganizationRegistrar implements RouteRegistrar
     public function map(Registrar $registrar): void
     {
         $registrar->group(['prefix' => 'api/v1', 'middleware' => 'api'], function (Registrar $registrar) {
+
+            /*****************  FACULTY ROUTES **************/
+            $registrar->resource('faculties', FacultyController::class);
+
+            // Faculties to Organization relationships
+            $registrar->get('faculties/{id}/relationships/organization',[
+                FacultiesOrganizationRelationshipsController::class,'index'
+            ])->name('faculties.relationships.organization');
+
+            $registrar->patch('faculties/{id}/relationships/organization',[
+                FacultiesOrganizationRelationshipsController::class,'update'
+            ])->name('faculties.relationships.organization');
+
+            $registrar->get('faculties/{id}/organization',[
+                FacultiesOrganizationRelatedController::class,'index'
+            ])->name('faculties.organization');
 
             /*****************  ORGANIZATION ROUTES **************/
             $registrar->resource('organizations', OrganizationController::class);
@@ -58,6 +79,19 @@ final class OrganizationRegistrar implements RouteRegistrar
             $registrar->get('organizations/{id}/city',[
                 OrganizationsCityRelatedController::class,'index'
             ])->name('organizations.city');
+
+            // Organizations to faculties relationships
+            $registrar->get('organizations/{id}/relationships/faculties',[
+                OrganizationFacultiesRelationshipsController::class,'index'
+            ])->name('organizations.relationships.faculties');
+
+            $registrar->patch('organizations/{id}/relationships/faculties',[
+                OrganizationFacultiesRelationshipsController::class,'update'
+            ])->name('organizations.relationships.faculties');
+
+            $registrar->get('organizations/{id}/faculties',[
+                OrganizationFacultiesRelatedController::class,'index'
+            ])->name('organizations.faculties');
 
             // Organization to children relations
             $registrar->get('organizations/{id}/relationships/children', [

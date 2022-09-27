@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use phpDocumentor\Reflection\Types\This;
-use PhpParser\Node\Stmt\Return_;
 
 class Organization extends Model
 {
@@ -49,7 +47,18 @@ class Organization extends Model
         return $this->belongsTo(OrganizationType::class);
     }
 
-    public function getKeyType()
+    /**
+     * @return HasMany
+     */
+    public function faculties(): HasMany
+    {
+        return $this->hasMany(Faculty::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeyType(): string
     {
         return 'string';
     }

@@ -57,6 +57,7 @@ namespace App\Models{
  * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Organization $organization
  * @method static \Illuminate\Database\Eloquent\Builder|Faculty findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Faculty newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Faculty newQuery()
@@ -131,6 +132,8 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|Organization[] $children
  * @property-read int|null $children_count
  * @property-read \App\Models\City $city
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Faculty[] $faculties
+ * @property-read int|null $faculties_count
  * @property-read \App\Models\OrganizationType $organizationType
  * @property-read Organization|null $parent
  * @method static \Illuminate\Database\Eloquent\Builder|Organization findSimilarSlugs(string $attribute, array $config, string $slug)
