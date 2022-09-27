@@ -15,7 +15,7 @@ final class OrganizationRepository
     public function index(): QueryBuilder
     {
         return QueryBuilder::for(Organization::class)
-            ->allowedIncludes(['organizationType','city'])
+            ->allowedIncludes(['organizationType','city','faculties','parent','children'])
             ->allowedFilters(['name','id'])
             ->allowedSorts(['name']);
     }
@@ -28,6 +28,6 @@ final class OrganizationRepository
     {
         return QueryBuilder::for(Organization::class)
             ->where('id', $organization->id)
-            ->allowedIncludes(['organizationType','city']);
+            ->allowedIncludes(['organizationType','city','faculties','parent','children']);
     }
 }
