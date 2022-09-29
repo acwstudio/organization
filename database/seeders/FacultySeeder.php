@@ -20,8 +20,8 @@ class FacultySeeder extends Seeder
     public function run()
     {
         $organizations = Items::fromFile(public_path() . "/schools_fyi_aux.json");
-
-        ('ok');
+        $this->test($organizations);
+        dd('ok');
 
         Schema::disableForeignKeyConstraints();
 
@@ -81,7 +81,8 @@ class FacultySeeder extends Seeder
 //            if (str_contains($organization->name, 'Северо-Кавказская государственная академия')) {
 //            if (str_contains($organization->name, 'Сочинский институт')) {
 //            if (str_contains($organization->name, 'Пермская государственная фармацевтическая академия')) {
-            if (str_contains($organization->name, 'Московская государственная академия физической культуры')) {
+//            if (str_contains($organization->name, 'Московская государственная академия физической культуры')) {
+            if (str_contains($organization->name, 'Курская академия государственной и муниципальной службы')) {
 //            if (str_contains($organization->name, 'Институт мировой экономики и бизнеса')) {
 //                dd($organization->levels[0]->directions);
                 dump($organization->name);
