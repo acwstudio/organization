@@ -11,7 +11,7 @@ class Faculty extends Model
 {
     use HasFactory, Sluggable;
 
-    const TYPE_RESOURCE = 'faculty';
+    public const TYPE_RESOURCE = 'faculties';
 
     /**
      * @return BelongsTo

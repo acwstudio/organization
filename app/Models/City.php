@@ -12,7 +12,7 @@ class City extends Model
 {
     use HasFactory, Sluggable;
 
-    const TYPE_RESOURCE = 'city';
+    public const TYPE_RESOURCE = 'cities';
 
     /**
      * @return BelongsTo

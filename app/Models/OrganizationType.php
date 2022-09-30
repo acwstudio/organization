@@ -14,7 +14,7 @@ class OrganizationType extends Model
 
     protected $fillable = ['name','description','slug','active','serial_number'];
 
-    const TYPE_RESOURCE = 'organizationType';
+    public const TYPE_RESOURCE = 'organizationTypes';
 
     /**
      * @return HasMany

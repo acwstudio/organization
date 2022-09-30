@@ -11,7 +11,7 @@ class FederalDistrict extends Model
 {
     use HasFactory, Sluggable;
 
-    const TYPE_RESOURCE = 'federalDistrict';
+    public const TYPE_RESOURCE = 'federalDistricts';
 
     /**
      * @return HasMany

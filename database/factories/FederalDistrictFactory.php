@@ -25,7 +25,6 @@ class FederalDistrictFactory extends Factory
             'description' => fake()->paragraph,
             'slug'        => SlugService::createSlug(FederalDistrict::class, 'slug', $name),
             'active'      => true,
-//            'created_at'  => now()
         ];
     }
 }

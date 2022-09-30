@@ -13,7 +13,7 @@ class Organization extends Model
 {
     use HasFactory, Sluggable;
 
-    const TYPE_RESOURCE = 'organization';
+    public const TYPE_RESOURCE = 'organizations';
 
     /**
      * @return BelongsTo
