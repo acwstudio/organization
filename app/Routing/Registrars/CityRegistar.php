@@ -86,7 +86,16 @@ final class CityRegistar implements RouteRegistrar
             ])->name('regions.federal-district');
 
             /*****************  FEDERAL DISTRICT ROUTES **************/
-            $registrar->resource('federal-districts', FederalDistrictController::class);
+            $registrar->get('federal-districts', [FederalDistrictController::class, 'index'])
+                ->name('federal-districts.index');
+            $registrar->get('federal-districts/{id}', [FederalDistrictController::class, 'show'])
+                ->name('federal-districts.show');
+            $registrar->post('federal-districts', [FederalDistrictController::class, 'store'])
+                ->name('federal-districts.store');
+            $registrar->patch('federal-districts/{id}', [FederalDistrictController::class, 'update'])
+                ->name('federal-districts.update');
+            $registrar->delete('federal-districts/{id}', [FederalDistrictController::class, 'destroy'])
+                ->name('federal-districts.destroy');
 
             // Federal District to Regions relations
             $registrar->get('federal-districts/{id}/relationships/regions',[

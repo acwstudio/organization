@@ -12,7 +12,7 @@ class Region extends Model
 {
     use HasFactory, Sluggable;
 
-    const TYPE_RESOURCE = 'region';
+    public const TYPE_RESOURCE = 'regions';
 
     /**
      * @return HasMany

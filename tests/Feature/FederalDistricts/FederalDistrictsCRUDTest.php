@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class FederalDistrictsTest extends TestCase
+class FederalDistrictsCRUDTest extends TestCase
 {
     use RefreshDatabase;
 

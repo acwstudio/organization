@@ -11,7 +11,11 @@ class FederalDistrict extends Model
 {
     use HasFactory, Sluggable;
 
-    const TYPE_RESOURCE = 'federalDistrict';
+    public const TYPE_RESOURCE = 'federalDistricts';
+
+    protected $fillable = [
+        'name', 'description', 'slug', 'active'
+    ];
 
     /**
      * @return HasMany

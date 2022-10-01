@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\FederalDistricts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictStoreRequest;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictCollection;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictResource;
 use App\Services\Api\FederalDistrictService;
@@ -43,11 +44,17 @@ class FederalDistrictController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(FederalDistrictStoreRequest $request)
     {
+        $model = $this->federalDistrictService->store($request->all());
 
+        return (new FederalDistrictResource($model))
+            ->response()
+            ->header('Location', route('federal-districts.show', [
+                'id' => $model->id
+            ]));
     }
 
     /**
