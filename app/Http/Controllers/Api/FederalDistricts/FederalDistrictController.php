@@ -44,11 +44,17 @@ class FederalDistrictController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function store(FederalDistrictStoreRequest $request)
     {
+        $model = $this->federalDistrictService->store($request->all());
 
+        return (new FederalDistrictResource($model))
+            ->response()
+            ->header('Location', route('federal-districts.show', [
+                'id' => $model->id
+            ]));
     }
 
     /**

@@ -13,6 +13,10 @@ class FederalDistrict extends Model
 
     public const TYPE_RESOURCE = 'federalDistricts';
 
+    protected $fillable = [
+        'name', 'description', 'slug', 'active'
+    ];
+
     /**
      * @return HasMany
      */

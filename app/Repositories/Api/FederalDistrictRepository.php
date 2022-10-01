@@ -22,6 +22,15 @@ final class FederalDistrictRepository
     }
 
     /**
+     * @param array $attributes
+     * @return Model|FederalDistrict
+     */
+    public function store(array $attributes): Model|FederalDistrict
+    {
+        return FederalDistrict::create($attributes);
+    }
+
+    /**
      * @param FederalDistrict $model
      * @return QueryBuilder
      */
