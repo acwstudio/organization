@@ -6,7 +6,7 @@ namespace App\Pipelines\FederalDistricts\Pipes;
 
 use App\Repositories\Api\FederalDistrictRepository;
 
-final class FederalDistrictStorePipeline
+final class FederalDistrictUpdatePipe
 {
     protected FederalDistrictRepository $federalDistrictRepository;
 
@@ -27,9 +27,9 @@ final class FederalDistrictStorePipeline
     {
         $attributes = data_get($data, 'data.attributes');
 
-        $model = $this->federalDistrictRepository->store($attributes);
+        $model = data_get($data, 'model');
 
-        $data = data_set($data, 'model', $model);
+        $this->federalDistrictRepository->update($attributes, $model);
 
         return $next($data);
     }

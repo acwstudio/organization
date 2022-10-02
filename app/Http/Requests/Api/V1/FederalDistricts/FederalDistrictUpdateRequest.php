@@ -29,7 +29,7 @@ class FederalDistrictUpdateRequest extends FormRequest
             'data.type'                   => ['required','string','in:' . FederalDistrict::TYPE_RESOURCE],
             'data.attributes'             => ['required','array'],
             'data.attributes.name'        => ['sometimes','string'],
-            'data.attributes.description' => ['sometimes','string'],
+            'data.attributes.description' => ['string'],
             'data.attributes.slug'        => ['prohibited'],
             'data.attributes.active'      => ['sometimes','boolean'],
             // relationships

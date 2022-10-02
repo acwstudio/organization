@@ -57,4 +57,39 @@ final class FederalDistrictService
 
         return $this->federalDistrictRepository->show($item);
     }
+
+    /**
+     * @param array $data
+     * @param int $id
+     * @return void
+     */
+    public function update(array $data, int $id): void
+    {
+        $model = FederalDistrict::findOrFail($id);
+
+        data_set($data, 'model', $model);
+
+        $this->federalDistrictPipeline->update($data);
+    }
+
+    public function destroy()
+    {
+
+    }
+
+    public function saveRelationships(array $data, int $id)
+    {
+        $ids = data_get($data, 'data.*.id');
+
+        $model = FederalDistrict::findOrFail($id);
+
+        $this->federalDistrictRepository->saveRelationships($ids, $model);
+    }
+
+    public function indexIdentifiers(string $relation, int $id)
+    {
+        $model = FederalDistrict::findOrFail($id);
+
+        return $this->federalDistrictRepository->indexIdentifiers($relation, $model);
+    }
 }

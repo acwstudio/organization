@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\FederalDistricts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictStoreRequest;
+use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictUpdateRequest;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictCollection;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictResource;
 use App\Services\Api\FederalDistrictService;
@@ -73,13 +74,16 @@ class FederalDistrictController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param FederalDistrictUpdateRequest $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(FederalDistrictUpdateRequest $request, $id): JsonResponse
     {
-        //
+        $this->federalDistrictService->update($request->all(), $id);
+
+        return response()->json(null, 204);
+
     }
 
     /**
