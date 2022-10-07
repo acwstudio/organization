@@ -20,7 +20,7 @@ final class FederalDistrictRelationsRepository
      * @param FederalDistrict $model
      * @return void
      */
-    public  function saveRelations(array $ids, string $relatedModel, FederalDistrict $model): void
+    public  function updateRelations(array $ids, string $relatedModel, FederalDistrict $model): void
     {
         foreach ($ids as $id) {
             $relModels[] = app()->$relatedModel::findOrFail($id);
@@ -29,8 +29,8 @@ final class FederalDistrictRelationsRepository
         $model->regions()->saveMany($relModels);
     }
 
-    public function destroyRelatedModels(int $id)
+    public function destroyRelatedModels($relation, FederalDistrict $model)
     {
-        FederalDistrict::findOrFail($id)->regions()->delete();
+        $model->{$relation}()->delete();
     }
 }

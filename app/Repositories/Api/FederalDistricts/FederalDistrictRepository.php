@@ -51,8 +51,8 @@ final class FederalDistrictRepository
         $model->update($attributes);
     }
 
-    public function destroy(int $id)
+    public function destroy(FederalDistrict $model)
     {
-        FederalDistrict::findOrFail($id)->delete();
+        $model->delete();
     }
 }

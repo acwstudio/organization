@@ -34,12 +34,12 @@ final class FederalDistrictRegionsRelationService
      * @param int $id
      * @return void
      */
-    public function saveRelations(array $data, int $id): void
+    public function updateRelations(array $data, string $relatedModel, int $id): void
     {
         $ids = data_get($data, 'data.*.id');
 
         $model = FederalDistrict::findOrFail($id);
 
-        $this->federalDistrictRelationsRepository->saveRelations($ids, Region::class, $model);
+        $this->federalDistrictRelationsRepository->updateRelations($ids, $relatedModel, $model);
     }
 }

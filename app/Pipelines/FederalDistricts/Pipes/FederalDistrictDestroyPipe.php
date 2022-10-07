@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pipelines\FederalDistricts\Pipes;
 
+use App\Models\FederalDistrict;
 use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;
 
 final class FederalDistrictDestroyPipe
@@ -23,10 +24,10 @@ final class FederalDistrictDestroyPipe
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(int $id, \Closure $next): mixed
+    public function handle(FederalDistrict $model, \Closure $next): mixed
     {
-        $this->federalDistrictRepository->destroy($id);
+        $this->federalDistrictRepository->destroy($model);
 
-        return $next($id);
+        return $next($model);
     }
 }

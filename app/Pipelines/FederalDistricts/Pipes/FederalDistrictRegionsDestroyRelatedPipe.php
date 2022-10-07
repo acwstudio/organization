@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pipelines\FederalDistricts\Pipes;
 
+use App\Models\FederalDistrict;
 use App\Repositories\Api\FederalDistricts\FederalDistrictRelationsRepository;
 
 final class FederalDistrictRegionsDestroyRelatedPipe
@@ -18,10 +19,10 @@ final class FederalDistrictRegionsDestroyRelatedPipe
         $this->federalDistrictRelationsRepository = $federalDistrictRelationsRepository;
     }
 
-    public function handle(int $id, \Closure $next)
+    public function handle(FederalDistrict $model, \Closure $next)
     {
-        $this->federalDistrictRelationsRepository->destroyRelatedModels($id);
+        $this->federalDistrictRelationsRepository->destroyRelatedModels('regions', $model);
 
-        return $next($id);
+        return $next($model);
     }
 }

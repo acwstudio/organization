@@ -71,6 +71,8 @@ final class FederalDistrictService
 
     public function destroy(int $id)
     {
-        $this->federalDistrictPipeline->destroy($id);
+        $model = FederalDistrict::findOrFail($id);
+
+        $this->federalDistrictPipeline->destroy($model);
     }
 }

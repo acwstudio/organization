@@ -30,7 +30,7 @@ final class FederalDistrictRegionsUpdateRelationPipe
 
         if ($ids) {
             $model = data_get($data, 'model');
-            $this->federalDistrictRelationRepository->saveRelations($ids, Region::class, $model);
+            $this->federalDistrictRelationRepository->updateRelations($ids, Region::class, $model);
         }
 
         return $next($data);
