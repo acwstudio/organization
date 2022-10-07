@@ -8,21 +8,22 @@ use App\Http\Resources\Api\Regions\RegionCollection;
 use App\Http\Resources\Api\Regions\RegionIdentifierResource;
 use App\Models\FederalDistrict;
 use App\Models\Region;
-use App\Repositories\Api\FederalDistrictRepository;
-use App\Services\Api\FederalDistrictService;
+use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;
+use App\Services\Api\FederalDistricts\FederalDistrictRegionsRelationService;
+use App\Services\Api\FederalDistricts\FederalDistrictService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class FederalDistrictRegionsRelationshipsController extends Controller
 {
-    protected FederalDistrictService $federalDistrictService;
+    protected FederalDistrictRegionsRelationService $federalDistrictRegionsRelationService;
 
     /**
-     * @param FederalDistrictService $federalDistrictService
+     * @param FederalDistrictRegionsRelationService $federalDistrictRegionsRelationService
      */
-    public function __construct(FederalDistrictService $federalDistrictService)
+    public function __construct(FederalDistrictRegionsRelationService $federalDistrictRegionsRelationService)
     {
-        $this->federalDistrictService = $federalDistrictService;
+        $this->federalDistrictRegionsRelationService = $federalDistrictRegionsRelationService;
     }
 
     /**
@@ -31,7 +32,7 @@ class FederalDistrictRegionsRelationshipsController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $models = $this->federalDistrictService->indexIdentifiers('regions', $id)->paginate();
+        $models = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate();
 
         return (RegionIdentifierResource::collection($models))->response();
     }
@@ -43,7 +44,7 @@ class FederalDistrictRegionsRelationshipsController extends Controller
      */
     public function update(FederalDistrictRegionsUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        $this->federalDistrictService->saveRelationships($request->all(), $id);
+        $this->federalDistrictRegionsRelationService->saveRelations($request->all(), $id);
 
         return response()->json(null, 204);
     }

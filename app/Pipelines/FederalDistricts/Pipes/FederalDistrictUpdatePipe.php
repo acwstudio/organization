@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pipelines\FederalDistricts\Pipes;
 
-use App\Repositories\Api\FederalDistrictRepository;
+use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;
 
 final class FederalDistrictUpdatePipe
 {

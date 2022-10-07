@@ -4,6 +4,7 @@ namespace Tests\Feature\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use App\Models\Region;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

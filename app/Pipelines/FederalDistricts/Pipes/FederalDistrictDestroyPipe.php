@@ -6,12 +6,12 @@ namespace App\Pipelines\FederalDistricts\Pipes;
 
 use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;
 
-final class FederalDistrictStorePipe
+final class FederalDistrictDestroyPipe
 {
     protected FederalDistrictRepository $federalDistrictRepository;
 
     /**
-     * @param \App\Repositories\Api\FederalDistricts\FederalDistrictRepository $federalDistrictRepository
+     * @param FederalDistrictRepository $federalDistrictRepository
      */
     public function __construct(FederalDistrictRepository $federalDistrictRepository)
     {
@@ -19,18 +19,14 @@ final class FederalDistrictStorePipe
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(array $data, \Closure $next): mixed
+    public function handle(int $id, \Closure $next): mixed
     {
-        $attributes = data_get($data, 'data.attributes');
+        $this->federalDistrictRepository->destroy($id);
 
-        $model = $this->federalDistrictRepository->store($attributes);
-
-        $data = data_set($data, 'model', $model);
-
-        return $next($data);
+        return $next($id);
     }
 }
