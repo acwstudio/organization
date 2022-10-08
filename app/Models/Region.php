@@ -14,6 +14,8 @@ class Region extends Model
 
     public const TYPE_RESOURCE = 'regions';
 
+    protected $fillable = ['federal_district_id','name','description','slug','active'];
+
     /**
      * @return HasMany
      */

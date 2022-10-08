@@ -19,7 +19,12 @@ final class FederalDistrictRegionsDestroyRelatedPipe
         $this->federalDistrictRelationsRepository = $federalDistrictRelationsRepository;
     }
 
-    public function handle(FederalDistrict $model, \Closure $next)
+    /**
+     * @param FederalDistrict $model
+     * @param \Closure $next
+     * @return mixed
+     */
+    public function handle(FederalDistrict $model, \Closure $next): mixed
     {
         $this->federalDistrictRelationsRepository->destroyRelatedModels('regions', $model);
 
