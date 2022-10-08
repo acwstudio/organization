@@ -57,7 +57,11 @@ final class CityRegistar implements RouteRegistrar
             ])->name('cities.region');
 
             /*****************  REGION ROUTES **************/
-            $registrar->resource('regions', RegionController::class);
+            $registrar->get('regions', [RegionController::class, 'index'])->name('regions.index');
+            $registrar->get('regions/{id}', [RegionController::class, 'show'])->name('regions.show');
+            $registrar->post('regions', [RegionController::class, 'store'])->name('regions.store');
+            $registrar->patch('regions/{id}', [RegionController::class, 'update'])->name('regions.update');
+            $registrar->delete('regions/{id}', [RegionController::class, 'destroy'])->name('regions.destroy');
 
             // Region to Cities relations
             $registrar->get('regions/{id}/relationships/cities',[

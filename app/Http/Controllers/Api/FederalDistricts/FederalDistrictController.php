@@ -7,7 +7,7 @@ use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictStoreRequest;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictUpdateRequest;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictCollection;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictResource;
-use App\Services\Api\FederalDistrictService;
+use App\Services\Api\FederalDistricts\FederalDistrictService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -83,17 +83,18 @@ class FederalDistrictController extends Controller
         $this->federalDistrictService->update($request->all(), $id);
 
         return response()->json(null, 204);
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
-        //
+        $this->federalDistrictService->destroy($id);
+
+        return response()->json(null, 204);
     }
 }

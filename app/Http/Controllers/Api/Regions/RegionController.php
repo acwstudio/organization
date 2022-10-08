@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\Regions;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Regions\RegionStoreRequest;
 use App\Http\Resources\Api\Regions\RegionCollection;
 use App\Http\Resources\Api\Regions\RegionResource;
-use App\Services\Api\RegionService;
+use App\Services\Api\Regions\RegionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -42,12 +43,19 @@ class RegionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param RegionStoreRequest $request
+     * @return JsonResponse
+     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(RegionStoreRequest $request): JsonResponse
     {
-        //
+        $model = $this->regionService->store($request->all());
+
+        return (new RegionResource($model))
+            ->response()
+            ->header('Location', route('regions.show', [
+                'id' => $model->id
+            ]));
     }
 
     /**

@@ -2,25 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Api;
+namespace App\Services\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use App\Pipelines\FederalDistricts\FederalDistrictPipeline;
-use App\Repositories\Api\FederalDistrictRepository;
+use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class FederalDistrictService
 {
-    /**
-     * @var FederalDistrictRepository
-     */
-    private FederalDistrictRepository $federalDistrictRepository;
-
-    private FederalDistrictPipeline $federalDistrictPipeline;
+    protected FederalDistrictRepository $federalDistrictRepository;
+    protected FederalDistrictPipeline $federalDistrictPipeline;
 
     /**
      * @param FederalDistrictRepository $federalDistrictRepository
+     * @param FederalDistrictPipeline $federalDistrictPipeline
      */
     public function __construct(
         FederalDistrictRepository $federalDistrictRepository, FederalDistrictPipeline $federalDistrictPipeline
@@ -72,24 +69,10 @@ final class FederalDistrictService
         $this->federalDistrictPipeline->update($data);
     }
 
-    public function destroy()
-    {
-
-    }
-
-    public function saveRelationships(array $data, int $id)
-    {
-        $ids = data_get($data, 'data.*.id');
-
-        $model = FederalDistrict::findOrFail($id);
-
-        $this->federalDistrictRepository->saveRelationships($ids, $model);
-    }
-
-    public function indexIdentifiers(string $relation, int $id)
+    public function destroy(int $id)
     {
         $model = FederalDistrict::findOrFail($id);
 
-        return $this->federalDistrictRepository->indexIdentifiers($relation, $model);
+        $this->federalDistrictPipeline->destroy($model);
     }
 }

@@ -6,7 +6,10 @@ namespace App\Pipelines\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use App\Pipelines\AbstractPipeline;
-use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsUpdateRelationshipsPipe;
+use App\Pipelines\FederalDistricts\Pipes\FederalDistrictDestroyPipe;
+use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsDestroyRelatedPipe;
+use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsStoreRelationPipe;
+use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsUpdateRelationPipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictStorePipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictUpdatePipe;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +30,8 @@ final class FederalDistrictPipeline extends AbstractPipeline
             $data = $this->pipeline
                 ->send($data)
                 ->through([
-                    FederalDistrictStorePipe::class
+                    FederalDistrictStorePipe::class,
+                    FederalDistrictRegionsStoreRelationPipe::class
                 ])
                 ->thenReturn();
 
@@ -41,7 +45,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
             Log::error($e);
         }
 
-        throw new \Exception('Script processing error');
+        throw new \Exception('Script processing error. The method store of the Federal District has been canceled');
     }
 
     /**
@@ -57,7 +61,8 @@ final class FederalDistrictPipeline extends AbstractPipeline
             $data = $this->pipeline
                 ->send($data)
                 ->through([
-                    FederalDistrictUpdatePipe::class
+                    FederalDistrictUpdatePipe::class,
+                    FederalDistrictRegionsUpdateRelationPipe::class
                 ])
                 ->thenReturn();
 
@@ -70,6 +75,30 @@ final class FederalDistrictPipeline extends AbstractPipeline
             \Log::error($e);
         }
 
-        throw new \Exception('Script processing error');
+        throw new \Exception('Script processing error. The method update of the Federal District has been canceled');
+    }
+
+    public function destroy(FederalDistrict $model)
+    {
+        try {
+            DB::beginTransaction();
+
+            $data = $this->pipeline
+                ->send($model)
+                ->through([
+                    FederalDistrictRegionsDestroyRelatedPipe::class,
+                    FederalDistrictDestroyPipe::class
+                ])
+                ->thenReturn();
+
+            \DB::commit();
+
+            return true;
+
+        } catch (\Exception | \Throwable $e) {
+            \DB::rollBack();
+        }
+
+        throw new \Exception('Script processing error. The method destroy of the Federal District has been canceled');
     }
 }

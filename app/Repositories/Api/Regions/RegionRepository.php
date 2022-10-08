@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Api;
+namespace App\Repositories\Api\Regions;
 
 use App\Models\Region;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class RegionRepository
@@ -16,8 +17,17 @@ final class RegionRepository
     {
         return QueryBuilder::for(Region::class)
             ->allowedIncludes(['cities','federalDistrict'])
-            ->allowedFilters(['name','id'])
-            ->allowedSorts(['name']);
+            ->allowedFilters(['name','id','federal_district_id'])
+            ->allowedSorts(['name','federal_district_id']);
+    }
+
+    /**
+     * @param array $attributes
+     * @return Model|Region
+     */
+    public function store(array $attributes): Model | Region
+    {
+        return Region::create($attributes);
     }
 
     /**
