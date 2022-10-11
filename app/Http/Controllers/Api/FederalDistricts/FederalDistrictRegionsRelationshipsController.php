@@ -9,19 +9,19 @@ use App\Http\Resources\Api\Regions\RegionIdentifierResource;
 use App\Models\FederalDistrict;
 use App\Models\Region;
 use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;
-use App\Services\Api\FederalDistricts\FederalDistrictRegionsRelationService;
+use App\Services\Api\FederalDistricts\FederalDistrictRegionsRelationsService;
 use App\Services\Api\FederalDistricts\FederalDistrictService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class FederalDistrictRegionsRelationshipsController extends Controller
 {
-    protected FederalDistrictRegionsRelationService $federalDistrictRegionsRelationService;
+    protected FederalDistrictRegionsRelationsService $federalDistrictRegionsRelationService;
 
     /**
-     * @param FederalDistrictRegionsRelationService $federalDistrictRegionsRelationService
+     * @param FederalDistrictRegionsRelationsService $federalDistrictRegionsRelationService
      */
-    public function __construct(FederalDistrictRegionsRelationService $federalDistrictRegionsRelationService)
+    public function __construct(FederalDistrictRegionsRelationsService $federalDistrictRegionsRelationService)
     {
         $this->federalDistrictRegionsRelationService = $federalDistrictRegionsRelationService;
     }

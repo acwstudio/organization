@@ -40,4 +40,23 @@ final class RegionRepository
             ->where('id', $region->id)
             ->allowedIncludes(['cities','federalDistrict']);
     }
+
+    /**
+     * @param array $attributes
+     * @param Region $model
+     * @return void
+     */
+    public function update(array $attributes, Region $model): void
+    {
+        $model->update($attributes);
+    }
+
+    /**
+     * @param Region $model
+     * @return void
+     */
+    public function destroy(Region $model): void
+    {
+        $model->delete();
+    }
 }

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
-use Illuminate\Database\Eloquent\Model;
 
-final class FederalDistrictRelationsRepository
+final class FederalDistrictRegionsRelationsRepository
 {
     public function indexRelations(string $relation, int $id)
     {

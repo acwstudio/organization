@@ -20,14 +20,14 @@ final class FederalDistrictDestroyPipe
     }
 
     /**
-     * @param int $id
+     * @param array $data
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(FederalDistrict $model, \Closure $next): mixed
+    public function handle(array $data, \Closure $next): mixed
     {
-        $this->federalDistrictRepository->destroy($model);
+        $this->federalDistrictRepository->destroy($data);
 
-        return $next($model);
+        return $next($data);
     }
 }

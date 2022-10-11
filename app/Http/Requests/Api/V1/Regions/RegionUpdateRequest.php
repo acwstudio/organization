@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Api\V1\Regions;
 
+use App\Models\City;
+use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegionUpdateRequest extends FormRequest
@@ -13,7 +15,7 @@ class RegionUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,23 @@ class RegionUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'data'                                => ['required','array'],
+            'data.type'                           => ['required','string','in:' . Region::TYPE_RESOURCE],
+            'data.attributes'                     => ['required','array'],
+            'data.attributes.federal_district_id' => ['sometimes','integer'],
+            'data.attributes.name'                => ['sometimes','string'],
+            'data.attributes.description'         => ['sometimes','string'],
+            'data.attributes.slug'                => ['prohibited'],
+            'data.attributes.active'              => ['sometimes','boolean'],
+            // relationships
+            'data.relationships'                    => ['sometimes','required','array'],
+            'data.relationships.cities'             => ['sometimes','required','array'],
+            'data.relationships.cities.data'        => ['sometimes','required','array'],
+            'data.relationships.cities.data.*'      => ['sometimes','required','array'],
+            'data.relationships.cities.data.*.type' => ['present','string','in:' . City::TYPE_RESOURCE],
+            'data.relationships.cities.data.*.id'   => [
+                'present','integer', 'distinct', 'exists:' . City::TYPE_RESOURCE . ',id'
+            ],
         ];
     }
 }

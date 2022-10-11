@@ -78,13 +78,13 @@ final class FederalDistrictPipeline extends AbstractPipeline
         throw new \Exception('Script processing error. The method update of the Federal District has been canceled');
     }
 
-    public function destroy(FederalDistrict $model)
+    public function destroy(array $data)
     {
         try {
             DB::beginTransaction();
 
-            $data = $this->pipeline
-                ->send($model)
+            $this->pipeline
+                ->send($data)
                 ->through([
                     FederalDistrictRegionsDestroyRelatedPipe::class,
                     FederalDistrictDestroyPipe::class
@@ -97,6 +97,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
 
         } catch (\Exception | \Throwable $e) {
             \DB::rollBack();
+            \Log::error($e);
         }
 
         throw new \Exception('Script processing error. The method destroy of the Federal District has been canceled');

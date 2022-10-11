@@ -6,7 +6,7 @@ namespace App\Pipelines\Regions\Pipes;
 
 use App\Repositories\Api\Regions\RegionRepository;
 
-final class RegionUpdatePipe
+final class RegionsFederalDistrictStoreRelationPipe
 {
     protected RegionRepository $regionRepository;
 
@@ -18,18 +18,9 @@ final class RegionUpdatePipe
         $this->regionRepository = $regionRepository;
     }
 
-    /**
-     * @param array $data
-     * @param \Closure $next
-     * @return mixed
-     */
-    public function handle(array $data, \Closure $next): mixed
+    public function handle(array $data, \Closure $next)
     {
-        $attributes = data_get($data, 'data.attributes');
-
-        $model = data_get($data, 'model');
-
-        $this->regionRepository->update($attributes, $model);
+        // to do something
 
         return $next($data);
     }

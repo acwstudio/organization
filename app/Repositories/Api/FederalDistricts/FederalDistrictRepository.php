@@ -51,8 +51,14 @@ final class FederalDistrictRepository
         $model->update($attributes);
     }
 
-    public function destroy(FederalDistrict $model)
+    /**
+     * @param FederalDistrict $model
+     * @return void
+     */
+    public function destroy(array $data): void
     {
+        $model = data_get($data, 'model');
+
         $model->delete();
     }
 }

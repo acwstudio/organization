@@ -28,7 +28,12 @@ final class CityRegistar implements RouteRegistrar
         $registrar->group(['prefix' => 'api/v1', 'middleware' => 'api'], function (Registrar $registrar) {
 
             /*****************  CITY ROUTES **************/
-            $registrar->resource('cities', CityController::class);
+            $registrar->get('cities', [CityController::class, 'index'])->name('cities.index');
+            $registrar->get('cities/{id}', [CityController::class, 'show'])->name('cities.show');
+            $registrar->post('cities', [CityController::class, 'store'])->name('cities.store');
+            $registrar->patch('cities/{id}', [CityController::class, 'update'])->name('cities.update');
+            $registrar->delete('cities/{id}', [CityController::class, 'destroy'])->name('cities.destroy');
+
 
             // City to Organizations relations
             $registrar->get('cities/{id}/relationships/organizations',[

@@ -53,4 +53,32 @@ final class RegionService
 
         return $this->regionRepository->show($item);
     }
+
+    /**
+     * @param array $data
+     * @param int $id
+     * @return void
+     */
+    public function update(array $data, int $id): void
+    {
+        $model = Region::findOrFail($id);
+
+        data_set($data, 'model', $model);
+
+        $this->regionPipeline->update($data);
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     * @throws \Exception
+     */
+    public function destroy(int $id): void
+    {
+        $model = Region::findOrFail($id);
+
+        data_set($data, 'model', $model);
+
+        $this->regionPipeline->destroy($data);
+    }
 }
