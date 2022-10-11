@@ -337,7 +337,7 @@ class FederalDistrictUpdateValidateTest extends TestCase
         ]);
     }
 
-    public function test_federal_district_update_relationships_regions_data_N_required_validate()
+    public function test_federal_district_update_relationships_regions_data_n_required_validate()
     {
         $federalDistricts = FederalDistrict::factory()->count(3)->create();
 
@@ -394,7 +394,7 @@ class FederalDistrictUpdateValidateTest extends TestCase
         ]);
     }
 
-    public function test_federal_district_update_relationships_regions_data_N_must_be_an_array_validate()
+    public function test_federal_district_update_relationships_regions_data_n_must_be_an_array_validate()
     {
         $federalDistrict = FederalDistrict::factory()->count(3)->create();
 
@@ -447,7 +447,7 @@ class FederalDistrictUpdateValidateTest extends TestCase
         ]);
     }
 
-    public function test_federal_district_update_relationships_regions_data_N_item_invalid_validate()
+    public function test_federal_district_update_relationships_regions_data_n_item_invalid_validate()
     {
         $federalDistrictions = FederalDistrict::factory(1)->create();
 
@@ -508,7 +508,7 @@ class FederalDistrictUpdateValidateTest extends TestCase
         ]);
     }
 
-    public function test_federal_district_update_relationships_regions_data_N_item_present_validate()
+    public function test_federal_district_update_relationships_regions_data_n_item_present_validate()
     {
         $federalDistrictions = FederalDistrict::factory()->create();
 
