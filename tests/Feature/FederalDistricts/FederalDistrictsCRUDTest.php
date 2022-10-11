@@ -213,6 +213,26 @@ class FederalDistrictsCRUDTest extends TestCase
             ->assertStatus(400);
     }
 
+    public function test_federal_districts_index_resource_collection_with_filter_parameter()
+    {
+
+    }
+
+    public function test_federal_districts_index_resource_collection_with_filter_parameter_wrong()
+    {
+
+    }
+
+    public function test_federal_districts_index_resource_collection_with_sort_parameter()
+    {
+
+    }
+
+    public function test_federal_districts_index_resource_collection_with_sort_parameter_wrong()
+    {
+
+    }
+
     public function test_federal_districts_show_resource_attributes()
     {
         /** @var FederalDistrict $federalDistrict */
@@ -519,5 +539,15 @@ class FederalDistrictsCRUDTest extends TestCase
                 'federal_district_id' => $federalDistrict->id,
             ]);
         }
+    }
+
+    public function test_federal_districts_destroy_resource_with_relationships()
+    {
+
+    }
+
+    public function test_federal_districts_destroy_resource_with_relationships_wrong()
+    {
+
     }
 }
