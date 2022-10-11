@@ -82,10 +82,12 @@ class FederalDistrictsCRUDTest extends TestCase
         $federalDistricts = FederalDistrict::factory()->count(1)->create();
 
         foreach ($federalDistricts as $federalDistrict) {
-            $regions = Region::factory()->count(3)->create([
+            Region::factory()->count(3)->create([
                 'federal_district_id' => $federalDistrict->first()->id,
             ]);
         }
+
+        $regions = Region::all();
 
         $this->getJson('/api/v1/federal-districts?include=regions', [
             'accept' => 'application/vnd.api+json',
@@ -98,11 +100,7 @@ class FederalDistrictsCRUDTest extends TestCase
                         'id'   => $federalDistricts[0]->id,
                         'type' => FederalDistrict::TYPE_RESOURCE,
                         'attributes'      => [
-                            'name'        => $federalDistricts[0]->name,
-                            'description' => $federalDistricts[0]->description,
-                            'slug'        => $federalDistricts[0]->slug,
-                            'active'      => $federalDistricts[0]->active,
-                            'created_at'  => $federalDistricts[0]->created_at->toJSON()
+
                         ],
                         'relationships' => [
                             'regions' => [
@@ -112,15 +110,15 @@ class FederalDistrictsCRUDTest extends TestCase
                                 ],
                                 'data' => [
                                     [
-                                        'id' => 1,
+                                        'id' => $regions[0]->id,
                                         'type' => Region::TYPE_RESOURCE
                                     ],
                                     [
-                                        'id' => 2,
+                                        'id' => $regions[1]->id,
                                         'type' => Region::TYPE_RESOURCE
                                     ],
                                     [
-                                        'id' => 3,
+                                        'id' => $regions[2]->id,
                                         'type' => Region::TYPE_RESOURCE
                                     ]
                                 ]
@@ -130,7 +128,79 @@ class FederalDistrictsCRUDTest extends TestCase
                 ],
                 'included' => [
                     [
-
+                        'id' => $regions[0]->id,
+                        'type' => Region::TYPE_RESOURCE,
+                        'attributes' => [
+                            'federal_district_id' => $federalDistricts[0]->id,
+                            'name'                => $regions[0]->name,
+                            'description'         => $regions[0]->description,
+                            'slug'                => $regions[0]->slug,
+                            'active'              => $regions[0]->active,
+                        ],
+                        'relationships' => [
+                            'cities' => [
+                                'links' => [
+                                    'self' => route('region.relationships.cities',['id' => $regions[0]->id]),
+                                    'related' => route('region.cities',['id' => $regions[0]->id])
+                                ]
+                            ],
+                            'federalDistrict' => [
+                                'links' => [
+                                    'self' => route('regions.relationships.federal-district',['id' => $regions[0]->id]),
+                                    'related' => route('regions.federal-district',['id' => $regions[0]->id])
+                                ]
+                            ]
+                        ]
+                    ],
+                    [
+                        'id' => $regions[1]->id,
+                        'type' => Region::TYPE_RESOURCE,
+                        'attributes' => [
+                            'federal_district_id' => $federalDistricts[0]->id,
+                            'name'                => $regions[1]->name,
+                            'description'         => $regions[1]->description,
+                            'slug'                => $regions[1]->slug,
+                            'active'              => $regions[1]->active,
+                        ],
+                        'relationships' => [
+                            'cities' => [
+                                'links' => [
+                                    'self' => route('region.relationships.cities',['id' => $regions[1]->id]),
+                                    'related' => route('region.cities',['id' => $regions[1]->id])
+                                ]
+                            ],
+                            'federalDistrict' => [
+                                'links' => [
+                                    'self' => route('regions.relationships.federal-district',['id' => $regions[1]->id]),
+                                    'related' => route('regions.federal-district',['id' => $regions[1]->id])
+                                ]
+                            ]
+                        ]
+                    ],
+                    [
+                        'id' => $regions[2]->id,
+                        'type' => Region::TYPE_RESOURCE,
+                        'attributes' => [
+                            'federal_district_id' => $federalDistricts[0]->id,
+                            'name'                => $regions[2]->name,
+                            'description'         => $regions[2]->description,
+                            'slug'                => $regions[2]->slug,
+                            'active'              => $regions[2]->active,
+                        ],
+                        'relationships' => [
+                            'cities' => [
+                                'links' => [
+                                    'self' => route('region.relationships.cities',['id' => $regions[2]->id]),
+                                    'related' => route('region.cities',['id' => $regions[2]->id])
+                                ]
+                            ],
+                            'federalDistrict' => [
+                                'links' => [
+                                    'self' => route('regions.relationships.federal-district',['id' => $regions[2]->id]),
+                                    'related' => route('regions.federal-district',['id' => $regions[2]->id])
+                                ]
+                            ]
+                        ]
                     ]
                 ],
             ]);
