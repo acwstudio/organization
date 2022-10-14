@@ -7,7 +7,7 @@ use App\Http\Requests\Api\V1\Cities\CityStoreRequest;
 use App\Http\Requests\Api\V1\Cities\CityUpdateRequest;
 use App\Http\Resources\Api\Cities\CityCollection;
 use App\Http\Resources\Api\Cities\CityResource;
-use App\Services\Api\CityService;
+use App\Services\Api\Cities\CityService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,7 +20,7 @@ class CityController extends Controller
     private CityService $cityService;
 
     /**
-     * @param CityService $cityService
+     * @param \App\Services\Api\Cities\CityService $cityService
      */
     public function __construct(CityService $cityService)
     {
@@ -46,11 +46,17 @@ class CityController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CityStoreRequest $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(CityStoreRequest $request)
     {
-        //
+        $model = $this->cityService->store($request->all());
+
+        return (new CityResource($model))
+            ->response()
+            ->header('Location', route('cities.show', [
+                'id' => $model->id
+            ]));
     }
 
     /**
@@ -71,21 +77,26 @@ class CityController extends Controller
      *
      * @param CityUpdateRequest $request
      * @param int $id
-     * @return Response
+     * @return JsonResponse
+     * @throws \Throwable
      */
     public function update(CityUpdateRequest $request, $id)
     {
-        //
+        $this->cityService->update($request->all(), $id);
+
+        return response()->json(null, 204);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $this->cityService->destroy($id);
+
+        return response()->json(null, 204);
     }
 }

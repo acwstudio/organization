@@ -21,7 +21,6 @@ class FacultySeeder extends Seeder
     {
         $organizations = Items::fromFile(public_path() . "/schools_fyi_aux.json");
         $this->test($organizations);
-        dd('ok');
 
         Schema::disableForeignKeyConstraints();
 

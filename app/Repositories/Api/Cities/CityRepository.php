@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Api;
+namespace App\Repositories\Api\Cities;
 
 use App\Models\City;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class CityRepository
@@ -21,6 +22,15 @@ final class CityRepository
     }
 
     /**
+     * @param array $attributes
+     * @return Model|City
+     */
+    public function store(array $attributes): Model|City
+    {
+        return City::create($attributes);
+    }
+
+    /**
      * @param int $id
      * @return QueryBuilder
      */
@@ -29,5 +39,26 @@ final class CityRepository
         return QueryBuilder::for(City::class)
             ->where('id', $city->id)
             ->allowedIncludes(['organizations','region']);
+    }
+
+    /**
+     * @param array $attributes
+     * @param City $model
+     * @return void
+     */
+    public function update(array $attributes, City $model): void
+    {
+        $model->update($attributes);
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function destroy(array $data): void
+    {
+        $model = data_get($data, 'model');
+
+        $model->delete();
     }
 }

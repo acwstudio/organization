@@ -119,6 +119,7 @@ class OrganizationSeeder extends Seeder
         } elseif ($organization->town === 'Большие Вяземы') {
             return City::where('name', 'Одинцово')->first()->id;
         } else {
+            dump($organization->town);
             return City::where('name', $organization->town)->first()->id;
         }
     }

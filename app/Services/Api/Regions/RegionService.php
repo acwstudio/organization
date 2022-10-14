@@ -58,6 +58,7 @@ final class RegionService
      * @param array $data
      * @param int $id
      * @return void
+     * @throws \Throwable
      */
     public function update(array $data, int $id): void
     {

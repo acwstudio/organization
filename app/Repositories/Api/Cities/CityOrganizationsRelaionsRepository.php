@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Api\FederalDistricts;
+namespace App\Repositories\Api\Cities;
 
-use App\Models\FederalDistrict;
+use App\Models\City;
 
-final class FederalDistrictRegionsRelationsRepository
+final class CityOrganizationsRelaionsRepository
 {
     /**
      * @param string $relation
@@ -15,16 +15,16 @@ final class FederalDistrictRegionsRelationsRepository
      */
     public function indexRelations(string $relation, int $id): mixed
     {
-        return FederalDistrict::findOrFail($id)->{$relation}();
+        return City::findOrFail($id)->{$relation}();
     }
 
     /**
      * @param array $ids
      * @param string $relatedModel
-     * @param FederalDistrict $model
+     * @param City $model
      * @return void
      */
-    public  function updateRelations(array $ids, string $relatedModel, FederalDistrict $model): void
+    public  function updateRelations(array $ids, string $relatedModel, City $model): void
     {
         foreach ($ids as $id) {
             $relModels[] = app()->$relatedModel::findOrFail($id);
@@ -35,11 +35,14 @@ final class FederalDistrictRegionsRelationsRepository
 
     /**
      * @param $relation
-     * @param FederalDistrict $model
+     * @param City $model
      * @return void
      */
-    public function destroyRelatedModels($relation, FederalDistrict $model): void
+    public function destroyRelatedModels($relation, City $model): void
     {
+//        foreach ($model->$relation as $item) {
+//            $item->delete();
+//        }
         $model->{$relation}()->delete();
     }
 }
