@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "^2.0",
-        "spatie/laravel-query-builder": "^5.0"
+        "spatie/laravel-query-builder": "^5.0",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",

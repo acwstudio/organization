@@ -5,28 +5,30 @@ declare(strict_types=1);
 namespace App\Pipelines\FederalDistricts\Pipes;
 
 use App\Models\FederalDistrict;
-use App\Repositories\Api\FederalDistricts\FederalDistrictRelationsRepository;
+use App\Repositories\Api\FederalDistricts\FederalDistrictRegionsRelationsRepository;
 
 final class FederalDistrictRegionsDestroyRelatedPipe
 {
-    protected FederalDistrictRelationsRepository $federalDistrictRelationsRepository;
+    protected FederalDistrictRegionsRelationsRepository $federalDistrictRegionsRelationsRepository;
 
     /**
-     * @param FederalDistrictRelationsRepository $federalDistrictRelationsRepository
+     * @param FederalDistrictRegionsRelationsRepository $federalDistrictRegionsRelationsRepository
      */
-    public function __construct(FederalDistrictRelationsRepository $federalDistrictRelationsRepository)
+    public function __construct(FederalDistrictRegionsRelationsRepository $federalDistrictRegionsRelationsRepository)
     {
-        $this->federalDistrictRelationsRepository = $federalDistrictRelationsRepository;
+        $this->federalDistrictRegionsRelationsRepository = $federalDistrictRegionsRelationsRepository;
     }
 
     /**
-     * @param FederalDistrict $model
+     * @param array $data
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(FederalDistrict $model, \Closure $next): mixed
+    public function handle(array $data, \Closure $next): mixed
     {
-        $this->federalDistrictRelationsRepository->destroyRelatedModels('regions', $model);
+        $model = data_get($data, 'model');
+
+        $this->federalDistrictRegionsRelationsRepository->destroyRelatedModels('regions', $model);
 
         return $next($model);
     }

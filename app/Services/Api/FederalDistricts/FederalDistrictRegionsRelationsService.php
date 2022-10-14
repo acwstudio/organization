@@ -6,16 +6,16 @@ namespace App\Services\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use App\Models\Region;
-use App\Repositories\Api\FederalDistricts\FederalDistrictRelationsRepository;
+use App\Repositories\Api\FederalDistricts\FederalDistrictRegionsRelationsRepository;
 
-final class FederalDistrictRegionsRelationService
+final class FederalDistrictRegionsRelationsService
 {
-    protected FederalDistrictRelationsRepository $federalDistrictRelationsRepository;
+    protected FederalDistrictRegionsRelationsRepository $federalDistrictRelationsRepository;
 
     /**
-     * @param FederalDistrictRelationsRepository $federalDistrictRelationsRepository
+     * @param FederalDistrictRegionsRelationsRepository $federalDistrictRelationsRepository
      */
-    public function __construct(FederalDistrictRelationsRepository $federalDistrictRelationsRepository)
+    public function __construct(FederalDistrictRegionsRelationsRepository $federalDistrictRelationsRepository)
     {
         $this->federalDistrictRelationsRepository = $federalDistrictRelationsRepository;
     }

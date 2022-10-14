@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
-use Illuminate\Database\Eloquent\Model;
 
-final class FederalDistrictRelationsRepository
+final class FederalDistrictRegionsRelationsRepository
 {
-    public function indexRelations(string $relation, int $id)
+    /**
+     * @param string $relation
+     * @param int $id
+     * @return mixed
+     */
+    public function indexRelations(string $relation, int $id): mixed
     {
         return FederalDistrict::findOrFail($id)->{$relation}();
     }
@@ -29,8 +33,16 @@ final class FederalDistrictRelationsRepository
         $model->regions()->saveMany($relModels);
     }
 
-    public function destroyRelatedModels($relation, FederalDistrict $model)
+    /**
+     * @param $relation
+     * @param FederalDistrict $model
+     * @return void
+     */
+    public function destroyRelatedModels($relation, FederalDistrict $model): void
     {
+//        foreach ($model->$relation as $item) {
+//            $item->delete();
+//        }
         $model->{$relation}()->delete();
     }
 }

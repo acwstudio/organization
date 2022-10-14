@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Pipelines\FederalDistricts\Pipes;
 
-use App\Repositories\Api\FederalDistricts\FederalDistrictRelationsRepository;
+use App\Repositories\Api\FederalDistricts\FederalDistrictRegionsRelationsRepository;
 
 final class FederalDistrictRegionsStoreRelationPipe
 {
-    protected FederalDistrictRelationsRepository $federalDistrictRegionsRelationRepository;
+    protected FederalDistrictRegionsRelationsRepository $federalDistrictRegionsRelationRepository;
 
     /**
-     * @param FederalDistrictRelationsRepository $federalDistrictRegionsRelationRepository
+     * @param FederalDistrictRegionsRelationsRepository $federalDistrictRegionsRelationRepository
      */
-    public function __construct(FederalDistrictRelationsRepository $federalDistrictRegionsRelationRepository)
+    public function __construct(FederalDistrictRegionsRelationsRepository $federalDistrictRegionsRelationRepository)
     {
         $this->federalDistrictRegionsRelationRepository = $federalDistrictRegionsRelationRepository;
     }

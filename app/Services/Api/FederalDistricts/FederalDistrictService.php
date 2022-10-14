@@ -69,10 +69,17 @@ final class FederalDistrictService
         $this->federalDistrictPipeline->update($data);
     }
 
-    public function destroy(int $id)
+    /**
+     * @param int $id
+     * @return void
+     * @throws \Exception
+     */
+    public function destroy(int $id): void
     {
         $model = FederalDistrict::findOrFail($id);
 
-        $this->federalDistrictPipeline->destroy($model);
+        data_set($data, 'model', $model);
+
+        $this->federalDistrictPipeline->destroy($data);
     }
 }

@@ -9,11 +9,17 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
- * 1. Test federal district store items validate
+ * 1. Test federal district store attributes validate
  * 2. Test federal district store relationships required validate
  * 3. Test federal district store relationships must be an array validate
  * 4. Test federal district store relationships regions required validate
- * 5. Test federal district store relationships regions must be an array validate
+ * 5. Test federal district store relationships regions data must be an array validate
+ * 6. Test federal district store relationships regions data required validate
+ * 7. Test federal district store relationships regions data must be an array validate
+ * 8. Test federal district store relationships regions data n required validate
+ * 9. Test federal district store relationships regions data n must be an array validate
+ * 10. Test federal district store relationships regions data n item invalid validate
+ * 11. Test federal district store relationships regions data n item present validate
  */
 class FederalDistrictStoreValidateTest extends TestCase
 {
@@ -317,7 +323,7 @@ class FederalDistrictStoreValidateTest extends TestCase
         ]);
     }
 
-    public function test_federal_district_create_relationships_regions_data_N_required_validate()
+    public function test_federal_district_create_relationships_regions_data_n_required_validate()
     {
         $this->postJson('/api/v1/federal-districts', [
             'data' => [
@@ -372,7 +378,7 @@ class FederalDistrictStoreValidateTest extends TestCase
         ]);
     }
 
-    public function test_federal_district_create_relationships_regions_data_N_must_be_an_array_validate()
+    public function test_federal_district_create_relationships_regions_data_n_must_be_an_array_validate()
     {
         $this->postJson('/api/v1/federal-districts', [
             'data' => [
@@ -423,7 +429,7 @@ class FederalDistrictStoreValidateTest extends TestCase
         ]);
     }
 
-    public function test_federal_district_create_relationships_regions_data_N_item_invalid_validate()
+    public function test_federal_district_create_relationships_regions_data_n_item_invalid_validate()
     {
         $federalDistrictions = FederalDistrict::factory()->create();
 
@@ -484,7 +490,7 @@ class FederalDistrictStoreValidateTest extends TestCase
         ]);
     }
 
-    public function test_federal_district_create_relationships_regions_data_N_item_present_validate()
+    public function test_federal_district_create_relationships_regions_data_n_item_present_validate()
     {
         $federalDistrictions = FederalDistrict::factory()->create();
 

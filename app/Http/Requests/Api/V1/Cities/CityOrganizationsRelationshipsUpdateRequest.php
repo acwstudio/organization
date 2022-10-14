@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Regions;
+namespace App\Http\Requests\Api\V1\Cities;
 
-use App\Models\Organization;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegionCitiesUpdateRelationshipsRequest extends FormRequest
+class CityOrganizationsRelationshipsUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class RegionCitiesUpdateRelationshipsRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -26,8 +25,8 @@ class RegionCitiesUpdateRelationshipsRequest extends FormRequest
     {
         return [
             'data'        => 'present|array',
-            'data.*.id'   => 'required|integer|cities:regions,id',
-            'data.*.type' => 'required|string|in:cities',
+            'data.*.id'   => 'required|string|exists:organizations,id',
+            'data.*.type' => 'required|string|in:organizations',
         ];
     }
 }

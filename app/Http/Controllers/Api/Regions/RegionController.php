@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api\Regions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Regions\RegionStoreRequest;
+use App\Http\Requests\Api\V1\Regions\RegionUpdateRequest;
 use App\Http\Resources\Api\Regions\RegionCollection;
 use App\Http\Resources\Api\Regions\RegionResource;
 use App\Services\Api\Regions\RegionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class RegionController extends Controller
 {
@@ -74,23 +76,27 @@ class RegionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param RegionUpdateRequest $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(RegionUpdateRequest $request, $id): JsonResponse
     {
-        //
+        $this->regionService->update($request->all(), $id);
+
+        return response()->json(null, 204);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        //
+        $this->regionService->destroy($id);
+
+        return response()->json(null, 204);
     }
 }

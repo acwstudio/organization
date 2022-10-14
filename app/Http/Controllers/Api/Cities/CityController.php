@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api\Cities;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Cities\CityStoreRequest;
+use App\Http\Requests\Api\V1\Cities\CityUpdateRequest;
 use App\Http\Resources\Api\Cities\CityCollection;
 use App\Http\Resources\Api\Cities\CityResource;
 use App\Services\Api\CityService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CityController extends Controller
 {
@@ -42,10 +45,10 @@ class CityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CityStoreRequest $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(CityStoreRequest $request)
     {
         //
     }
@@ -66,11 +69,11 @@ class CityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param CityUpdateRequest $request
+     * @param int $id
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(CityUpdateRequest $request, $id)
     {
         //
     }
