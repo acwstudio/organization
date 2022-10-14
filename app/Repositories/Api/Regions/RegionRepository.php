@@ -52,11 +52,13 @@ final class RegionRepository
     }
 
     /**
-     * @param Region $model
+     * @param array $data
      * @return void
      */
-    public function destroy(Region $model): void
+    public function destroy(array $data): void
     {
-//        $model->delete();
+        $model = data_get($data, 'model');
+
+        $model->delete();
     }
 }
