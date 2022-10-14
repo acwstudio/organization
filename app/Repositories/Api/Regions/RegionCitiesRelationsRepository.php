@@ -30,8 +30,11 @@ final class RegionCitiesRelationsRepository
 
     public function destroyRelatedModels($relation, Region $model)
     {
+        foreach ($model->cities as $item) {
+            $item->delete();
+        }
 //        dd($model->{$relation});
-        $model->cities->each->delete();
+//        $model->cities->each->delete();
 //        $model->{$relation}()->delete();
     }
 }

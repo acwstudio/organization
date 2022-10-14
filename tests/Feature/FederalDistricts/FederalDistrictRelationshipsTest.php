@@ -126,6 +126,6 @@ class FederalDistrictRelationshipsTest extends TestCase
         ])
             ->assertStatus(204);
 
-        $this->assertEquals($federalDistricts[0]->regions->count(), 5);
+        $this->assertEquals($federalDistricts[0]->regions()->count(), 5);
     }
 }

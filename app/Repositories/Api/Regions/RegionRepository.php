@@ -57,6 +57,6 @@ final class RegionRepository
      */
     public function destroy(Region $model): void
     {
-        $model->delete();
+//        $model->delete();
     }
 }

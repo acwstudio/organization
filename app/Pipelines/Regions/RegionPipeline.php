@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pipelines\Regions;
 
+use App\Exceptions\PipelineException;
 use App\Models\Region;
 use App\Pipelines\AbstractPipeline;
 use App\Pipelines\Regions\Pipes\RegionCitiesDestroyRelatedPipe;
@@ -40,9 +41,13 @@ final class RegionPipeline extends AbstractPipeline
 
             DB::rollBack();
             Log::error($e);
-        }
 
-        throw new \Exception('Script processing error. The method store of the Region has been canceled');
+            if ($e instanceof \PDOException){
+                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
+            } else {
+                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
+            }
+        }
     }
 
     /**
@@ -71,12 +76,21 @@ final class RegionPipeline extends AbstractPipeline
         } catch (\Exception | \Throwable $e) {
             \DB::rollBack();
             \Log::error($e);
-        }
 
-        throw new \Exception('Script processing error. The method update of the Region has been canceled');
+            if ($e instanceof \PDOException){
+                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
+            } else {
+                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
+            }
+        }
     }
 
-    public function destroy(array $data)
+    /**
+     * @param array $data
+     * @return void
+     * @throws \Throwable
+     */
+    public function destroy(array $data): void
     {
         try {
             DB::beginTransaction();
@@ -85,19 +99,21 @@ final class RegionPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     RegionCitiesDestroyRelatedPipe::class,
-//                    RegionDestroyPipe::class
+                    RegionDestroyPipe::class
                 ])
                 ->thenReturn();
 
             \DB::commit();
 
-            return true;
-
         } catch (\Exception | \Throwable $e) {
             \DB::rollBack();
             \Log::error($e);
-        }
 
-        throw new \Exception('Script processing error. The method destroy of the Region has been canceled');
+            if ($e instanceof \PDOException){
+                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
+            } else {
+                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
+            }
+        }
     }
 }

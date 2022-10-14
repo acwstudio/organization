@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pipelines\FederalDistricts;
 
+use App\Exceptions\PipelineException;
 use App\Models\FederalDistrict;
 use App\Pipelines\AbstractPipeline;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictDestroyPipe;
@@ -12,6 +13,7 @@ use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsStoreRelationPipe
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsUpdateRelationPipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictStorePipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictUpdatePipe;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -43,9 +45,13 @@ final class FederalDistrictPipeline extends AbstractPipeline
 
             DB::rollBack();
             Log::error($e);
-        }
 
-        throw new \Exception('Script processing error. The method store of the Federal District has been canceled');
+            if ($e instanceof \PDOException){
+                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
+            } else {
+                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
+            }
+        }
     }
 
     /**
@@ -58,7 +64,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
         try {
             DB::beginTransaction();
 
-            $data = $this->pipeline
+            $this->pipeline
                 ->send($data)
                 ->through([
                     FederalDistrictUpdatePipe::class,
@@ -66,19 +72,29 @@ final class FederalDistrictPipeline extends AbstractPipeline
                 ])
                 ->thenReturn();
 
-            \DB::commit();
+            DB::commit();
 
             return true;
 
         } catch (\Exception | \Throwable $e) {
-            \DB::rollBack();
-            \Log::error($e);
-        }
+            DB::rollBack();
+            Log::error($e);
 
-        throw new \Exception('Script processing error. The method update of the Federal District has been canceled');
+            if ($e instanceof \PDOException){
+                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
+            } else {
+                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
+            }
+        }
     }
 
-    public function destroy(array $data)
+    /**
+     * @param array $data
+     * @return void
+     * @throws PipelineException
+     * @throws \Throwable
+     */
+    public function destroy(array $data): void
     {
         try {
             DB::beginTransaction();
@@ -91,15 +107,16 @@ final class FederalDistrictPipeline extends AbstractPipeline
                 ])
                 ->thenReturn();
 
-            \DB::commit();
+            DB::commit();
 
-            return true;
+        } catch (\Throwable $e) {
+            DB::rollBack();
 
-        } catch (\Exception | \Throwable $e) {
-            \DB::rollBack();
-            \Log::error($e);
+            if ($e instanceof \PDOException){
+                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
+            } else {
+                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
+            }
         }
-
-        throw new \Exception('Script processing error. The method destroy of the Federal District has been canceled');
     }
 }
