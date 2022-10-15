@@ -5,41 +5,41 @@ declare(strict_types=1);
 namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
+use App\Models\Region;
 
 final class FederalDistrictRegionsRelationsRepository
 {
     /**
-     * @param string $relation
      * @param int $id
      * @return mixed
      */
-    public function indexRelations(string $relation, int $id): mixed
+    public function indexRelations(int $id): mixed
     {
-        return FederalDistrict::findOrFail($id)->{$relation}();
+        return FederalDistrict::findOrFail($id)->regions();
     }
 
     /**
      * @param array $ids
-     * @param string $relatedModel
-     * @param FederalDistrict $model
+     * @param int $id
      * @return void
      */
-    public  function updateRelations(array $ids, string $relatedModel, FederalDistrict $model): void
+    public  function updateRelations(array $ids, int $id): void
     {
-        foreach ($ids as $id) {
-            $relModels[] = app()->$relatedModel::findOrFail($id);
+        $relModels = [];
+
+        foreach ($ids as $itemId) {
+            $relModels[] = Region::findOrFail($itemId);
         }
 
-        $model->regions()->saveMany($relModels);
+        FederalDistrict::findOrFail($id)->regions()->saveMany($relModels);
     }
 
     /**
-     * @param $relation
-     * @param FederalDistrict $model
+     * @param int $id
      * @return void
      */
-    public function destroyRelatedModels($relation, FederalDistrict $model): void
+    public function destroyRelations(int $id): void
     {
-        $model->{$relation}()->delete();
+        FederalDistrict::findOrFail($id)->regions()->delete();
     }
 }

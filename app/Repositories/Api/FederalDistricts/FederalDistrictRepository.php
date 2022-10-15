@@ -31,28 +31,28 @@ final class FederalDistrictRepository
     }
 
     /**
-     * @param FederalDistrict $model
+     * @param int $id
      * @return QueryBuilder
      */
-    public function show(FederalDistrict $federalDistrict): QueryBuilder
+    public function show(int $id): QueryBuilder
     {
         return QueryBuilder::for(FederalDistrict::class)
-            ->where('id', $federalDistrict->id)
+            ->where('id', $id)
             ->allowedIncludes(['regions']);
     }
 
     /**
      * @param array $attributes
-     * @param FederalDistrict $model
+     * @param int $id
      * @return void
      */
-    public function update(array $attributes, FederalDistrict $model): void
+    public function update(array $attributes, int $id): void
     {
-        $model->update($attributes);
+        FederalDistrict::findOrFail($id)->update($attributes);
     }
 
     /**
-     * @param FederalDistrict $model
+     * @param array $data
      * @return void
      */
     public function destroy(array $data): void

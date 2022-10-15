@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Api\FederalDistricts;
 
+use App\Exceptions\PipelineException;
 use App\Models\FederalDistrict;
 use App\Pipelines\FederalDistricts\FederalDistrictPipeline;
 use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;
@@ -50,21 +51,18 @@ final class FederalDistrictService
      */
     public function show(int $id): QueryBuilder
     {
-        $item = FederalDistrict::findOrFail($id);
-
-        return $this->federalDistrictRepository->show($item);
+        return $this->federalDistrictRepository->show($id);
     }
 
     /**
      * @param array $data
      * @param int $id
      * @return void
+     * @throws \Throwable
      */
     public function update(array $data, int $id): void
     {
-        $model = FederalDistrict::findOrFail($id);
-
-        data_set($data, 'model', $model);
+        data_set($data, 'id', $id);
 
         $this->federalDistrictPipeline->update($data);
     }
@@ -72,13 +70,12 @@ final class FederalDistrictService
     /**
      * @param int $id
      * @return void
-     * @throws \Exception
+     * @throws PipelineException
+     * @throws \Throwable
      */
     public function destroy(int $id): void
     {
-        $model = FederalDistrict::findOrFail($id);
-
-        data_set($data, 'model', $model);
+        data_set($data, 'id', $id);
 
         $this->federalDistrictPipeline->destroy($data);
     }

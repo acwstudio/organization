@@ -27,9 +27,9 @@ final class FederalDistrictUpdatePipe
     {
         $attributes = data_get($data, 'data.attributes');
 
-        $model = data_get($data, 'model');
+        $id = data_get($data, 'id');
 
-        $this->federalDistrictRepository->update($attributes, $model);
+        $this->federalDistrictRepository->update($attributes, $id);
 
         return $next($data);
     }

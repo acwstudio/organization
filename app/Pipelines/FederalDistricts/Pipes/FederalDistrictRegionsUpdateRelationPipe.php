@@ -29,8 +29,8 @@ final class FederalDistrictRegionsUpdateRelationPipe
         $ids = data_get($data, 'data.relationships.regions.data.*.id');
 
         if ($ids) {
-            $model = data_get($data, 'model');
-            $this->federalDistrictRelationRepository->updateRelations($ids, Region::class, $model);
+            $id = data_get($data, 'id');
+            $this->federalDistrictRelationRepository->updateRelations($ids, $id);
         }
 
         return $next($data);

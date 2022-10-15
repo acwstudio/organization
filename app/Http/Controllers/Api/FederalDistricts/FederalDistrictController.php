@@ -44,10 +44,10 @@ class FederalDistrictController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param FederalDistrictStoreRequest $request
      * @return JsonResponse
      */
-    public function store(FederalDistrictStoreRequest $request)
+    public function store(FederalDistrictStoreRequest $request): JsonResponse
     {
         $model = $this->federalDistrictService->store($request->all());
 
@@ -88,8 +88,9 @@ class FederalDistrictController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
+     * @throws \Exception
      */
     public function destroy(int $id): JsonResponse
     {

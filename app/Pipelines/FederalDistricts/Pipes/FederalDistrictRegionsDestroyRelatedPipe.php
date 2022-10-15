@@ -26,10 +26,10 @@ final class FederalDistrictRegionsDestroyRelatedPipe
      */
     public function handle(array $data, \Closure $next): mixed
     {
-        $model = data_get($data, 'model');
+        $id = data_get($data, 'id');
 
-        $this->federalDistrictRegionsRelationsRepository->destroyRelatedModels('regions', $model);
+        $this->federalDistrictRegionsRelationsRepository->destroyRelations($id);
 
-        return $next($model);
+        return $next($data);
     }
 }
