@@ -25,10 +25,10 @@ final class RegionCitiesDestroyRelatedPipe
      */
     public function handle(array $data, \Closure $next): mixed
     {
-        $model = data_get($data, 'model');
+        $id = data_get($data, 'id');
 
-        $this->regionCitiesRelationsRepository->destroyRelatedModels('cities', $model);
+        $this->regionCitiesRelationsRepository->destroyRelatedModels($id);
 
-        return $next($model);
+        return $next($data);
     }
 }

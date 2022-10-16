@@ -25,7 +25,9 @@ final class RegionDestroyPipe
      */
     public function handle(array $data, \Closure $next): mixed
     {
-        $this->regionRepository->destroy($data);
+        $id = data_get($data, 'id');
+
+        $this->regionRepository->destroy($id);
 
         return $next($data);
     }

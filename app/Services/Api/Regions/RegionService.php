@@ -49,9 +49,7 @@ final class RegionService
      */
     public function show(int $id): QueryBuilder
     {
-        $item = Region::findOrFail($id);
-
-        return $this->regionRepository->show($item);
+        return $this->regionRepository->show($id);
     }
 
     /**
@@ -62,9 +60,7 @@ final class RegionService
      */
     public function update(array $data, int $id): void
     {
-        $model = Region::findOrFail($id);
-
-        data_set($data, 'model', $model);
+        data_set($data, 'id', $id);
 
         $this->regionPipeline->update($data);
     }
@@ -76,9 +72,7 @@ final class RegionService
      */
     public function destroy(int $id): void
     {
-        $model = Region::findOrFail($id);
-
-        data_set($data, 'model', $model);
+        data_set($data, 'id', $id);
 
         $this->regionPipeline->destroy($data);
     }

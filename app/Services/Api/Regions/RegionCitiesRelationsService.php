@@ -25,7 +25,7 @@ final class RegionCitiesRelationsService
      */
     public function indexRelations(int $id): mixed
     {
-        return $this->regionCitiesRelationsRepository->indexRelations('cities', $id);
+        return $this->regionCitiesRelationsRepository->indexRelations($id);
     }
 
     /**
@@ -38,8 +38,6 @@ final class RegionCitiesRelationsService
     {
         $ids = data_get($data, 'data.*.id');
 
-        $model = Region::findOrFail($id);
-
-        $this->regionCitiesRelationsRepository->updateRelations($ids, $relatedModel, $model);
+        $this->regionCitiesRelationsRepository->updateRelations($ids, $id);
     }
 }

@@ -39,6 +39,7 @@ final class FederalDistrictService
     /**
      * @param array $data
      * @return Model|FederalDistrict
+     * @throws \Throwable
      */
     public function store(array $data): Model|FederalDistrict
     {

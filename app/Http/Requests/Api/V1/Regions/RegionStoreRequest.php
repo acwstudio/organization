@@ -36,6 +36,7 @@ class RegionStoreRequest extends FormRequest
             'data.attributes.active'              => ['required','boolean'],
             // relationships
             'data.relationships'                    => ['sometimes','required','array'],
+            // cities
             'data.relationships.cities'             => ['sometimes','required','array'],
             'data.relationships.cities.data'        => ['sometimes','required','array'],
             'data.relationships.cities.data.*'      => ['sometimes','required','array'],

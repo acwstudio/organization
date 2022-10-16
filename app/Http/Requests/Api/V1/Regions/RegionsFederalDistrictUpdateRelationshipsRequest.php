@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\FederalDistricts;
+namespace App\Http\Requests\Api\V1\Regions;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FederalDistrictRegionsUpdateRelationshipsRequest extends FormRequest
+class RegionsFederalDistrictUpdateRelationshipsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class FederalDistrictRegionsUpdateRelationshipsRequest extends FormRequest
     public function rules()
     {
         return [
-            'data'        => ['present','array'],
-            'data.*.id'   => ['required','integer','distinct','exists:regions,id'],
-            'data.*.type' => ['required','string','in:regions'],
+            'data.id'   => ['required','integer','exists:federal_districts,id'],
+            'data.type' => ['required','string','in:federalDistricts'],
         ];
     }
 }

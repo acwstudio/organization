@@ -27,9 +27,9 @@ final class RegionUpdatePipe
     {
         $attributes = data_get($data, 'data.attributes');
 
-        $model = data_get($data, 'model');
+        $id = data_get($data, 'id');
 
-        $this->regionRepository->update($attributes, $model);
+        $this->regionRepository->update($attributes, $id);
 
         return $next($data);
     }

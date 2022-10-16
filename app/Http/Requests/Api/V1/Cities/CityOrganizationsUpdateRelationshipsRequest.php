@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\V1\Cities;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CityOrganizationsRelationshipsUpdateRequest extends FormRequest
+class CityOrganizationsUpdateRelationshipsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

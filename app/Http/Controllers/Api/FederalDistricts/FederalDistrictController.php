@@ -49,12 +49,12 @@ class FederalDistrictController extends Controller
      */
     public function store(FederalDistrictStoreRequest $request): JsonResponse
     {
-        $model = $this->federalDistrictService->store($request->all());
+        $federalDistrict = $this->federalDistrictService->store($request->all());
 
-        return (new FederalDistrictResource($model))
+        return (new FederalDistrictResource($federalDistrict))
             ->response()
             ->header('Location', route('federal-districts.show', [
-                'id' => $model->id
+                'id' => $federalDistrict->id
             ]));
     }
 

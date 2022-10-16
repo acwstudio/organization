@@ -34,31 +34,29 @@ final class RegionRepository
      * @param Region $region
      * @return QueryBuilder
      */
-    public function show(Region $region): QueryBuilder
+    public function show(int $id): QueryBuilder
     {
         return QueryBuilder::for(Region::class)
-            ->where('id', $region->id)
+            ->where('id', $id)
             ->allowedIncludes(['cities','federalDistrict']);
     }
 
     /**
      * @param array $attributes
-     * @param Region $model
+     * @param int $id
      * @return void
      */
-    public function update(array $attributes, Region $model): void
+    public function update(array $attributes, int $id): void
     {
-        $model->update($attributes);
+        Region::findOrFail($id)->update($attributes);
     }
 
     /**
      * @param array $data
      * @return void
      */
-    public function destroy(array $data): void
+    public function destroy(int $id): void
     {
-        $model = data_get($data, 'model');
-
-        $model->delete();
+        Region::findOrFail($id)->delete();
     }
 }

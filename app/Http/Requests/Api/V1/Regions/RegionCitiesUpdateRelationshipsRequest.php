@@ -25,9 +25,9 @@ class RegionCitiesUpdateRelationshipsRequest extends FormRequest
     public function rules()
     {
         return [
-            'data'        => 'present|array',
-            'data.*.id'   => 'required|integer|cities:regions,id',
-            'data.*.type' => 'required|string|in:cities',
+            'data'        => ['present','array'],
+            'data.*.id'   => ['required','integer','distinct','exists:cities,id'],
+            'data.*.type' => ['required','string','in:cities'],
         ];
     }
 }

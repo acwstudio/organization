@@ -37,6 +37,7 @@ final class RegionPipeline extends AbstractPipeline
             DB::commit();
 
             return data_get($data, 'model');
+
         } catch(\Exception | \Throwable $e) {
 
             DB::rollBack();

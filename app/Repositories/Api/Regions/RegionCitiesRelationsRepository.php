@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Repositories\Api\Regions;
 
+use App\Models\City;
 use App\Models\Region;
 
 final class RegionCitiesRelationsRepository
 {
-    public function indexRelations(string $relation, int $id)
+    public function indexRelations(int $id)
     {
-        return Region::findOrFail($id)->{$relation}();
+        return Region::findOrFail($id)->cities();
     }
 
     /**
@@ -19,22 +20,21 @@ final class RegionCitiesRelationsRepository
      * @param Region $model
      * @return void
      */
-    public  function updateRelations(array $ids, string $relatedModel, Region $model): void
+    public  function updateRelations(array $ids, int $id): void
     {
-        foreach ($ids as $id) {
-            $relModels[] = app()->$relatedModel::findOrFail($id);
+        $relModels = [];
+
+        foreach ($ids as $itemId) {
+            $relModels[] = City::findOrFail($itemId);
         }
 
-        $model->regions()->saveMany($relModels);
+        Region::findOrFail($id)->cities()->saveMany($relModels);
     }
 
-    public function destroyRelatedModels($relation, Region $model)
+    public function destroyRelatedModels(int $id)
     {
-        foreach ($model->cities as $item) {
+        foreach (Region::findOrFail($id)->cities as $item) {
             $item->delete();
         }
-//        dd($model->{$relation});
-//        $model->cities->each->delete();
-//        $model->{$relation}()->delete();
     }
 }
