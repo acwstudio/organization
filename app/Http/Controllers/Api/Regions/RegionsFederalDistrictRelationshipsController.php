@@ -31,7 +31,12 @@ class RegionsFederalDistrictRelationshipsController extends Controller
         return (new FederalDistrictResource($federalDistrict))->response();
     }
 
-    public function update(RegionsFederalDistrictUpdateRelationshipsRequest $request, int $id)
+    /**
+     * @param RegionsFederalDistrictUpdateRelationshipsRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(RegionsFederalDistrictUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
         $this->regionsFederalDistrictRelationsService->updateRelations($request->all(), $id);
 

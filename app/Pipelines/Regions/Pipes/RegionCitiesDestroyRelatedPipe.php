@@ -23,12 +23,10 @@ final class RegionCitiesDestroyRelatedPipe
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(array $data, \Closure $next): mixed
+    public function handle(int $id, \Closure $next): mixed
     {
-        $id = data_get($data, 'id');
-
         $this->regionCitiesRelationsRepository->destroyRelatedModels($id);
 
-        return $next($data);
+        return $next($id);
     }
 }

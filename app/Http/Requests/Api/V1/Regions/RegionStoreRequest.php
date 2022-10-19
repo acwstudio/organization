@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\Regions;
 
 use App\Models\City;
+use App\Models\FederalDistrict;
 use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -40,10 +41,13 @@ class RegionStoreRequest extends FormRequest
             'data.relationships.cities'             => ['sometimes','required','array'],
             'data.relationships.cities.data'        => ['sometimes','required','array'],
             'data.relationships.cities.data.*'      => ['sometimes','required','array'],
-            'data.relationships.cities.data.*.type' => ['present','string','in:' . City::TYPE_RESOURCE],
-            'data.relationships.cities.data.*.id'   => [
-                'present','integer', 'distinct', 'exists:' . City::TYPE_RESOURCE . ',id'
-            ],
+            'data.relationships.cities.data.*.type' => ['sometimes','required','string','in:' . City::TYPE_RESOURCE],
+            'data.relationships.cities.data.*.id'   => ['sometimes','required','integer', 'distinct', 'exists:cities,id'],
+            // federalDistrict
+            'data.relationships.federalDistrict'           => ['sometimes','required','array'],
+            'data.relationships.federalDistrict.data'      => ['sometimes','required','array'],
+            'data.relationships.federalDistrict.data.type' => ['sometimes','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
+            'data.relationships.federalDistrict.data.id'   => ['sometimes','required','integer', 'exists:federal_districts,id'],
         ];
     }
 }

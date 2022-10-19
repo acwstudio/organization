@@ -21,12 +21,10 @@ final class RegionCitiesUpdateRelationPipe
 
     public function handle(array $data, \Closure $next)
     {
-        $ids = data_get($data, 'data.relationships.cities.data.*.id');
+        $relationshipsData = data_get($data, 'data.relationships.cities');
+        data_set($relationshipsData, 'region_id', data_get($data, 'region_id'));
 
-        if ($ids) {
-            $id = data_get($data, 'id');
-            $this->regionCitiesRelationsRepository->updateRelations($ids, $id);
-        }
+        $this->regionCitiesRelationsRepository->updateRelations($relationshipsData);
 
         return $next($data);
     }

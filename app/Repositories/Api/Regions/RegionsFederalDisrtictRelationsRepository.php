@@ -20,14 +20,13 @@ final class RegionsFederalDisrtictRelationsRepository
     }
 
     /**
-     * @param int $relatedId
-     * @param int $id
+     * @param array $data
      * @return void
      */
-    public function updateRelations(int $relatedId, int $id): void
+    public function updateRelations(array $data): void
     {
-        Region::findOrFail($id)->update([
-            'federal_district_id' => $relatedId
+        Region::findOrFail(data_get($data, 'region_id'))->update([
+            'federal_district_id' => data_get($data, 'data.id')
         ]);
     }
 

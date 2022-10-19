@@ -29,14 +29,19 @@ final class RegionsFederalDistrictRelationsService
         return $this->regionsFederalDisrtictRelationsRepository->indexRelations($id);
     }
 
-    public function updateRelations(array $data, int $id)
+    /**
+     * @param array $data
+     * @param int $id
+     * @return void
+     */
+    public function updateRelations(array $data, int $id): void
     {
-        $relatedId = data_get($data, 'data.id');
+        data_set($data, 'region_id', $id);
 
-        $this->regionsFederalDisrtictRelationsRepository->updateRelations($relatedId, $id);
+        $this->regionsFederalDisrtictRelationsRepository->updateRelations($data);
     }
 
-    public function destroyRelations()
+    public function destroyRelations(int $id): void
     {
 
     }

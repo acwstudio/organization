@@ -21,10 +21,10 @@ final class RegionsFederalDistrictUpdateRelationPipe
 
     public function handle(array $data, \Closure $next)
     {
-        $relatedId = data_get($data, 'data.relationships.federalDistrict.data.id');
-        $id = data_get($data, 'id');
+        $relationshipsData = data_get($data, 'data.relationships.federalDistrict');
+        data_set($relationshipsData, 'region_id', data_get($data, 'region_id'));
 
-        $this->regionsFederalDisrtictRelationsRepository->updateRelations($relatedId, $id);
+        $this->regionsFederalDisrtictRelationsRepository->updateRelations($relationshipsData);
 
         return $next($data);
     }

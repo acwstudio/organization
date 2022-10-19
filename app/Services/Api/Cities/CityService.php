@@ -52,9 +52,7 @@ final class CityService
      */
     public function show(int $id): QueryBuilder
     {
-        $item = City::findOrFail($id);
-
-        return $this->cityRepository->show($item);
+        return $this->cityRepository->show($id);
     }
 
     /**

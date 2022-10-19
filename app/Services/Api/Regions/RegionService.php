@@ -7,10 +7,11 @@ namespace App\Services\Api\Regions;
 use App\Models\Region;
 use App\Pipelines\Regions\RegionPipeline;
 use App\Repositories\Api\Regions\RegionRepository;
+use App\Services\Api\AbstractCRUDService;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
-final class RegionService
+final class RegionService extends AbstractCRUDService
 {
     protected RegionRepository $regionRepository;
     protected RegionPipeline $regionPipeline;
@@ -38,7 +39,7 @@ final class RegionService
      * @return Model|Region
      * @throws \Exception
      */
-    public function store(array $data): Model | Region
+    public function store(array $data): Model|Region
     {
         return $this->regionPipeline->store($data);
     }
@@ -60,7 +61,7 @@ final class RegionService
      */
     public function update(array $data, int $id): void
     {
-        data_set($data, 'id', $id);
+        data_set($data, 'region_id', $id);
 
         $this->regionPipeline->update($data);
     }
@@ -72,8 +73,6 @@ final class RegionService
      */
     public function destroy(int $id): void
     {
-        data_set($data, 'id', $id);
-
-        $this->regionPipeline->destroy($data);
+        $this->regionPipeline->destroy($id);
     }
 }

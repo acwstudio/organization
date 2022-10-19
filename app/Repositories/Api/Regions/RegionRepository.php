@@ -6,6 +6,7 @@ namespace App\Repositories\Api\Regions;
 
 use App\Models\Region;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class RegionRepository
@@ -17,7 +18,11 @@ final class RegionRepository
     {
         return QueryBuilder::for(Region::class)
             ->allowedIncludes(['cities','federalDistrict'])
-            ->allowedFilters(['name','id','federal_district_id'])
+            ->allowedFilters([
+                AllowedFilter::exact('name'),
+                AllowedFilter::exact('federal_district_id'),
+                AllowedFilter::exact('id')
+            ])
             ->allowedSorts(['name','federal_district_id']);
     }
 
@@ -31,13 +36,16 @@ final class RegionRepository
     }
 
     /**
-     * @param Region $region
+     * @param int $id
      * @return QueryBuilder
      */
     public function show(int $id): QueryBuilder
     {
+        // it is just only for ModelNotFoundException
+        $region = Region::findOrFail($id);
+
         return QueryBuilder::for(Region::class)
-            ->where('id', $id)
+            ->where('id', $region->id)
             ->allowedIncludes(['cities','federalDistrict']);
     }
 
@@ -52,7 +60,7 @@ final class RegionRepository
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void

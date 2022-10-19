@@ -6,6 +6,7 @@ namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class FederalDistrictRepository
@@ -17,7 +18,11 @@ final class FederalDistrictRepository
     {
         return QueryBuilder::for(FederalDistrict::class)
             ->allowedIncludes(['regions'])
-            ->allowedFilters(['name','id','slug'])
+            ->allowedFilters([
+                AllowedFilter::exact('name'),
+                AllowedFilter::exact('id'),
+                AllowedFilter::exact('slug')
+            ])
             ->allowedSorts(['name','id']);
     }
 
