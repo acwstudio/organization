@@ -51,12 +51,12 @@ class RegionController extends Controller
      */
     public function store(RegionStoreRequest $request): JsonResponse
     {
-        $model = $this->regionService->store($request->all());
+        $region = $this->regionService->store($request->all());
 
-        return (new RegionResource($model))
+        return (new RegionResource($region))
             ->response()
             ->header('Location', route('regions.show', [
-                'id' => $model->id
+                'id' => $region->id
             ]));
     }
 
@@ -79,8 +79,9 @@ class RegionController extends Controller
      * @param RegionUpdateRequest $request
      * @param int $id
      * @return JsonResponse
+     * @throws \Throwable
      */
-    public function update(RegionUpdateRequest $request, $id): JsonResponse
+    public function update(RegionUpdateRequest $request, int $id): JsonResponse
     {
         $this->regionService->update($request->all(), $id);
 

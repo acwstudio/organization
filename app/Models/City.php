@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RestrictSoftDeletesTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,9 +12,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model
 {
-    use HasFactory, Sluggable, SoftDeletes;
+    use HasFactory, Sluggable, SoftDeletes, RestrictSoftDeletesTrait;
 
     public const TYPE_RESOURCE = 'cities';
+
+    protected array $restrictDeletes = ['organizations'];
 
     protected $fillable = ['region_id','name','description','slug','active'];
 

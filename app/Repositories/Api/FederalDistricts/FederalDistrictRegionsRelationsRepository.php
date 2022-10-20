@@ -5,41 +5,43 @@ declare(strict_types=1);
 namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
+use App\Models\Region;
 
 final class FederalDistrictRegionsRelationsRepository
 {
     /**
-     * @param string $relation
      * @param int $id
      * @return mixed
      */
-    public function indexRelations(string $relation, int $id): mixed
+    public function indexRelations(int $id): mixed
     {
-        return FederalDistrict::findOrFail($id)->{$relation}();
+        return FederalDistrict::findOrFail($id)->regions();
     }
 
     /**
      * @param array $ids
-     * @param string $relatedModel
-     * @param FederalDistrict $model
+     * @param int $id
      * @return void
      */
-    public  function updateRelations(array $ids, string $relatedModel, FederalDistrict $model): void
+    public  function updateRelations(array $data): void
     {
-        foreach ($ids as $id) {
-            $relModels[] = app()->$relatedModel::findOrFail($id);
+        $regions = [];
+
+        foreach (data_get($data, 'data.*.id') as $regionId) {
+            $regions[] = Region::findOrFail($regionId);
         }
 
-        $model->regions()->saveMany($relModels);
+        FederalDistrict::findOrFail(data_get($data,'federal_district_id'))->regions()->saveMany($regions);
     }
 
     /**
-     * @param $relation
-     * @param FederalDistrict $model
+     * @param int $id
      * @return void
      */
-    public function destroyRelatedModels($relation, FederalDistrict $model): void
+    public function destroyRelations(int $id): void
     {
-        $model->{$relation}()->delete();
+        foreach (FederalDistrict::findOrFail($id)->regions as $item) {
+            $item->delete();
+        }
     }
 }

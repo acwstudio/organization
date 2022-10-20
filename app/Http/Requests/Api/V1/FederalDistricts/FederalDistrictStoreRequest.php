@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\FederalDistricts;
 
 use App\Models\FederalDistrict;
+use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FederalDistrictStoreRequest extends FormRequest
@@ -34,11 +35,12 @@ class FederalDistrictStoreRequest extends FormRequest
             'data.attributes.active'      => ['required','boolean'],
             // relationships
             'data.relationships'                     => ['sometimes','required','array'],
+            // regions
             'data.relationships.regions'             => ['sometimes','required','array'],
             'data.relationships.regions.data'        => ['sometimes','required','array'],
             'data.relationships.regions.data.*'      => ['sometimes','required','array'],
-            'data.relationships.regions.data.*.type' => ['present','string','in:regions'],
-            'data.relationships.regions.data.*.id'   => ['present','integer', 'distinct', 'exists:regions,id'],
+            'data.relationships.regions.data.*.type' => ['sometimes','required','string','in:' . Region::TYPE_RESOURCE],
+            'data.relationships.regions.data.*.id'   => ['sometimes','required','integer', 'distinct', 'exists:regions,id'],
         ];
     }
 }

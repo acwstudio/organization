@@ -4,37 +4,44 @@ declare(strict_types=1);
 
 namespace App\Repositories\Api\Regions;
 
+use App\Models\City;
 use App\Models\Region;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class RegionCitiesRelationsRepository
 {
-    public function indexRelations(string $relation, int $id)
+    /**
+     * @param int $id
+     * @return HasMany
+     */
+    public function indexRelations(int $id): HasMany
     {
-        return Region::findOrFail($id)->{$relation}();
+        return Region::findOrFail($id)->cities();
     }
 
     /**
-     * @param array $ids
-     * @param string $relatedModel
-     * @param Region $model
+     * @param array $data
      * @return void
      */
-    public  function updateRelations(array $ids, string $relatedModel, Region $model): void
+    public  function updateRelations(array $data): void
     {
-        foreach ($ids as $id) {
-            $relModels[] = app()->$relatedModel::findOrFail($id);
+        $cities = [];
+
+        foreach (data_get($data, 'data.*.id') as $cityId) {
+            $cities[] = City::findOrFail($cityId);
         }
 
-        $model->regions()->saveMany($relModels);
+        Region::findOrFail(data_get($data,'region_id'))->cities()->saveMany($cities);
     }
 
-    public function destroyRelatedModels($relation, Region $model)
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function destroyRelatedModels(int $id): void
     {
-        foreach ($model->cities as $item) {
+        foreach (Region::findOrFail($id)->cities as $item) {
             $item->delete();
         }
-//        dd($model->{$relation});
-//        $model->cities->each->delete();
-//        $model->{$relation}()->delete();
     }
 }

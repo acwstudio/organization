@@ -28,8 +28,8 @@ class FederalDistrictRegionsRelatedController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $models = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate();
+        $regions = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate();
 
-        return (new RegionCollection($models))->response();
+        return (new RegionCollection($regions))->response();
     }
 }

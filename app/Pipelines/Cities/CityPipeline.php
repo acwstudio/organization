@@ -90,13 +90,13 @@ final class CityPipeline  extends AbstractPipeline
      * @return void
      * @throws \Throwable
      */
-    public function destroy(array $data): void
+    public function destroy(int $id): void
     {
         try {
             DB::beginTransaction();
 
             $this->pipeline
-                ->send($data)
+                ->send($id)
                 ->through([
                     CityOrganizationsDestroyRelatedPipe::class,
                     CityDestroyPipe::class

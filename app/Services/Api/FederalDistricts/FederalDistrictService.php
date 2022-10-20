@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Services\Api\FederalDistricts;
 
+use App\Exceptions\PipelineException;
 use App\Models\FederalDistrict;
 use App\Pipelines\FederalDistricts\FederalDistrictPipeline;
 use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;
+use App\Services\Api\AbstractCRUDService;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
-final class FederalDistrictService
+final class FederalDistrictService extends AbstractCRUDService
 {
     protected FederalDistrictRepository $federalDistrictRepository;
     protected FederalDistrictPipeline $federalDistrictPipeline;
@@ -20,8 +22,7 @@ final class FederalDistrictService
      * @param FederalDistrictPipeline $federalDistrictPipeline
      */
     public function __construct(
-        FederalDistrictRepository $federalDistrictRepository, FederalDistrictPipeline $federalDistrictPipeline
-    )
+        FederalDistrictRepository $federalDistrictRepository, FederalDistrictPipeline $federalDistrictPipeline)
     {
         $this->federalDistrictRepository = $federalDistrictRepository;
         $this->federalDistrictPipeline = $federalDistrictPipeline;
@@ -38,6 +39,7 @@ final class FederalDistrictService
     /**
      * @param array $data
      * @return Model|FederalDistrict
+     * @throws \Throwable
      */
     public function store(array $data): Model|FederalDistrict
     {
@@ -50,21 +52,18 @@ final class FederalDistrictService
      */
     public function show(int $id): QueryBuilder
     {
-        $item = FederalDistrict::findOrFail($id);
-
-        return $this->federalDistrictRepository->show($item);
+        return $this->federalDistrictRepository->show($id);
     }
 
     /**
      * @param array $data
      * @param int $id
      * @return void
+     * @throws \Throwable
      */
     public function update(array $data, int $id): void
     {
-        $model = FederalDistrict::findOrFail($id);
-
-        data_set($data, 'model', $model);
+        data_set($data, 'federal_district_id', $id);
 
         $this->federalDistrictPipeline->update($data);
     }
@@ -72,14 +71,11 @@ final class FederalDistrictService
     /**
      * @param int $id
      * @return void
-     * @throws \Exception
+     * @throws PipelineException
+     * @throws \Throwable
      */
     public function destroy(int $id): void
     {
-        $model = FederalDistrict::findOrFail($id);
-
-        data_set($data, 'model', $model);
-
-        $this->federalDistrictPipeline->destroy($data);
+        $this->federalDistrictPipeline->destroy($id);
     }
 }

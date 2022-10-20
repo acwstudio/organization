@@ -6,6 +6,7 @@ namespace App\Repositories\Api\Regions;
 
 use App\Models\Region;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class RegionRepository
@@ -17,7 +18,11 @@ final class RegionRepository
     {
         return QueryBuilder::for(Region::class)
             ->allowedIncludes(['cities','federalDistrict'])
-            ->allowedFilters(['name','id','federal_district_id'])
+            ->allowedFilters([
+                AllowedFilter::exact('name'),
+                AllowedFilter::exact('federal_district_id'),
+                AllowedFilter::exact('id')
+            ])
             ->allowedSorts(['name','federal_district_id']);
     }
 
@@ -25,17 +30,20 @@ final class RegionRepository
      * @param array $attributes
      * @return Model|Region
      */
-    public function store(array $attributes): Model | Region
+    public function store(array $attributes): Model|Region
     {
         return Region::create($attributes);
     }
 
     /**
-     * @param Region $region
+     * @param int $id
      * @return QueryBuilder
      */
-    public function show(Region $region): QueryBuilder
+    public function show(int $id): QueryBuilder
     {
+        // it is just only for ModelNotFoundException
+        $region = Region::findOrFail($id);
+
         return QueryBuilder::for(Region::class)
             ->where('id', $region->id)
             ->allowedIncludes(['cities','federalDistrict']);
@@ -43,22 +51,20 @@ final class RegionRepository
 
     /**
      * @param array $attributes
-     * @param Region $model
+     * @param int $id
      * @return void
      */
-    public function update(array $attributes, Region $model): void
+    public function update(array $attributes, int $id): void
     {
-        $model->update($attributes);
+        Region::findOrFail($id)->update($attributes);
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @return void
      */
-    public function destroy(array $data): void
+    public function destroy(int $id): void
     {
-        $model = data_get($data, 'model');
-
-        $model->delete();
+        Region::findOrFail($id)->delete();
     }
 }

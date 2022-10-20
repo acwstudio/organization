@@ -32,9 +32,9 @@ class FederalDistrictRegionsRelationshipsController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $models = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate();
+        $regions = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate();
 
-        return (RegionIdentifierResource::collection($models))->response();
+        return (RegionIdentifierResource::collection($regions))->response();
     }
 
     /**
@@ -44,7 +44,7 @@ class FederalDistrictRegionsRelationshipsController extends Controller
      */
     public function update(FederalDistrictRegionsUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        $this->federalDistrictRegionsRelationService->updateRelations($request->all(), Region::class, $id);
+        $this->federalDistrictRegionsRelationService->updateRelations($request->all(), $id);
 
         return response()->json(null, 204);
     }

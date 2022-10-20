@@ -5,22 +5,26 @@ declare(strict_types=1);
 namespace App\Pipelines\Regions\Pipes;
 
 use App\Repositories\Api\Regions\RegionRepository;
+use App\Repositories\Api\Regions\RegionsFederalDisrtictRelationsRepository;
 
 final class RegionsFederalDistrictUpdateRelationPipe
 {
-    protected RegionRepository $regionRepository;
+    protected RegionsFederalDisrtictRelationsRepository $regionsFederalDisrtictRelationsRepository;
 
     /**
-     * @param RegionRepository $regionRepository
+     * @param RegionsFederalDisrtictRelationsRepository $regionsFederalDisrtictRelationsRepository
      */
-    public function __construct(RegionRepository $regionRepository)
+    public function __construct(RegionsFederalDisrtictRelationsRepository $regionsFederalDisrtictRelationsRepository)
     {
-        $this->regionRepository = $regionRepository;
+        $this->regionsFederalDisrtictRelationsRepository = $regionsFederalDisrtictRelationsRepository;
     }
 
     public function handle(array $data, \Closure $next)
     {
-        // to do something
+        $relationshipsData = data_get($data, 'data.relationships.federalDistrict');
+        data_set($relationshipsData, 'region_id', data_get($data, 'region_id'));
+
+        $this->regionsFederalDisrtictRelationsRepository->updateRelations($relationshipsData);
 
         return $next($data);
     }

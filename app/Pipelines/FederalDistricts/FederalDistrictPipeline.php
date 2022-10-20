@@ -46,11 +46,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
             DB::rollBack();
             Log::error($e);
 
-            if ($e instanceof \PDOException){
-                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
-            } else {
-                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
-            }
+            throw ($e);
         }
     }
 
@@ -59,7 +55,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
      * @return bool
      * @throws \Throwable
      */
-    public function update(array $data): bool
+    public function update(array $data): void
     {
         try {
             DB::beginTransaction();
@@ -74,17 +70,11 @@ final class FederalDistrictPipeline extends AbstractPipeline
 
             DB::commit();
 
-            return true;
-
         } catch (\Exception | \Throwable $e) {
             DB::rollBack();
             Log::error($e);
 
-            if ($e instanceof \PDOException){
-                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
-            } else {
-                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
-            }
+            throw ($e);
         }
     }
 
@@ -94,13 +84,13 @@ final class FederalDistrictPipeline extends AbstractPipeline
      * @throws PipelineException
      * @throws \Throwable
      */
-    public function destroy(array $data): void
+    public function destroy(int $id): void
     {
         try {
             DB::beginTransaction();
 
             $this->pipeline
-                ->send($data)
+                ->send($id)
                 ->through([
                     FederalDistrictRegionsDestroyRelatedPipe::class,
                     FederalDistrictDestroyPipe::class
@@ -111,12 +101,9 @@ final class FederalDistrictPipeline extends AbstractPipeline
 
         } catch (\Throwable $e) {
             DB::rollBack();
+            Log::error($e);
 
-            if ($e instanceof \PDOException){
-                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
-            } else {
-                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
-            }
+            throw ($e);
         }
     }
 }

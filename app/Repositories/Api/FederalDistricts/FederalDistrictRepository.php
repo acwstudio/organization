@@ -6,6 +6,7 @@ namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class FederalDistrictRepository
@@ -17,7 +18,11 @@ final class FederalDistrictRepository
     {
         return QueryBuilder::for(FederalDistrict::class)
             ->allowedIncludes(['regions'])
-            ->allowedFilters(['name','id','slug'])
+            ->allowedFilters([
+                AllowedFilter::exact('name'),
+                AllowedFilter::exact('id'),
+                AllowedFilter::exact('slug')
+            ])
             ->allowedSorts(['name','id']);
     }
 
@@ -31,34 +36,35 @@ final class FederalDistrictRepository
     }
 
     /**
-     * @param FederalDistrict $model
+     * @param int $id
      * @return QueryBuilder
      */
-    public function show(FederalDistrict $federalDistrict): QueryBuilder
+    public function show(int $id): QueryBuilder
     {
+        // it is just only for ModelNotFoundException
+        $federalDistrict = FederalDistrict::findOrFail($id);
+
         return QueryBuilder::for(FederalDistrict::class)
-            ->where('id', $federalDistrict->id)
+            ->where('id', $$federalDistrict->id)
             ->allowedIncludes(['regions']);
     }
 
     /**
      * @param array $attributes
-     * @param FederalDistrict $model
+     * @param int $id
      * @return void
      */
-    public function update(array $attributes, FederalDistrict $model): void
+    public function update(array $attributes, int $id): void
     {
-        $model->update($attributes);
+        FederalDistrict::findOrFail($id)->update($attributes);
     }
 
     /**
-     * @param FederalDistrict $model
+     * @param int $id
      * @return void
      */
-    public function destroy(array $data): void
+    public function destroy(int $id): void
     {
-        $model = data_get($data, 'model');
-
-        $model->delete();
+        FederalDistrict::findOrFail($id)->delete();
     }
 }

@@ -36,13 +36,12 @@ class CityStoreRequest extends FormRequest
             'data.attributes.active'              => ['required','boolean'],
             // relationships
             'data.relationships'                           => ['sometimes','required','array'],
+            // organizations
             'data.relationships.organizations'             => ['sometimes','required','array'],
             'data.relationships.organizations.data'        => ['sometimes','required','array'],
             'data.relationships.organizations.data.*'      => ['sometimes','required','array'],
             'data.relationships.organizations.data.*.type' => ['present','string','in:' . Organization::TYPE_RESOURCE],
-            'data.relationships.organizations.data.*.id'   => [
-                'present','string', 'distinct', 'exists:' . Organization::TYPE_RESOURCE . ',id'
-            ],
+            'data.relationships.organizations.data.*.id'   => ['present','string', 'distinct', 'exists:organizations,id'],
         ];
     }
 }

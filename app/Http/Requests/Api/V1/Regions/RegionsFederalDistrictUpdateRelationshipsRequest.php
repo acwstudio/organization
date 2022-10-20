@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Cities;
+namespace App\Http\Requests\Api\V1\Regions;
 
+use App\Models\FederalDistrict;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CityOrganizationsRelationshipsUpdateRequest extends FormRequest
+class RegionsFederalDistrictUpdateRelationshipsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class CityOrganizationsRelationshipsUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +25,9 @@ class CityOrganizationsRelationshipsUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'data'        => 'present|array',
-            'data.*.id'   => 'required|string|exists:organizations,id',
-            'data.*.type' => 'required|string|in:organizations',
+            'data'      => ['required', 'array'],
+            'data.id'   => ['required','integer','exists:federal_districts,id'],
+            'data.type' => ['required','string','in:' . FederalDistrict::TYPE_RESOURCE],
         ];
     }
 }

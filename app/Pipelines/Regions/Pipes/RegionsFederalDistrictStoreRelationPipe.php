@@ -18,7 +18,12 @@ final class RegionsFederalDistrictStoreRelationPipe
         $this->regionRepository = $regionRepository;
     }
 
-    public function handle(array $data, \Closure $next)
+    /**
+     * @param array $data
+     * @param \Closure $next
+     * @return mixed
+     */
+    public function handle(array $data, \Closure $next): mixed
     {
         // to do something
 

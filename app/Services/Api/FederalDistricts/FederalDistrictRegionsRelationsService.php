@@ -26,7 +26,7 @@ final class FederalDistrictRegionsRelationsService
      */
     public function indexRelations(int $id): mixed
     {
-        return $this->federalDistrictRelationsRepository->indexRelations('regions', $id);
+        return $this->federalDistrictRelationsRepository->indexRelations($id);
     }
 
     /**
@@ -34,12 +34,10 @@ final class FederalDistrictRegionsRelationsService
      * @param int $id
      * @return void
      */
-    public function updateRelations(array $data, string $relatedModel, int $id): void
+    public function updateRelations(array $data, int $id): void
     {
-        $ids = data_get($data, 'data.*.id');
+        data_set($data, 'federal_district_id', $id);
 
-        $model = FederalDistrict::findOrFail($id);
-
-        $this->federalDistrictRelationsRepository->updateRelations($ids, $relatedModel, $model);
+        $this->federalDistrictRelationsRepository->updateRelations($data);
     }
 }

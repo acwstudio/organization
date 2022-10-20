@@ -45,7 +45,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('faculties/{id}/relationships/organization',[
                 FacultiesOrganizationRelationshipsController::class,'update'
-            ])->name('faculties.relationships.organization');
+            ])->name('faculties.relationships.organization.update');
 
             $registrar->get('faculties/{id}/organization',[
                 FacultiesOrganizationRelatedController::class,'index'
@@ -61,7 +61,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('organizations/{id}/relationships/organization-type', [
                 OrganizationsOrganizationTypeRelationshipsController::class, 'update'
-            ])->name('organizations.relationships.organization-type');
+            ])->name('organizations.relationships.organization-type.update');
 
             $registrar->get('organizations/{id}/organization-type', [
                 OrganizationsOrganizationTypeRelatedController::class, 'index'
@@ -74,7 +74,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('organizations/{id}/relationships/city',[
                 OrganizationsCityRelationshipsController::class,'update'
-            ])->name('organizations.relationships.city');
+            ])->name('organizations.relationships.city.update');
 
             $registrar->get('organizations/{id}/city',[
                 OrganizationsCityRelatedController::class,'index'
@@ -87,7 +87,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('organizations/{id}/relationships/faculties',[
                 OrganizationFacultiesRelationshipsController::class,'update'
-            ])->name('organizations.relationships.faculties');
+            ])->name('organizations.relationships.faculties.update');
 
             $registrar->get('organizations/{id}/faculties',[
                 OrganizationFacultiesRelatedController::class,'index'
@@ -100,7 +100,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('organizations/{id}/relationships/children', [
                 OrganizationChildrenRelationshipsController::class,'update'
-            ])->name('organization.relationships.children');
+            ])->name('organization.relationships.children.update');
 
             $registrar->get('organizations/{id}/children', [
                 OrganizationChildrenRelatedController::class,'index'
@@ -113,7 +113,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('organizations/{id}/relationships/parent', [
                 OrganizationsParentRelationshipsController::class,'update'
-            ])->name('organizations.relationships.parent');
+            ])->name('organizations.relationships.parent.update');
 
             $registrar->get('organizations/{id}/parent', [
                 OrganizationsParentRelatedController::class,'index'
@@ -129,7 +129,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('organization-types/{id}/relationships/organizations',[
                 OrganizationTypeOrganizationsRelationshipsController::class,'update'
-            ])->name('organization-type.relationships.organizations');
+            ])->name('organization-type.relationships.organizations.update');
 
             $registrar->get('organization-types/{id}/organizations',[
                 OrganizationTypeOrganizationsRelatedController::class,'index'
@@ -142,7 +142,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('organization-types/{id}/relationships/children',[
                 OrganizationTypeChildrenRelationshipsController::class,'update'
-            ])->name('organization-type.relationships.children');
+            ])->name('organization-type.relationships.children.update');
 
             $registrar->get('organization-types/{id}/children',[
                 OrganizationTypeChildrenRelatedController::class,'index'
@@ -155,7 +155,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             $registrar->patch('organization-types/{id}/relationships/parent',[
                 OrganizationTypesParentRelationshipsController::class,'update'
-            ])->name('organization-types.relationships.parent');
+            ])->name('organization-types.relationships.parent.update');
 
             $registrar->get('organization-types/{id}/parent',[
                 OrganizationTypesParentRelatedController::class, 'index'

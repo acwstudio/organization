@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Cities;
 
+use App\Exceptions\PipelineException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Cities\CityStoreRequest;
 use App\Http\Requests\Api\V1\Cities\CityUpdateRequest;
@@ -10,7 +11,6 @@ use App\Http\Resources\Api\Cities\CityResource;
 use App\Services\Api\Cities\CityService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class CityController extends Controller
 {
@@ -47,15 +47,16 @@ class CityController extends Controller
      *
      * @param CityStoreRequest $request
      * @return JsonResponse
+     * @throws PipelineException
      */
-    public function store(CityStoreRequest $request)
+    public function store(CityStoreRequest $request): JsonResponse
     {
-        $model = $this->cityService->store($request->all());
+        $city = $this->cityService->store($request->all());
 
-        return (new CityResource($model))
+        return (new CityResource($city))
             ->response()
             ->header('Location', route('cities.show', [
-                'id' => $model->id
+                'id' => $city->id
             ]));
     }
 

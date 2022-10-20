@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\FederalDistricts;
 
+use App\Exceptions\PipelineException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictStoreRequest;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictUpdateRequest;
@@ -44,17 +45,18 @@ class FederalDistrictController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param FederalDistrictStoreRequest $request
      * @return JsonResponse
+     * @throws \Throwable
      */
-    public function store(FederalDistrictStoreRequest $request)
+    public function store(FederalDistrictStoreRequest $request): JsonResponse
     {
-        $model = $this->federalDistrictService->store($request->all());
+        $federalDistrict = $this->federalDistrictService->store($request->all());
 
-        return (new FederalDistrictResource($model))
+        return (new FederalDistrictResource($federalDistrict))
             ->response()
             ->header('Location', route('federal-districts.show', [
-                'id' => $model->id
+                'id' => $federalDistrict->id
             ]));
     }
 
@@ -77,8 +79,9 @@ class FederalDistrictController extends Controller
      * @param FederalDistrictUpdateRequest $request
      * @param int $id
      * @return JsonResponse
+     * @throws \Throwable
      */
-    public function update(FederalDistrictUpdateRequest $request, $id): JsonResponse
+    public function update(FederalDistrictUpdateRequest $request, int $id): JsonResponse
     {
         $this->federalDistrictService->update($request->all(), $id);
 
@@ -88,8 +91,10 @@ class FederalDistrictController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
+     * @throws PipelineException
+     * @throws \Throwable
      */
     public function destroy(int $id): JsonResponse
     {

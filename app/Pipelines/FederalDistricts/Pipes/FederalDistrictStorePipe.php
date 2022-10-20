@@ -27,9 +27,9 @@ final class FederalDistrictStorePipe
     {
         $attributes = data_get($data, 'data.attributes');
 
-        $model = $this->federalDistrictRepository->store($attributes);
+        $federalDistricts = $this->federalDistrictRepository->store($attributes);
 
-        $data = data_set($data, 'model', $model);
+        $data = data_set($data, 'model', $federalDistricts);
 
         return $next($data);
     }

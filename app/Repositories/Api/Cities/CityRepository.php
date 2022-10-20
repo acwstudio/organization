@@ -6,6 +6,7 @@ namespace App\Repositories\Api\Cities;
 
 use App\Models\City;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class CityRepository
@@ -17,7 +18,11 @@ final class CityRepository
     {
         return QueryBuilder::for(City::class)
             ->allowedIncludes(['organizations','region'])
-            ->allowedFilters(['name','id'])
+            ->allowedFilters([
+                AllowedFilter::exact('name'),
+                AllowedFilter::exact('id'),
+                AllowedFilter::exact('region_id'),
+            ])
             ->allowedSorts(['name']);
     }
 
@@ -34,10 +39,10 @@ final class CityRepository
      * @param int $id
      * @return QueryBuilder
      */
-    public function show(City $city): QueryBuilder
+    public function show(int $id): QueryBuilder
     {
         return QueryBuilder::for(City::class)
-            ->where('id', $city->id)
+            ->where('id', $id)
             ->allowedIncludes(['organizations','region']);
     }
 

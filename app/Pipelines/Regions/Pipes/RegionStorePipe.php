@@ -27,9 +27,9 @@ final class RegionStorePipe
     {
         $attributes = data_get($data, 'data.attributes');
 
-        $model = $this->regionRepository->store($attributes);
+        $region = $this->regionRepository->store($attributes);
 
-        $data = data_set($data, 'model', $model);
+        $data = data_set($data, 'model', $region);
 
         return $next($data);
     }

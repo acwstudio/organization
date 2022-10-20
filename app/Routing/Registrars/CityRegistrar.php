@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\Regions\RegionsFederalDistrictRelationshipsControll
 use App\Routing\Contracts\RouteRegistrar;
 use Illuminate\Contracts\Routing\Registrar;
 
-final class CityRegistar implements RouteRegistrar
+final class CityRegistrar implements RouteRegistrar
 {
 
     public function map(Registrar $registrar): void
@@ -42,7 +42,7 @@ final class CityRegistar implements RouteRegistrar
 
             $registrar->patch('cities/{id}/relationships/organizations',[
                 CityOrganizationsRelationshipsController::class, 'update'
-            ])->name('city.relationships.organizations');
+            ])->name('city.relationships.organizations.update');
 
             $registrar->get('cities/{id}/organizations',[
                 CityOrganizationsRelatedController::class, 'index'
@@ -55,7 +55,7 @@ final class CityRegistar implements RouteRegistrar
 
             $registrar->patch('cities/{id}/relationships/region', [
                 CitiesRegionRelationshipsController::class, 'update'
-            ])->name('cities.relationships.region');
+            ])->name('cities.relationships.region.update');
 
             $registrar->get('cities/{id}/region', [
                 CitiesRegionRelatedController::class, 'index'
@@ -74,8 +74,8 @@ final class CityRegistar implements RouteRegistrar
             ])->name('region.relationships.cities');
 
             $registrar->patch('regions/{id}/relationships/cities',[
-                RegionCitiesRelationshipsController::class, 'patch'
-            ])->name('region.relationships.cities');
+                RegionCitiesRelationshipsController::class, 'update'
+            ])->name('region.relationships.cities.update');
 
             $registrar->get('regions/{id}/cities',[
                 RegionCitiesRelatedController::class, 'index'
@@ -87,8 +87,8 @@ final class CityRegistar implements RouteRegistrar
             ])->name('regions.relationships.federal-district');
 
             $registrar->patch('regions/{id}/relationships/federal-district',[
-                RegionsFederalDistrictRelationshipsController::class, 'patch'
-            ])->name('regions.relationships.federal-district');
+                RegionsFederalDistrictRelationshipsController::class, 'update'
+            ])->name('regions.relationships.federal-district.update');
 
             $registrar->get('regions/{id}/federal-district',[
                 RegionsFederalDistrictRelatedController::class, 'index'
@@ -113,7 +113,7 @@ final class CityRegistar implements RouteRegistrar
 
             $registrar->patch('federal-districts/{id}/relationships/regions',[
                 FederalDistrictRegionsRelationshipsController::class, 'update'
-            ])->name('federal-district.relationships.regions');
+            ])->name('federal-district.relationships.regions.update');
 
             $registrar->get('federal-districts/{id}/regions',[
                 FederalDistrictRegionsRelatedController::class, 'index'

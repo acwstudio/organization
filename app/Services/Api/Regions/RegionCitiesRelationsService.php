@@ -4,18 +4,40 @@ declare(strict_types=1);
 
 namespace App\Services\Api\Regions;
 
+use App\Models\Region;
 use App\Repositories\Api\Regions\RegionCitiesRelationsRepository;
-use App\Repositories\Api\Regions\RegionsFederalDisrtictRelationsRepository;
 
 final class RegionCitiesRelationsService
 {
-    protected RegionCitiesRelationsRepository $regionsCitiesRelationsRepository;
+    protected RegionCitiesRelationsRepository $regionCitiesRelationsRepository;
 
     /**
-     * @param RegionCitiesRelationsRepository $regionsFederalDisrtictRelationsRepositor
+     * @param RegionCitiesRelationsRepository $regionCitiesRelationsRepository
      */
-    public function __construct(RegionCitiesRelationsRepository $regionsCitiesRelationsRepository)
+    public function __construct(RegionCitiesRelationsRepository $regionCitiesRelationsRepository)
     {
-        $this->regionsCitiesRelationsRepository = $regionsCitiesRelationsRepository;
+        $this->regionCitiesRelationsRepository = $regionCitiesRelationsRepository;
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function indexRelations(int $id): mixed
+    {
+        return $this->regionCitiesRelationsRepository->indexRelations($id);
+    }
+
+    /**
+     * @param array $data
+     * @param string $relatedModel
+     * @param int $id
+     * @return void
+     */
+    public function updateRelations(array $data, int $id): void
+    {
+        data_set($data, 'region_id', $id);
+
+        $this->regionCitiesRelationsRepository->updateRelations($data);
     }
 }
