@@ -41,8 +41,11 @@ final class FederalDistrictRepository
      */
     public function show(int $id): QueryBuilder
     {
+        // it is just only for ModelNotFoundException
+        $federalDistrict = FederalDistrict::findOrFail($id);
+
         return QueryBuilder::for(FederalDistrict::class)
-            ->where('id', $id)
+            ->where('id', $$federalDistrict->id)
             ->allowedIncludes(['regions']);
     }
 
@@ -57,13 +60,11 @@ final class FederalDistrictRepository
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @return void
      */
-    public function destroy(array $data): void
+    public function destroy(int $id): void
     {
-        $model = data_get($data, 'model');
-
-        $model->delete();
+        FederalDistrict::findOrFail($id)->delete();
     }
 }

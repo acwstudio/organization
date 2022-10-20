@@ -30,7 +30,7 @@ final class RegionRepository
      * @param array $attributes
      * @return Model|Region
      */
-    public function store(array $attributes): Model | Region
+    public function store(array $attributes): Model|Region
     {
         return Region::create($attributes);
     }

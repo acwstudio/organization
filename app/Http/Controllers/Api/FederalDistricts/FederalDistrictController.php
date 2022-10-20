@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\FederalDistricts;
 
+use App\Exceptions\PipelineException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictStoreRequest;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictUpdateRequest;
@@ -46,6 +47,7 @@ class FederalDistrictController extends Controller
      *
      * @param FederalDistrictStoreRequest $request
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function store(FederalDistrictStoreRequest $request): JsonResponse
     {
@@ -77,8 +79,9 @@ class FederalDistrictController extends Controller
      * @param FederalDistrictUpdateRequest $request
      * @param int $id
      * @return JsonResponse
+     * @throws \Throwable
      */
-    public function update(FederalDistrictUpdateRequest $request, $id): JsonResponse
+    public function update(FederalDistrictUpdateRequest $request, int $id): JsonResponse
     {
         $this->federalDistrictService->update($request->all(), $id);
 
@@ -90,7 +93,8 @@ class FederalDistrictController extends Controller
      *
      * @param int $id
      * @return JsonResponse
-     * @throws \Exception
+     * @throws PipelineException
+     * @throws \Throwable
      */
     public function destroy(int $id): JsonResponse
     {

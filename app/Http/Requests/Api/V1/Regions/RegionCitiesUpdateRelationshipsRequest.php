@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\V1\Regions;
 
+use App\Models\City;
 use App\Models\Organization;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,7 +29,7 @@ class RegionCitiesUpdateRelationshipsRequest extends FormRequest
             'data'        => ['present','array'],
             'data.*'      => ['required','array'],
             'data.*.id'   => ['required','integer','distinct','exists:cities,id'],
-            'data.*.type' => ['required','string','in:cities'],
+            'data.*.type' => ['required','string','in:' . City::TYPE_RESOURCE],
         ];
     }
 }

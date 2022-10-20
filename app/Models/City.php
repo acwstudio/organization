@@ -16,7 +16,7 @@ class City extends Model
 
     public const TYPE_RESOURCE = 'cities';
 
-    protected $restrictDeletes = ['organizations'];
+    protected array $restrictDeletes = ['organizations'];
 
     protected $fillable = ['region_id','name','description','slug','active'];
 

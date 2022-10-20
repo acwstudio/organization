@@ -29,9 +29,4 @@ final class RegionsFederalDisrtictRelationsRepository
             'federal_district_id' => data_get($data, 'data.id')
         ]);
     }
-
-    public function destroyRelations(int $id)
-    {
-
-    }
 }

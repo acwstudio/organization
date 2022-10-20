@@ -36,8 +36,8 @@ final class RegionCitiesRelationsService
      */
     public function updateRelations(array $data, int $id): void
     {
-        $ids = data_get($data, 'data.*.id');
+        data_set($data, 'region_id', $id);
 
-        $this->regionCitiesRelationsRepository->updateRelations($ids, $id);
+        $this->regionCitiesRelationsRepository->updateRelations($data);
     }
 }

@@ -32,13 +32,14 @@ class RegionUpdateRequest extends FormRequest
             'data.type'                           => ['required','string','in:' . Region::TYPE_RESOURCE],
             // attributes
             'data.attributes'                     => ['present','array'],
-            'data.attributes.federal_district_id' => ['sometimes','integer'],
+            'data.attributes.federal_district_id' => ['sometimes','integer','exists:federal_districts,id'],
             'data.attributes.name'                => ['sometimes','string'],
             'data.attributes.description'         => ['sometimes','string'],
             'data.attributes.slug'                => ['prohibited'],
             'data.attributes.active'              => ['sometimes','boolean'],
             // relationships
             'data.relationships'                    => ['sometimes','required','array'],
+            // cities
             'data.relationships.cities'             => ['sometimes','required','array'],
             'data.relationships.cities.data'        => ['sometimes','required','array'],
             'data.relationships.cities.data.*'      => ['sometimes','required','array'],

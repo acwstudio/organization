@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\V1\Regions;
 
+use App\Models\FederalDistrict;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegionsFederalDistrictUpdateRelationshipsRequest extends FormRequest
@@ -26,7 +27,7 @@ class RegionsFederalDistrictUpdateRelationshipsRequest extends FormRequest
         return [
             'data'      => ['required', 'array'],
             'data.id'   => ['required','integer','exists:federal_districts,id'],
-            'data.type' => ['required','string','in:federalDistricts'],
+            'data.type' => ['required','string','in:' . FederalDistrict::TYPE_RESOURCE],
         ];
     }
 }

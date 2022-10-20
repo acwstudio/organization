@@ -79,8 +79,9 @@ class RegionController extends Controller
      * @param RegionUpdateRequest $request
      * @param int $id
      * @return JsonResponse
+     * @throws \Throwable
      */
-    public function update(RegionUpdateRequest $request, $id): JsonResponse
+    public function update(RegionUpdateRequest $request, int $id): JsonResponse
     {
         $this->regionService->update($request->all(), $id);
 

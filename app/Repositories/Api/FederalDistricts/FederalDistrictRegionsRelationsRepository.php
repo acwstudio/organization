@@ -23,15 +23,15 @@ final class FederalDistrictRegionsRelationsRepository
      * @param int $id
      * @return void
      */
-    public  function updateRelations(array $ids, int $id): void
+    public  function updateRelations(array $data): void
     {
-        $relModels = [];
+        $regions = [];
 
-        foreach ($ids as $itemId) {
-            $relModels[] = Region::findOrFail($itemId);
+        foreach (data_get($data, 'data.*.id') as $regionId) {
+            $regions[] = Region::findOrFail($regionId);
         }
 
-        FederalDistrict::findOrFail($id)->regions()->saveMany($relModels);
+        FederalDistrict::findOrFail(data_get($data,'federal_district_id'))->regions()->saveMany($regions);
     }
 
     /**
@@ -40,6 +40,8 @@ final class FederalDistrictRegionsRelationsRepository
      */
     public function destroyRelations(int $id): void
     {
-        FederalDistrict::findOrFail($id)->regions()->delete();
+        foreach (FederalDistrict::findOrFail($id)->regions as $item) {
+            $item->delete();
+        }
     }
 }

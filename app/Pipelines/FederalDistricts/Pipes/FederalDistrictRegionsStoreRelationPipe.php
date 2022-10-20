@@ -20,7 +20,11 @@ final class FederalDistrictRegionsStoreRelationPipe
 
     public function handle(array $data, \Closure $next): mixed
     {
-        // Probably something to do in the future
+        $relationshipsData = data_get($data, 'data.relationships.regions');
+
+        data_set($relationshipsData, 'region_id', data_get($data, 'model')->id);
+
+//        $this->regionCitiesRelationsRepository->anyFineMethod($relationshipsData);
 
         return $next($data);
     }

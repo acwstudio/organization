@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\FederalDistricts;
 
 use App\Models\FederalDistrict;
+use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FederalDistrictUpdateRequest extends FormRequest
@@ -27,18 +28,20 @@ class FederalDistrictUpdateRequest extends FormRequest
         return [
             'data'                        => ['required','array'],
             'data.type'                   => ['required','string','in:' . FederalDistrict::TYPE_RESOURCE],
-            'data.attributes'             => ['required','array'],
+            // attributes
+            'data.attributes'             => ['present','array'],
             'data.attributes.name'        => ['sometimes','string'],
             'data.attributes.description' => ['sometimes','string'],
             'data.attributes.slug'        => ['prohibited'],
             'data.attributes.active'      => ['sometimes','boolean'],
             // relationships
             'data.relationships'                     => ['sometimes','required','array'],
+            // regions
             'data.relationships.regions'             => ['sometimes','required','array'],
             'data.relationships.regions.data'        => ['sometimes','required','array'],
             'data.relationships.regions.data.*'      => ['sometimes','required','array'],
-            'data.relationships.regions.data.*.type' => ['present','string','in:regions'],
-            'data.relationships.regions.data.*.id'   => ['present','integer', 'distinct', 'exists:regions,id'],
+            'data.relationships.regions.data.*.type' => ['sometimes','required','string','in:' . Region::TYPE_RESOURCE],
+            'data.relationships.regions.data.*.id'   => ['sometimes','required','integer','distinct', 'exists:regions,id'],
         ];
     }
 }

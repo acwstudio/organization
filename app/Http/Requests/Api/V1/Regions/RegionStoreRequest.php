@@ -30,7 +30,7 @@ class RegionStoreRequest extends FormRequest
             'data'                                => ['required','array'],
             'data.type'                           => ['required','string','in:' . Region::TYPE_RESOURCE],
             'data.attributes'                     => ['required','array'],
-            'data.attributes.federal_district_id' => ['required','integer'],
+            'data.attributes.federal_district_id' => ['required','integer','exists:federal_districts,id'],
             'data.attributes.name'                => ['required','string'],
             'data.attributes.description'         => ['required','string'],
             'data.attributes.slug'                => ['prohibited'],

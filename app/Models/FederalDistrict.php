@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RestrictSoftDeletesTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FederalDistrict extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, SoftDeletes, RestrictSoftDeletesTrait;
 
     public const TYPE_RESOURCE = 'federalDistricts';
+
+    protected array $restrictDeletes = ['regions'];
 
     protected $fillable = [
         'name', 'description', 'slug', 'active'

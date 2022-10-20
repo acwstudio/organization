@@ -36,8 +36,8 @@ final class FederalDistrictRegionsRelationsService
      */
     public function updateRelations(array $data, int $id): void
     {
-        $ids = data_get($data, 'data.*.id');
+        data_set($data, 'federal_district_id', $id);
 
-        $this->federalDistrictRelationsRepository->updateRelations($ids, $id);
+        $this->federalDistrictRelationsRepository->updateRelations($data);
     }
 }

@@ -22,20 +22,20 @@ class FederalDistrictResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'type' => FederalDistrict::TYPE_RESOURCE,
+            'id'         => $this->id,
+            'type'       => FederalDistrict::TYPE_RESOURCE,
             'attributes' => [
-                'name' => $this->name,
+                'name'        => $this->name,
                 'description' => $this->description,
-                'slug' => $this->slug,
-                'active' => $this->active,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
+                'slug'        => $this->slug,
+                'active'      => $this->active,
+                'created_at'  => $this->created_at,
+                'updated_at'  => $this->updated_at,
             ],
             'relationships' => [
                 'regions' => [
                     'links' => [
-                        'self' => route('federal-district.relationships.regions', ['id' => $this->id]),
+                        'self'    => route('federal-district.relationships.regions', ['id' => $this->id]),
                         'related' => route('federal-district.regions', ['id' => $this->id]),
                     ],
                     'data' => RegionIdentifierResource::collection($this->whenLoaded('regions'))

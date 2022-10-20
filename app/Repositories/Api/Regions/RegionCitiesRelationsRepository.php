@@ -27,11 +27,11 @@ final class RegionCitiesRelationsRepository
     {
         $cities = [];
 
-        foreach (data_get($data,'data.relationships.cities.data.*.id') as $cityId) {
+        foreach (data_get($data, 'data.*.id') as $cityId) {
             $cities[] = City::findOrFail($cityId);
         }
 
-        Region::findOrFail(data_get($data,'id'))->cities()->saveMany($cities);
+        Region::findOrFail(data_get($data,'region_id'))->cities()->saveMany($cities);
     }
 
     /**
