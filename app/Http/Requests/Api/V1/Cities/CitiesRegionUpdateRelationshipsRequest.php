@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Api\V1\Cities;
 
+use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CityOrganizationsUpdateRelationshipsRequest extends FormRequest
+class CitiesRegionUpdateRelationshipsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +25,9 @@ class CityOrganizationsUpdateRelationshipsRequest extends FormRequest
     public function rules()
     {
         return [
-            'data'        => 'present|array',
-            'data.*.id'   => 'required|string|exists:organizations,id',
-            'data.*.type' => 'required|string|in:organizations',
+            'data'      => ['required', 'array'],
+            'data.id'   => ['required','integer','exists:regions,id'],
+            'data.type' => ['required','string','in:' . Region::TYPE_RESOURCE],
         ];
     }
 }

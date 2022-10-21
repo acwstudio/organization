@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Services\Api\Regions;
 
 use App\Models\FederalDistrict;
-use App\Repositories\Api\Regions\RegionsFederalDisrtictRelationsRepository;
+use App\Repositories\Api\Regions\RegionsFederalDistrictRelationsRepository;
 use Illuminate\Database\Eloquent\Model;
 
 final class RegionsFederalDistrictRelationsService
 {
-    protected RegionsFederalDisrtictRelationsRepository $regionsFederalDisrtictRelationsRepository;
+    protected RegionsFederalDistrictRelationsRepository $regionsFederalDisrtictRelationsRepository;
 
     /**
-     * @param RegionsFederalDisrtictRelationsRepository $regionsFederalDisrtictRelationsRepository
+     * @param RegionsFederalDistrictRelationsRepository $regionsFederalDisrtictRelationsRepository
      */
-    public function __construct(RegionsFederalDisrtictRelationsRepository $regionsFederalDisrtictRelationsRepository)
+    public function __construct(RegionsFederalDistrictRelationsRepository $regionsFederalDisrtictRelationsRepository)
     {
         $this->regionsFederalDisrtictRelationsRepository = $regionsFederalDisrtictRelationsRepository;
     }

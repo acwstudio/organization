@@ -26,9 +26,9 @@ class RegionCitiesRelationshipsController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $models = $this->regionCitiesRelationsService->indexRelations($id)->paginate();
+        $cities = $this->regionCitiesRelationsService->indexRelations($id)->paginate();
 
-        return (CityIdentifierResource::collection($models))->response();
+        return (CityIdentifierResource::collection($cities))->response();
     }
 
     /**

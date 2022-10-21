@@ -48,22 +48,20 @@ final class CityRepository
 
     /**
      * @param array $attributes
-     * @param City $model
+     * @param int $id
      * @return void
      */
-    public function update(array $attributes, City $model): void
+    public function update(array $attributes, int $id): void
     {
-        $model->update($attributes);
+        City::findOrFail($id)->update($attributes);
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @return void
      */
-    public function destroy(array $data): void
+    public function destroy(int $id): void
     {
-        $model = data_get($data, 'model');
-
-        $model->delete();
+        City::findOrFail($id)->delete();
     }
 }

@@ -30,7 +30,6 @@ final class RegionCitiesRelationsService
 
     /**
      * @param array $data
-     * @param string $relatedModel
      * @param int $id
      * @return void
      */

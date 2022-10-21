@@ -8,10 +8,11 @@ use App\Exceptions\PipelineException;
 use App\Models\City;
 use App\Pipelines\Cities\CityPipeline;
 use App\Repositories\Api\Cities\CityRepository;
+use App\Services\Api\AbstractCRUDService;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
 
-final class CityService
+final class CityService extends AbstractCRUDService
 {
     /**
      * @var CityRepository
@@ -39,9 +40,9 @@ final class CityService
     /**
      * @param array $data
      * @return Model|City
-     * @throws PipelineException
+     * @throws \Throwable
      */
-    public function store(array $data): Model | City
+    public function store(array $data): Model|City
     {
         return $this->cityPipeline->store($data);
     }
@@ -63,9 +64,7 @@ final class CityService
      */
     public function update(array $data, int $id): void
     {
-        $model = City::findOrFail($id);
-
-        data_set($data, 'model', $model);
+        data_set($data, 'city_id', $id);
 
         $this->cityPipeline->update($data);
     }
@@ -77,10 +76,6 @@ final class CityService
      */
     public function destroy(int $id): void
     {
-        $model = City::findOrFail($id);
-
-        data_set($data, 'model', $model);
-
-        $this->cityPipeline->destroy($data);
+        $this->cityPipeline->destroy($id);
     }
 }

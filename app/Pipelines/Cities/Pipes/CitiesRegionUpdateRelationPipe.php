@@ -4,23 +4,27 @@ declare(strict_types=1);
 
 namespace App\Pipelines\Cities\Pipes;
 
-use App\Repositories\Api\Cities\CityOrganizationsRelaionsRepository;
+use App\Repositories\Api\Cities\CitiesRegionRelationsRepository;
+use App\Repositories\Api\Cities\CityOrganizationsRelationsRepository;
 
 final class CitiesRegionUpdateRelationPipe
 {
-    protected CityOrganizationsRelaionsRepository $cityOrganizationsRelaionsRepository;
+    protected CitiesRegionRelationsRepository $citiesRegionRelationsRepository;
 
     /**
-     * @param CityOrganizationsRelaionsRepository $cityOrganizationsRelaionsRepository
+     * @param CitiesRegionRelationsRepository $citiesRegionRelationsRepository
      */
-    public function __construct(CityOrganizationsRelaionsRepository $cityOrganizationsRelaionsRepository)
+    public function __construct(CitiesRegionRelationsRepository $citiesRegionRelationsRepository)
     {
-        $this->cityOrganizationsRelaionsRepository = $cityOrganizationsRelaionsRepository;
+        $this->citiesRegionRelationsRepository = $citiesRegionRelationsRepository;
     }
 
     public function handle(array $data, \Closure $next)
     {
-        // to do something
+        $relationshipsData = data_get($data, 'data.relationships.region');
+        data_set($relationshipsData, 'city_id', data_get($data, 'city_id'));
+
+        $this->citiesRegionRelationsRepository->updateRelations($relationshipsData);
 
         return $next($data);
     }

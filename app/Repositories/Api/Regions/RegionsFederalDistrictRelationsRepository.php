@@ -8,13 +8,13 @@ use App\Models\FederalDistrict;
 use App\Models\Region;
 use Illuminate\Database\Eloquent\Model;
 
-final class RegionsFederalDisrtictRelationsRepository
+final class RegionsFederalDistrictRelationsRepository
 {
     /**
      * @param int $id
      * @return Model|FederalDistrict
      */
-    public function indexRelations(int $id): Model | FederalDistrict
+    public function indexRelations(int $id): Model|FederalDistrict
     {
         return Region::findOrFail($id)->federalDistrict;
     }
