@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Pipelines\Cities\Pipes;
 
-use App\Repositories\Api\Cities\CityOrganizationsRelaionsRepository;
+use App\Repositories\Api\Cities\CityOrganizationsRelationsRepository;
 
 final class CityOrganizationsDestroyRelatedPipe
 {
-    protected CityOrganizationsRelaionsRepository $cityOrganizationsRelaionsRepository;
+    protected CityOrganizationsRelationsRepository $cityOrganizationsRelaionsRepository;
 
     /**
-     * @param CityOrganizationsRelaionsRepository $cityOrganizationsRelaionsRepository
+     * @param CityOrganizationsRelationsRepository $cityOrganizationsRelaionsRepository
      */
-    public function __construct(CityOrganizationsRelaionsRepository $cityOrganizationsRelaionsRepository)
+    public function __construct(CityOrganizationsRelationsRepository $cityOrganizationsRelaionsRepository)
     {
         $this->cityOrganizationsRelaionsRepository = $cityOrganizationsRelaionsRepository;
     }

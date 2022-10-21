@@ -27,9 +27,9 @@ final class CityUpdatePipe
     {
         $attributes = data_get($data, 'data.attributes');
 
-        $model = data_get($data, 'model');
-
-        $this->cityRepository->update($attributes, $model);
+        if ($attributes) {
+            $this->cityRepository->update($attributes, data_get($data,'city_id'));
+        }
 
         return $next($data);
     }

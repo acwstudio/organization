@@ -69,7 +69,7 @@ final class RegionService extends AbstractCRUDService
     /**
      * @param int $id
      * @return void
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function destroy(int $id): void
     {

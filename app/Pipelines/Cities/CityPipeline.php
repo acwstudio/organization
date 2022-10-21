@@ -42,20 +42,17 @@ final class CityPipeline  extends AbstractPipeline
             DB::rollBack();
             Log::error($e);
 
-            if ($e instanceof \PDOException){
-                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
-            } else {
-                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
-            }
+            throw ($e);
         }
     }
 
     /**
      * @param array $data
-     * @return bool
+     * @return void
+     * @throws PipelineException
      * @throws \Throwable
      */
-    public function update(array $data): bool
+    public function update(array $data): void
     {
         try {
             DB::beginTransaction();
@@ -71,23 +68,18 @@ final class CityPipeline  extends AbstractPipeline
 
             \DB::commit();
 
-            return true;
-
         } catch (\Exception | \Throwable $e) {
             \DB::rollBack();
             \Log::error($e);
 
-            if ($e instanceof \PDOException){
-                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
-            } else {
-                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
-            }
+            throw ($e);
         }
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @return void
+     * @throws PipelineException
      * @throws \Throwable
      */
     public function destroy(int $id): void
@@ -109,11 +101,7 @@ final class CityPipeline  extends AbstractPipeline
             \DB::rollBack();
             \Log::error($e);
 
-            if ($e instanceof \PDOException){
-                throw new PipelineException($e->getMessage(), (int)$e->getCode(), $e);
-            } else {
-                throw new \Exception($e->getMessage(), (int)$e->getCode(), $e);
-            }
+            throw ($e);
         }
     }
 }
