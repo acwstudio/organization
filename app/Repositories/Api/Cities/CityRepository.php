@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Repositories\Api\Cities;
 
 use App\Models\City;
+use App\Repositories\Api\AbstractCRUDRepository;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-final class CityRepository
+final class CityRepository extends AbstractCRUDRepository
 {
     /**
      * @return QueryBuilder

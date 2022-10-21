@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Repositories\Api\Regions;
 
 use App\Models\Region;
+use App\Repositories\Api\AbstractCRUDRepository;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-final class RegionRepository
+final class RegionRepository extends AbstractCRUDRepository
 {
     /**
      * @return QueryBuilder
