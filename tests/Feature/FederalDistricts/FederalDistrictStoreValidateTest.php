@@ -544,12 +544,5 @@ class FederalDistrictStoreValidateTest extends TestCase
                     ]
                 ]
             ]);
-
-        $this->assertDatabaseMissing('federal_districts', [
-            'name'        => 'Северо-западный федеральный округ',
-            'description' => 'Description shortly',
-            'slug'        => 'severo-zapadnyy-federalnyy-okrug',
-            'active'      => true
-        ]);
     }
 }

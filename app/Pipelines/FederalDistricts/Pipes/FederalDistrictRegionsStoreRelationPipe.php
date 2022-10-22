@@ -22,9 +22,11 @@ final class FederalDistrictRegionsStoreRelationPipe
     {
         $relationshipsData = data_get($data, 'data.relationships.regions');
 
-        data_set($relationshipsData, 'region_id', data_get($data, 'model')->id);
+        if ($relationshipsData) {
+            data_set($relationshipsData, 'region_id', data_get($data, 'model')->id);
 
 //        $this->regionCitiesRelationsRepository->anyFineMethod($relationshipsData);
+        }
 
         return $next($data);
     }

@@ -19,8 +19,7 @@ final class FederalDistrictRegionsRelationsRepository
     }
 
     /**
-     * @param array $ids
-     * @param int $id
+     * @param array $data
      * @return void
      */
     public  function updateRelations(array $data): void

@@ -46,7 +46,7 @@ final class FederalDistrictRepository extends AbstractCRUDRepository
         $federalDistrict = FederalDistrict::findOrFail($id);
 
         return QueryBuilder::for(FederalDistrict::class)
-            ->where('id', $$federalDistrict->id)
+            ->where('id', $federalDistrict->id)
             ->allowedIncludes(['regions']);
     }
 
