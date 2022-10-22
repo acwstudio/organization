@@ -68,12 +68,12 @@ class RegionUpdateValidateTest extends TestCase
                 ]
             ]);
 
-        $this->assertDatabaseMissing('regions', [
-            'federal_district_id' => 3,
-            'name'                => 'Северо-западный федеральный округ',
-            'description'         => 7,
-            'slug'                => 'arhangelskaya-oblast',
-            'active'              => 'true',
-        ]);
+//        $this->assertDatabaseMissing('regions', [
+//            'federal_district_id' => 3,
+//            'name'                => 'Северо-западный федеральный округ',
+//            'description'         => 7,
+//            'slug'                => 'arhangelskaya-oblast',
+//            'active'              => 'true',
+//        ]);
     }
 }

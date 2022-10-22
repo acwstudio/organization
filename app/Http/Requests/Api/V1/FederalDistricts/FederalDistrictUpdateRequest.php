@@ -40,8 +40,8 @@ class FederalDistrictUpdateRequest extends FormRequest
             'data.relationships.regions'             => ['sometimes','required','array'],
             'data.relationships.regions.data'        => ['sometimes','required','array'],
             'data.relationships.regions.data.*'      => ['sometimes','required','array'],
-            'data.relationships.regions.data.*.type' => ['sometimes','required','string','in:' . Region::TYPE_RESOURCE],
-            'data.relationships.regions.data.*.id'   => ['sometimes','required','integer','distinct', 'exists:regions,id'],
+            'data.relationships.regions.data.*.type' => ['present','required','string','in:' . Region::TYPE_RESOURCE],
+            'data.relationships.regions.data.*.id'   => ['present','required','integer','distinct', 'exists:regions,id'],
         ];
     }
 }

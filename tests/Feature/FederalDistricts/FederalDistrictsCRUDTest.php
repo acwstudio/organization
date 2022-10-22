@@ -20,7 +20,7 @@ class FederalDistrictsCRUDTest extends TestCase
     {
         /** @var FederalDistrict $federalDistrict */
         $federalDistrict = FederalDistrict::factory()->count(1)->create();
-
+//        dd(FederalDistrict::all());
         $this->getJson('/api/v1/federal-districts', [
             'accept'       => 'application/vnd.api+json',
             'content-type' => 'application/vnd.api+json',
@@ -36,7 +36,8 @@ class FederalDistrictsCRUDTest extends TestCase
                             'description' => $federalDistrict[0]->description,
                             'slug'        => $federalDistrict[0]->slug,
                             'active'      => $federalDistrict[0]->active,
-                            'created_at'  => $federalDistrict[0]->created_at->toJSON()
+                            'created_at'  => $federalDistrict[0]->created_at->toJSON(),
+                            'updated_at'  => $federalDistrict[0]->created_at->toJSON()
                         ],
                     ],
                 ]

@@ -80,7 +80,7 @@ class Handler extends ExceptionHandler
                     'details' => $e->getMessage(),
                 ]
             ]
-        ], $e->getStatusCode($e) ? $e->getStatusCode() : 500);
+        ], $this->isHttpException($e) ? $e->getStatusCode() : 500);
     }
 
     protected function invalidJson($request, ValidationException $exception)

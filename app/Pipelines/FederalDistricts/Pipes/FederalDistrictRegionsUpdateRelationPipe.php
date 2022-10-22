@@ -27,9 +27,11 @@ final class FederalDistrictRegionsUpdateRelationPipe
     public function handle(array $data, \Closure $next): mixed
     {
         $relationshipsData = data_get($data, 'data.relationships.regions');
-        data_set($relationshipsData, 'federal_district_id', data_get($data, 'federal_district_id'));
 
-        $this->federalDistrictRelationRepository->updateRelations($relationshipsData);
+        if ($relationshipsData) {
+            data_set($relationshipsData, 'federal_district_id', data_get($data, 'federal_district_id'));
+            $this->federalDistrictRelationRepository->updateRelations($relationshipsData);
+        }
 
         return $next($data);
     }
