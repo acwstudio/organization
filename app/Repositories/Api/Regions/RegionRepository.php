@@ -24,7 +24,7 @@ final class RegionRepository extends AbstractCRUDRepository
                 AllowedFilter::exact('federal_district_id'),
                 AllowedFilter::exact('id')
             ])
-            ->allowedSorts(['name','federal_district_id']);
+            ->allowedSorts(['name','federal_district_id','id']);
     }
 
     /**
