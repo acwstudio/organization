@@ -24,7 +24,7 @@ class RegionStoreRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'data'                                => ['required','array'],
@@ -41,13 +41,13 @@ class RegionStoreRequest extends FormRequest
             'data.relationships.cities'             => ['sometimes','required','array'],
             'data.relationships.cities.data'        => ['sometimes','required','array'],
             'data.relationships.cities.data.*'      => ['sometimes','required','array'],
-            'data.relationships.cities.data.*.type' => ['sometimes','required','string','in:' . City::TYPE_RESOURCE],
-            'data.relationships.cities.data.*.id'   => ['sometimes','required','integer', 'distinct', 'exists:cities,id'],
+            'data.relationships.cities.data.*.type' => ['present','required','string','in:' . City::TYPE_RESOURCE],
+            'data.relationships.cities.data.*.id'   => ['present','required','integer', 'distinct', 'exists:cities,id'],
             // federalDistrict
             'data.relationships.federalDistrict'           => ['sometimes','required','array'],
             'data.relationships.federalDistrict.data'      => ['sometimes','required','array'],
-            'data.relationships.federalDistrict.data.type' => ['sometimes','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
-            'data.relationships.federalDistrict.data.id'   => ['sometimes','required','integer', 'exists:federal_districts,id'],
+            'data.relationships.federalDistrict.data.type' => ['present','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
+            'data.relationships.federalDistrict.data.id'   => ['present','required','integer', 'exists:federal_districts,id'],
         ];
     }
 }
