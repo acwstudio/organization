@@ -30,24 +30,24 @@ class RegionStoreRequest extends FormRequest
             'data'                                => ['required','array'],
             'data.type'                           => ['required','string','in:' . Region::TYPE_RESOURCE],
             'data.attributes'                     => ['required','array'],
-            'data.attributes.federal_district_id' => ['required','integer','exists:federal_districts,id'],
+            'data.attributes.federal_district_id' => ['sometimes','integer','nullable','exists:federal_districts,id'],
             'data.attributes.name'                => ['required','string'],
             'data.attributes.description'         => ['required','string'],
             'data.attributes.slug'                => ['prohibited'],
             'data.attributes.active'              => ['required','boolean'],
             // relationships
             'data.relationships'                    => ['sometimes','required','array'],
-            // cities
+            // cities one-to-many
             'data.relationships.cities'             => ['sometimes','required','array'],
             'data.relationships.cities.data'        => ['sometimes','required','array'],
             'data.relationships.cities.data.*'      => ['sometimes','required','array'],
             'data.relationships.cities.data.*.type' => ['present','required','string','in:' . City::TYPE_RESOURCE],
             'data.relationships.cities.data.*.id'   => ['present','required','integer', 'distinct', 'exists:cities,id'],
-            // federalDistrict
+            // federalDistrict many-to-one
             'data.relationships.federalDistrict'           => ['sometimes','required','array'],
             'data.relationships.federalDistrict.data'      => ['sometimes','required','array'],
-            'data.relationships.federalDistrict.data.type' => ['present','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
-            'data.relationships.federalDistrict.data.id'   => ['present','required','integer', 'exists:federal_districts,id'],
+            'data.relationships.federalDistrict.data.type' => ['sometimes','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
+            'data.relationships.federalDistrict.data.id'   => ['sometimes','required','integer', 'exists:federal_districts,id'],
         ];
     }
 }

@@ -32,7 +32,7 @@ class RegionUpdateRequest extends FormRequest
             'data.type'                           => ['required','string','in:' . Region::TYPE_RESOURCE],
             // attributes
             'data.attributes'                     => ['present','array'],
-            'data.attributes.federal_district_id' => ['sometimes','integer','exists:federal_districts,id'],
+            'data.attributes.federal_district_id' => ['sometimes','integer','nullable','exists:federal_districts,id'],
             'data.attributes.name'                => ['sometimes','string'],
             'data.attributes.description'         => ['sometimes','string'],
             'data.attributes.slug'                => ['prohibited'],
@@ -48,8 +48,8 @@ class RegionUpdateRequest extends FormRequest
             // federalDistrict
             'data.relationships.federalDistrict'           => ['sometimes','required','array'],
             'data.relationships.federalDistrict.data'      => ['sometimes','required','array'],
-            'data.relationships.federalDistrict.data.type' => ['present','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
-            'data.relationships.federalDistrict.data.id'   => ['present','required','integer', 'exists:federal_districts,id'],
+            'data.relationships.federalDistrict.data.type' => ['sometimes','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
+            'data.relationships.federalDistrict.data.id'   => ['sometimes','required','integer', 'exists:federal_districts,id'],
         ];
     }
 }
