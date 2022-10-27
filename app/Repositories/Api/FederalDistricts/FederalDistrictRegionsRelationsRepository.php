@@ -40,7 +40,9 @@ final class FederalDistrictRegionsRelationsRepository
     public function destroyRelations(int $id): void
     {
         foreach (FederalDistrict::findOrFail($id)->regions as $item) {
-            $item->delete();
+            $item->update([
+                'federal_district_id' => null
+            ]);
         }
     }
 }

@@ -219,7 +219,7 @@ class FederalDistrictCRUDTest extends TestCase
             ]);
     }
 
-    public function test_show_federal_districts_without_parameters(): void
+    public function test_show_federal_district_without_parameters(): void
     {
         /** @var FederalDistrict $federalDistrict */
         $federalDistrict = FederalDistrict::factory()->create();
@@ -253,7 +253,7 @@ class FederalDistrictCRUDTest extends TestCase
             ]);
     }
 
-    public function test_show_federal_districts_with_include_parameter()
+    public function test_show_federal_district_with_include_parameter()
     {
         /** @var FederalDistrict $federalDistrict */
         $federalDistrict = FederalDistrict::factory()->create();
@@ -379,7 +379,7 @@ class FederalDistrictCRUDTest extends TestCase
             ]);
     }
 
-    public function test_post_federal_districts_without_relationships()
+    public function test_store_federal_district_without_relationships()
     {
         $this->postJson('/api/v1/federal-districts', [
             'data' => [
@@ -411,7 +411,7 @@ class FederalDistrictCRUDTest extends TestCase
             ]);
     }
 
-    public function test_post_federal_districts_with_relationships()
+    public function test_store_federal_district_with_regions_relationships()
     {
         Region::factory()->count(3)->create([
             'federal_district_id' => null
@@ -454,18 +454,20 @@ class FederalDistrictCRUDTest extends TestCase
                         'active'      => true,
                         'created_at'  => now()->setMilliseconds(0)->toJSON(),
                         'updated_at'  => now() ->setMicroseconds(0)->toJSON(),
+                    ],
+                    'relationships' => [
+                        'regions' => [
+                            'links' => [
+                                'self' => route('federal-district.relationships.regions', ['id' => FederalDistrict::firstOrFail()->id]),
+                                'related' => route('federal-district.regions', ['id' => FederalDistrict::firstOrFail()->id])
+                            ]
+                        ]
                     ]
-                ],
-                'relationships' => [
-
                 ]
             ]);
     }
 
-
-
-
-    public function test_patch_federal_districts_without_relationships()
+    public function test_update_federal_district_without_relationships()
     {
         /** @var FederalDistrict $federalDistrict */
         $federalDistrict = FederalDistrict::factory()->count(3)->create()->first();
@@ -474,9 +476,7 @@ class FederalDistrictCRUDTest extends TestCase
             'data' => [
                 'type' => FederalDistrict::TYPE_RESOURCE,
                 'attributes' => [
-                    'name'        => $federalDistrict->name,
-                    'description' => $federalDistrict->description,
-                    'active'      => $federalDistrict->active,
+                    'name'        => 'another name'
                 ]
             ]
         ], [
@@ -487,14 +487,14 @@ class FederalDistrictCRUDTest extends TestCase
 
         $this->assertDatabaseHas('federal_districts', [
             'id'          => $federalDistrict->id,
-            'name'        => $federalDistrict->name,
+            'name'        => 'another name',
             'description' => $federalDistrict->description,
             'slug'        => $federalDistrict->slug,
             'active'      => 1,
         ]);
     }
 
-    public function test_patch_federal_districts_resource_with_related_regions()
+    public function test_update_federal_district_with_regions_relationships()
     {
         /** @var FederalDistrict $federalDistrict */
         $federalDistricts = FederalDistrict::factory()->count(3)->create();
@@ -542,13 +542,25 @@ class FederalDistrictCRUDTest extends TestCase
         }
     }
 
-    public function test_federal_districts_destroy_resource_with_relationships()
+    public function test_destroy_federal_district_without_relationships()
     {
+        /** @var FederalDistrict $federalDistrict */
+        $federalDistricts = FederalDistrict::factory()->count(3)->create();
 
-    }
+        foreach ($federalDistricts as $federalDistrict) {
+            /** @var Region $regions */
+            $regions = Region::factory()->count(3)->create([
+                'federal_district_id' => $federalDistrict->id
+            ]);
 
-    public function test_federal_districts_destroy_resource_with_relationships_wrong()
-    {
+            $this->delete('/api/v1/federal-districts/' . $federalDistrict->id, [], [
+                'Accept' => 'application/vnd.api+json',
+                'Content-Type' => 'application/vnd.api+json',
+            ])->assertStatus(204);
 
+            $this->assertSoftDeleted('federal_districts', [
+                'id' => $federalDistrict->id
+            ]);
+        }
     }
 }

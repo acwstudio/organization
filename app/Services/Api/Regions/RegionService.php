@@ -37,7 +37,7 @@ final class RegionService extends AbstractCRUDService
     /**
      * @param array $data
      * @return Model|Region
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function store(array $data): Model|Region
     {

@@ -18,14 +18,20 @@ final class FederalDistrictRegionsStoreRelationPipe
         $this->federalDistrictRegionsRelationRepository = $federalDistrictRegionsRelationRepository;
     }
 
+    /**
+     * @param array $data
+     * @param \Closure $next
+     * @return mixed
+     */
     public function handle(array $data, \Closure $next): mixed
     {
         $relationshipsData = data_get($data, 'data.relationships.regions');
 
         if ($relationshipsData) {
-            data_set($relationshipsData, 'region_id', data_get($data, 'model')->id);
 
-//        $this->regionCitiesRelationsRepository->anyFineMethod($relationshipsData);
+            data_set($relationshipsData, 'federal_district_id', data_get($data, 'model')->id);
+
+            $this->federalDistrictRegionsRelationRepository->updateRelations($relationshipsData);
         }
 
         return $next($data);
