@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\FederalDistricts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictRegionsDestroyRelationshipsRequest;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictRegionsUpdateRelationshipsRequest;
 use App\Http\Resources\Api\Regions\RegionCollection;
 use App\Http\Resources\Api\Regions\RegionIdentifierResource;
@@ -27,12 +28,15 @@ class FederalDistrictRegionsRelationshipsController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function index(int $id): JsonResponse
+    public function index(Request $request, $id): JsonResponse
     {
-        $regions = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate();
+        $perPage = $request->get('per_page');
+
+        $regions = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate($perPage);
 
         return (RegionIdentifierResource::collection($regions))->response();
     }

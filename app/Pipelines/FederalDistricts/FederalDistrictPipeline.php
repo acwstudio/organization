@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Pipelines\FederalDistricts;
 
-use App\Exceptions\PipelineException;
 use App\Models\FederalDistrict;
 use App\Pipelines\AbstractPipeline;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictDestroyPipe;
-use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsDestroyRelatedPipe;
-use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsStoreRelationPipe;
-use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsUpdateRelationPipe;
+use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsDestroyAllRelationshipsPipe;
+use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsUpdateRelationshipsPipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictStorePipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictUpdatePipe;
-use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -33,7 +30,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     FederalDistrictStorePipe::class,
-                    FederalDistrictRegionsStoreRelationPipe::class
+                    FederalDistrictRegionsUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
@@ -52,7 +49,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
 
     /**
      * @param array $data
-     * @return bool
+     * @return void
      * @throws \Throwable
      */
     public function update(array $data): void
@@ -64,7 +61,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     FederalDistrictUpdatePipe::class,
-                    FederalDistrictRegionsUpdateRelationPipe::class
+                    FederalDistrictRegionsUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
@@ -79,9 +76,8 @@ final class FederalDistrictPipeline extends AbstractPipeline
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @return void
-     * @throws PipelineException
      * @throws \Throwable
      */
     public function destroy(int $id): void
@@ -92,7 +88,7 @@ final class FederalDistrictPipeline extends AbstractPipeline
             $this->pipeline
                 ->send($id)
                 ->through([
-                    FederalDistrictRegionsDestroyRelatedPipe::class,
+                    FederalDistrictRegionsDestroyAllRelationshipsPipe::class,
                     FederalDistrictDestroyPipe::class
                 ])
                 ->thenReturn();

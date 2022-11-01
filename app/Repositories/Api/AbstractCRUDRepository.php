@@ -12,30 +12,30 @@ abstract class AbstractCRUDRepository
     /**
      * @return QueryBuilder
      */
-    abstract protected function index(): QueryBuilder;
+    abstract public function index(): QueryBuilder;
 
     /**
      * @param array $data
      * @return Model
      */
-    abstract protected function store(array $data): Model;
+    abstract public function store(array $data): Model;
 
     /**
      * @param int $id
      * @return QueryBuilder
      */
-    abstract protected function show(int $id): QueryBuilder;
+    abstract public function show(int $id): QueryBuilder;
 
     /**
      * @param array $data
      * @param int $id
      * @return void
      */
-    abstract protected function update(array $data, int $id): void;
+    abstract public function update(array $data, int $id): void;
 
     /**
      * @param int $id
      * @return void
      */
-    abstract protected function destroy(int $id): void;
+    abstract public function destroy(int $id): void;
 }
