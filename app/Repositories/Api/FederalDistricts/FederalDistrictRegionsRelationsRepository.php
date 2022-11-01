@@ -6,14 +6,16 @@ namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use App\Models\Region;
+use App\Repositories\Api\AbstractRelationshipsRepository;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class FederalDistrictRegionsRelationsRepository
+final class FederalDistrictRegionsRelationsRepository extends AbstractRelationshipsRepository
 {
     /**
      * @param int $id
-     * @return mixed
+     * @return HasMany
      */
-    public function indexRelations(int $id): mixed
+    public function indexRelationships(int $id): HasMany
     {
         return FederalDistrict::findOrFail($id)->regions();
     }
@@ -22,27 +24,29 @@ final class FederalDistrictRegionsRelationsRepository
      * @param array $data
      * @return void
      */
-    public  function updateRelations(array $data): void
+    public function updateToManyRelationships(array $data): void
     {
-        $regions = [];
+        $regionIds = data_get($data, 'data.*.id');
+        $federalDistrictId = data_get($data,'federal_district_id');
 
-        foreach (data_get($data, 'data.*.id') as $regionId) {
-            $regions[] = Region::findOrFail($regionId);
+        if ($regionIds) {
+            foreach ($regionIds as $regionId) {
+                Region::findOrFail($regionId)->update(['federal_district_id' => $federalDistrictId]);
+            }
+        } else {
+            foreach (FederalDistrict::findOrFail($federalDistrictId)->regions as $region) {
+                $region->update(['federal_district_id' => null]);
+            }
         }
-
-        FederalDistrict::findOrFail(data_get($data,'federal_district_id'))->regions()->saveMany($regions);
     }
 
-    /**
-     * @param int $id
-     * @return void
-     */
-    public function destroyRelations(int $id): void
+    public function updateToOneRelationship(): void
     {
-        foreach (FederalDistrict::findOrFail($id)->regions as $item) {
-            $item->update([
-                'federal_district_id' => null
-            ]);
-        }
+        // TODO: Implement updateToOneRelationship() method.
+    }
+
+    public function updateManyToManyRelationships(): void
+    {
+        // TODO: Implement updateNanyToManyRelationship() method.
     }
 }

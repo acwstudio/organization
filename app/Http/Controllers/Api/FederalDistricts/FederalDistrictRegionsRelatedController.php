@@ -23,12 +23,15 @@ class FederalDistrictRegionsRelatedController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function index(int $id): JsonResponse
+    public function index(Request $request, $id): JsonResponse
     {
-        $regions = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate();
+        $perPage = $request->get('per_page');
+
+        $regions = $this->federalDistrictRegionsRelationService->indexRelations($id)->paginate($perPage);
 
         return (new RegionCollection($regions))->response();
     }

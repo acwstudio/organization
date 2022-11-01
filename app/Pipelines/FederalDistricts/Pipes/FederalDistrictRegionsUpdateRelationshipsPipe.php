@@ -6,7 +6,7 @@ namespace App\Pipelines\FederalDistricts\Pipes;
 
 use App\Repositories\Api\FederalDistricts\FederalDistrictRegionsRelationsRepository;
 
-final class FederalDistrictRegionsStoreRelationPipe
+final class FederalDistrictRegionsUpdateRelationshipsPipe
 {
     protected FederalDistrictRegionsRelationsRepository $federalDistrictRegionsRelationRepository;
 
@@ -29,11 +29,12 @@ final class FederalDistrictRegionsStoreRelationPipe
 
         if ($relationshipsData) {
 
-            data_set($relationshipsData, 'federal_district_id', data_get($data, 'model')->id);
+            data_set($relationshipsData, 'federal_district_id', data_get($data, 'federal_district_id'));
 
-            $this->federalDistrictRegionsRelationRepository->updateRelations($relationshipsData);
+            $this->federalDistrictRegionsRelationRepository->updateToManyRelationships($relationshipsData);
         }
 
         return $next($data);
     }
+
 }
