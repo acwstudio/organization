@@ -711,6 +711,60 @@ class RegionCRUDTest extends TestCase
 
     public function test_store_region_with_cities_relationships()
     {
+        $federalDistrict = FederalDistrict::factory()->create();
 
+        City::factory()->count(3)->create([
+            'region_id' => null
+        ]);
+
+        $cities = City::all();
+
+        $this->postJson('/api/v1/regions', [
+            'data' => [
+                'type' => 'regions',
+                'attributes' => [
+                    'federal_district_id' => $federalDistrict->id,
+                    'name' => 'test region',
+                    'description' => 'test region description',
+                    'active' => true,
+                ],
+                'relationships' => [
+                    'cities' => [
+                        'data' => [
+                            [
+                                'id' => $cities[0]->id,
+                                'type' => City::TYPE_RESOURCE
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ], [
+            'accept' => 'application/vnd.api+json',
+            'content-type' => 'application/vnd.api+json',
+        ])
+            ->assertStatus(201)
+            ->assertJson([
+                'data' => [
+                    'id' => Region::firstOrFail()->id,
+                    'type' => 'regions',
+                    'attributes' => [
+                        'name' => 'test region',
+                        'description' => 'test region description',
+                        'slug' => 'test-region',
+                        'active' => true,
+                        'created_at' => now()->setMilliseconds(0)->toJSON(),
+                        'updated_at' => now()->setMicroseconds(0)->toJSON(),
+                    ],
+                    'relationships' => [
+                        'cities' => [
+                            'links' => [
+                                'self' => route('region.relationships.cities', ['id' => Region::firstOrFail()->id]),
+                                'related' => route('region.cities', ['id' => Region::firstOrFail()->id])
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
     }
 }
