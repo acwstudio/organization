@@ -25,7 +25,7 @@ final class RegionCitiesRelationsService
      */
     public function indexRelations(int $id): mixed
     {
-        return $this->regionCitiesRelationsRepository->indexRelations($id);
+        return $this->regionCitiesRelationsRepository->indexRelationships($id);
     }
 
     /**

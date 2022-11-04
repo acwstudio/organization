@@ -7,20 +7,21 @@ namespace App\Pipelines\Regions;
 use App\Models\Region;
 use App\Pipelines\AbstractPipeline;
 use App\Pipelines\Regions\Pipes\RegionCitiesDestroyRelatedPipe;
-use App\Pipelines\Regions\Pipes\RegionCitiesStoreRelationPipe;
-use App\Pipelines\Regions\Pipes\RegionCitiesUpdateRelationPipe;
-use App\Pipelines\Regions\Pipes\RegionDestroyPipe;
-use App\Pipelines\Regions\Pipes\RegionsFederalDistrictStoreRelationPipe;
-use App\Pipelines\Regions\Pipes\RegionsFederalDistrictUpdateRelationPipe;
+use App\Pipelines\Regions\Pipes\RegionCitiesUpdateRelationshipsPipe;
+use App\Pipelines\Regions\Pipes\RegionsFederalDistrictUpdateRelationshipsPipe;
 use App\Pipelines\Regions\Pipes\RegionStorePipe;
 use App\Pipelines\Regions\Pipes\RegionUpdatePipe;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 final class RegionPipeline extends AbstractPipeline
 {
-    public function store(array $data): Model|Region
+    /**
+     * @param array $data
+     * @return Region
+     * @throws \Throwable
+     */
+    public function store(array $data): Region
     {
         try {
             DB::beginTransaction();
@@ -29,8 +30,8 @@ final class RegionPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     RegionStorePipe::class,
-                    RegionsFederalDistrictStoreRelationPipe::class,
-                    RegionCitiesStoreRelationPipe::class
+                    RegionsFederalDistrictUpdateRelationshipsPipe::class,
+                    RegionCitiesUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
@@ -61,8 +62,8 @@ final class RegionPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     RegionUpdatePipe::class,
-                    RegionsFederalDistrictUpdateRelationPipe::class,
-                    RegionCitiesUpdateRelationPipe::class
+                    RegionsFederalDistrictUpdateRelationshipsPipe::class,
+                    RegionCitiesUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
@@ -77,7 +78,7 @@ final class RegionPipeline extends AbstractPipeline
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @return void
      * @throws \Throwable
      */
@@ -89,8 +90,7 @@ final class RegionPipeline extends AbstractPipeline
             $this->pipeline
                 ->send($id)
                 ->through([
-                    RegionCitiesDestroyRelatedPipe::class,
-                    RegionDestroyPipe::class
+                    RegionCitiesDestroyRelatedPipe::class
                 ])
                 ->thenReturn();
 

@@ -6,18 +6,19 @@ namespace App\Services\Api\Regions;
 
 use App\Models\FederalDistrict;
 use App\Repositories\Api\Regions\RegionsFederalDistrictRelationsRepository;
+use App\Services\Api\AbstractCRUDService;
 use Illuminate\Database\Eloquent\Model;
 
 final class RegionsFederalDistrictRelationsService
 {
-    protected RegionsFederalDistrictRelationsRepository $regionsFederalDisrtictRelationsRepository;
+    protected RegionsFederalDistrictRelationsRepository $regionsFederalDistrictRelationsRepository;
 
     /**
-     * @param RegionsFederalDistrictRelationsRepository $regionsFederalDisrtictRelationsRepository
+     * @param RegionsFederalDistrictRelationsRepository $regionsFederalDistrictRelationsRepository
      */
-    public function __construct(RegionsFederalDistrictRelationsRepository $regionsFederalDisrtictRelationsRepository)
+    public function __construct(RegionsFederalDistrictRelationsRepository $regionsFederalDistrictRelationsRepository)
     {
-        $this->regionsFederalDisrtictRelationsRepository = $regionsFederalDisrtictRelationsRepository;
+        $this->regionsFederalDistrictRelationsRepository = $regionsFederalDistrictRelationsRepository;
     }
 
     /**
@@ -26,7 +27,7 @@ final class RegionsFederalDistrictRelationsService
      */
     public function indexRelations(int $id): Model|FederalDistrict
     {
-        return $this->regionsFederalDisrtictRelationsRepository->indexRelations($id);
+        return $this->regionsFederalDistrictRelationsRepository->indexRelationships($id);
     }
 
     /**
@@ -38,7 +39,7 @@ final class RegionsFederalDistrictRelationsService
     {
         data_set($data, 'region_id', $id);
 
-        $this->regionsFederalDisrtictRelationsRepository->updateRelations($data);
+        $this->regionsFederalDistrictRelationsRepository->updateToOneRelationship($data);
     }
 
     public function destroyRelations(int $id): void

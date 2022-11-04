@@ -7,7 +7,6 @@ namespace App\Pipelines\FederalDistricts;
 use App\Models\FederalDistrict;
 use App\Pipelines\AbstractPipeline;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictDestroyPipe;
-use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsDestroyAllRelationshipsPipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictRegionsUpdateRelationshipsPipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictStorePipe;
 use App\Pipelines\FederalDistricts\Pipes\FederalDistrictUpdatePipe;
@@ -88,7 +87,6 @@ final class FederalDistrictPipeline extends AbstractPipeline
             $this->pipeline
                 ->send($id)
                 ->through([
-                    FederalDistrictRegionsDestroyAllRelationshipsPipe::class,
                     FederalDistrictDestroyPipe::class
                 ])
                 ->thenReturn();

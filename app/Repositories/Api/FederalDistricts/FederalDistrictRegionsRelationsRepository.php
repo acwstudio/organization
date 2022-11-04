@@ -40,7 +40,7 @@ final class FederalDistrictRegionsRelationsRepository extends AbstractRelationsh
         }
     }
 
-    public function updateToOneRelationship(): void
+    public function updateToOneRelationship(array $data): void
     {
         // TODO: Implement updateToOneRelationship() method.
     }

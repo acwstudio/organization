@@ -548,10 +548,6 @@ class FederalDistrictCRUDTest extends TestCase
         $federalDistricts = FederalDistrict::factory()->count(3)->create();
 
         foreach ($federalDistricts as $federalDistrict) {
-            /** @var Region $regions */
-            $regions = Region::factory()->count(3)->create([
-                'federal_district_id' => $federalDistrict->id
-            ]);
 
             $this->delete('/api/v1/federal-districts/' . $federalDistrict->id, [], [
                 'Accept' => 'application/vnd.api+json',
@@ -560,6 +556,28 @@ class FederalDistrictCRUDTest extends TestCase
 
             $this->assertSoftDeleted('federal_districts', [
                 'id' => $federalDistrict->id
+            ]);
+        }
+    }
+
+    public function test_destroy_federal_district_with_relationships()
+    {
+        /** @var FederalDistrict $federalDistrict */
+        $federalDistricts = FederalDistrict::factory()->count(3)->create();
+
+        foreach ($federalDistricts as $federalDistrict) {
+            /** @var Region $regions */
+            $regions = Region::factory()->count(3)->create([
+                'federal_district_id' => $federalDistrict->id
+            ]);
+
+            $this->delete('/api/v1/federal-districts/' . $federalDistrict->id, [], [
+                'Accept' => 'application/vnd.api+json',
+                'Content-Type' => 'application/vnd.api+json',
+            ])->assertStatus(403);
+
+            $this->assertDatabaseHas('regions', [
+                'federal_district_id' => $federalDistrict->id,
             ]);
         }
     }

@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -71,7 +72,12 @@ class Handler extends ExceptionHandler
         return parent::render($request, $e);
     }
 
-    protected function prepareJsonResponse($request, Throwable $e)
+    /**
+     * @param $request
+     * @param Throwable $e
+     * @return JsonResponse
+     */
+    protected function prepareJsonResponse($request, Throwable $e): JsonResponse
     {
         return response()->json([
             'errors' => [
@@ -80,10 +86,15 @@ class Handler extends ExceptionHandler
                     'details' => $e->getMessage(),
                 ]
             ]
-        ], $this->isHttpException($e) ? $e->getStatusCode() : 500);
+        ], $this->isHttpException($e) ? $e->getStatusCode() : $e->getCode());
     }
 
-    protected function invalidJson($request, ValidationException $exception)
+    /**
+     * @param $request
+     * @param ValidationException $exception
+     * @return JsonResponse
+     */
+    protected function invalidJson($request, ValidationException $exception): JsonResponse
     {
         $errors = (collect($exception->validator->errors()))
             ->map(function ($error, $key) {

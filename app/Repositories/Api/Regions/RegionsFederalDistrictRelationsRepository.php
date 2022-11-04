@@ -6,27 +6,44 @@ namespace App\Repositories\Api\Regions;
 
 use App\Models\FederalDistrict;
 use App\Models\Region;
+use App\Repositories\Api\AbstractRelationshipsRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class RegionsFederalDistrictRelationsRepository
+final class RegionsFederalDistrictRelationsRepository extends AbstractRelationshipsRepository
 {
     /**
      * @param int $id
-     * @return Model|FederalDistrict
+     * @return mixed
      */
-    public function indexRelations(int $id): Model|FederalDistrict
+    public function indexRelationships(int $id): HasMany
     {
         return Region::findOrFail($id)->federalDistrict;
     }
 
-    /**
-     * @param array $data
-     * @return void
-     */
-    public function updateRelations(array $data): void
+    public function updateToManyRelationships(array $data): void
     {
-        Region::findOrFail(data_get($data, 'region_id'))->update([
-            'federal_district_id' => data_get($data, 'data.id')
-        ]);
+        // TODO: Implement updateToManyRelationships() method.
+    }
+
+    public function updateToOneRelationship(array $data): void
+    {
+        $federalDistrictId = data_get($data, 'data.*.id');
+        $regionId = data_get($data,'region_id');
+
+        if ($federalDistrictId){
+            Region::findOrFail($regionId)->update([
+                'federal_district_id' => $federalDistrictId
+            ]);
+        } else {
+            Region::findOrFail($regionId)->update([
+                'federal_district_id' => null
+            ]);
+        }
+    }
+
+    public function updateManyToManyRelationships(): void
+    {
+        // TODO: Implement updateManyToManyRelationships() method.
     }
 }

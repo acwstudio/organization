@@ -47,7 +47,7 @@ class RegionController extends Controller
      *
      * @param RegionStoreRequest $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function store(RegionStoreRequest $request): JsonResponse
     {
