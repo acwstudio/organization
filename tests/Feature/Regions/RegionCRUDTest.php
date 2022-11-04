@@ -216,12 +216,12 @@ class RegionCRUDTest extends TestCase
                         'type' => Region::TYPE_RESOURCE,
                         'attributes' => [
                             'federal_district_id' => $federalDistricts[0]->id,
-                            'name'                => $regions[0]->name,
-                            'description'         => $regions[0]->description,
-                            'slug'                => $regions[0]->slug,
-                            'active'              => $regions[0]->active,
-                            'created_at'          => $regions[0]->created_at->toJSON(),
-                            'updated_at'          => $regions[0]->created_at->toJSON()
+                            'name' => $regions[0]->name,
+                            'description' => $regions[0]->description,
+                            'slug' => $regions[0]->slug,
+                            'active' => $regions[0]->active,
+                            'created_at' => $regions[0]->created_at->toJSON(),
+                            'updated_at' => $regions[0]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'cities' => [
@@ -257,26 +257,26 @@ class RegionCRUDTest extends TestCase
                         'type' => Region::TYPE_RESOURCE,
                         'attributes' => [
                             'federal_district_id' => $federalDistricts[0]->id,
-                            'name'                => $regions[1]->name,
-                            'description'         => $regions[1]->description,
-                            'slug'                => $regions[1]->slug,
-                            'active'              => $regions[1]->active,
-                            'created_at'          => $regions[1]->created_at->toJSON(),
-                            'updated_at'          => $regions[1]->created_at->toJSON()
+                            'name' => $regions[1]->name,
+                            'description' => $regions[1]->description,
+                            'slug' => $regions[1]->slug,
+                            'active' => $regions[1]->active,
+                            'created_at' => $regions[1]->created_at->toJSON(),
+                            'updated_at' => $regions[1]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'cities' => [
                                 'links' => [
-                                    'self'    => route('region.relationships.cities', ['id' => $regions[1]->id]),
+                                    'self' => route('region.relationships.cities', ['id' => $regions[1]->id]),
                                     'related' => route('region.cities', ['id' => $regions[1]->id])
                                 ],
                                 'data' => [
                                     [
-                                        'id'   => $cities[2]->id,
+                                        'id' => $cities[2]->id,
                                         'type' => City::TYPE_RESOURCE
                                     ],
                                     [
-                                        'id'   => $cities[3]->id,
+                                        'id' => $cities[3]->id,
                                         'type' => City::TYPE_RESOURCE
                                     ]
                                 ]
@@ -299,13 +299,13 @@ class RegionCRUDTest extends TestCase
                         'id' => $cities[0]->id,
                         'type' => City::TYPE_RESOURCE,
                         'attributes' => [
-                            'region_id'   => $regions[0]->id,
-                            'name'        => $cities[0]->name,
+                            'region_id' => $regions[0]->id,
+                            'name' => $cities[0]->name,
                             'description' => $cities[0]->description,
-                            'slug'        => $cities[0]->slug,
-                            'active'      => $cities[0]->active,
-                            'created_at'  => $cities[0]->created_at->toJSON(),
-                            'updated_at'  => $cities[0]->created_at->toJSON()
+                            'slug' => $cities[0]->slug,
+                            'active' => $cities[0]->active,
+                            'created_at' => $cities[0]->created_at->toJSON(),
+                            'updated_at' => $cities[0]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'organizations' => [
@@ -326,13 +326,13 @@ class RegionCRUDTest extends TestCase
                         'id' => $cities[1]->id,
                         'type' => City::TYPE_RESOURCE,
                         'attributes' => [
-                            'region_id'   => $regions[0]->id,
-                            'name'        => $cities[1]->name,
+                            'region_id' => $regions[0]->id,
+                            'name' => $cities[1]->name,
                             'description' => $cities[1]->description,
-                            'slug'        => $cities[1]->slug,
-                            'active'      => $cities[1]->active,
-                            'created_at'  => $cities[1]->created_at->toJSON(),
-                            'updated_at'  => $cities[1]->created_at->toJSON()
+                            'slug' => $cities[1]->slug,
+                            'active' => $cities[1]->active,
+                            'created_at' => $cities[1]->created_at->toJSON(),
+                            'updated_at' => $cities[1]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'organizations' => [
@@ -350,15 +350,15 @@ class RegionCRUDTest extends TestCase
                         ]
                     ],
                     [
-                        'id'   => $federalDistricts[0]->id,
+                        'id' => $federalDistricts[0]->id,
                         'type' => FederalDistrict::TYPE_RESOURCE,
-                        'attributes'      => [
-                            'name'        => $federalDistricts[0]->name,
+                        'attributes' => [
+                            'name' => $federalDistricts[0]->name,
                             'description' => $federalDistricts[0]->description,
-                            'slug'        => $federalDistricts[0]->slug,
-                            'active'      => $federalDistricts[0]->active,
-                            'created_at'  => $federalDistricts[0]->created_at->toJSON(),
-                            'updated_at'  => $federalDistricts[0]->created_at->toJSON()
+                            'slug' => $federalDistricts[0]->slug,
+                            'active' => $federalDistricts[0]->active,
+                            'created_at' => $federalDistricts[0]->created_at->toJSON(),
+                            'updated_at' => $federalDistricts[0]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'regions' => [
@@ -373,13 +373,13 @@ class RegionCRUDTest extends TestCase
                         'id' => $cities[2]->id,
                         'type' => City::TYPE_RESOURCE,
                         'attributes' => [
-                            'region_id'   => $regions[1]->id,
-                            'name'        => $cities[2]->name,
+                            'region_id' => $regions[1]->id,
+                            'name' => $cities[2]->name,
                             'description' => $cities[2]->description,
-                            'slug'        => $cities[2]->slug,
-                            'active'      => $cities[2]->active,
-                            'created_at'  => $cities[2]->created_at->toJSON(),
-                            'updated_at'  => $cities[2]->created_at->toJSON()
+                            'slug' => $cities[2]->slug,
+                            'active' => $cities[2]->active,
+                            'created_at' => $cities[2]->created_at->toJSON(),
+                            'updated_at' => $cities[2]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'organizations' => [
@@ -400,13 +400,13 @@ class RegionCRUDTest extends TestCase
                         'id' => $cities[3]->id,
                         'type' => City::TYPE_RESOURCE,
                         'attributes' => [
-                            'region_id'   => $regions[1]->id,
-                            'name'        => $cities[3]->name,
+                            'region_id' => $regions[1]->id,
+                            'name' => $cities[3]->name,
                             'description' => $cities[3]->description,
-                            'slug'        => $cities[3]->slug,
-                            'active'      => $cities[3]->active,
-                            'created_at'  => $cities[3]->created_at->toJSON(),
-                            'updated_at'  => $cities[3]->created_at->toJSON()
+                            'slug' => $cities[3]->slug,
+                            'active' => $cities[3]->active,
+                            'created_at' => $cities[3]->created_at->toJSON(),
+                            'updated_at' => $cities[3]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'organizations' => [
@@ -495,65 +495,65 @@ class RegionCRUDTest extends TestCase
 
         $cities = City::all();
 
-        $this->getJson('/api/v1/regions/' . $regions[1]->id .'?include=cities,federalDistrict', [
+        $this->getJson('/api/v1/regions/' . $regions[1]->id . '?include=cities,federalDistrict', [
             'accept' => 'application/vnd.api+json',
             'content-type' => 'application/vnd.api+json',
         ])
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
-                        'id' => $regions[1]->id,
-                        'type' => Region::TYPE_RESOURCE,
-                        'attributes' => [
-                            'federal_district_id' => $federalDistricts[0]->id,
-                            'name' => $regions[1]->name,
-                            'description' => $regions[1]->description,
-                            'slug' => $regions[1]->slug,
-                            'active' => $regions[1]->active,
-                            'created_at' => $regions[1]->created_at->toJSON(),
-                            'updated_at' => $regions[1]->created_at->toJSON()
-                        ],
-                        'relationships' => [
-                            'cities' => [
-                                'links' => [
-                                    'self' => route('region.relationships.cities', ['id' => $regions[1]->id]),
-                                    'related' => route('region.cities', ['id' => $regions[1]->id])
-                                ],
-                                'data' => [
-                                    [
-                                        'id' => $cities[2]->id,
-                                        'type' => City::TYPE_RESOURCE
-                                    ],
-                                    [
-                                        'id' => $cities[3]->id,
-                                        'type' => City::TYPE_RESOURCE
-                                    ]
-                                ]
+                    'id' => $regions[1]->id,
+                    'type' => Region::TYPE_RESOURCE,
+                    'attributes' => [
+                        'federal_district_id' => $federalDistricts[0]->id,
+                        'name' => $regions[1]->name,
+                        'description' => $regions[1]->description,
+                        'slug' => $regions[1]->slug,
+                        'active' => $regions[1]->active,
+                        'created_at' => $regions[1]->created_at->toJSON(),
+                        'updated_at' => $regions[1]->created_at->toJSON()
+                    ],
+                    'relationships' => [
+                        'cities' => [
+                            'links' => [
+                                'self' => route('region.relationships.cities', ['id' => $regions[1]->id]),
+                                'related' => route('region.cities', ['id' => $regions[1]->id])
                             ],
-                            'federalDistrict' => [
-                                'links' => [
-                                    'self' => route('regions.relationships.federal-district', ['id' => $regions[1]->id]),
-                                    'related' => route('regions.federal-district', ['id' => $regions[1]->id])
+                            'data' => [
+                                [
+                                    'id' => $cities[2]->id,
+                                    'type' => City::TYPE_RESOURCE
                                 ],
-                                'data' => [
-                                    'id' => $federalDistricts[0]->id,
-                                    'type' => FederalDistrict::TYPE_RESOURCE
+                                [
+                                    'id' => $cities[3]->id,
+                                    'type' => City::TYPE_RESOURCE
                                 ]
                             ]
+                        ],
+                        'federalDistrict' => [
+                            'links' => [
+                                'self' => route('regions.relationships.federal-district', ['id' => $regions[1]->id]),
+                                'related' => route('regions.federal-district', ['id' => $regions[1]->id])
+                            ],
+                            'data' => [
+                                'id' => $federalDistricts[0]->id,
+                                'type' => FederalDistrict::TYPE_RESOURCE
+                            ]
                         ]
+                    ]
                 ],
                 'included' => [
                     [
                         'id' => $cities[2]->id,
                         'type' => City::TYPE_RESOURCE,
                         'attributes' => [
-                            'region_id'   => $regions[1]->id,
-                            'name'        => $cities[2]->name,
+                            'region_id' => $regions[1]->id,
+                            'name' => $cities[2]->name,
                             'description' => $cities[2]->description,
-                            'slug'        => $cities[2]->slug,
-                            'active'      => $cities[2]->active,
-                            'created_at'  => $cities[2]->created_at->toJSON(),
-                            'updated_at'  => $cities[2]->created_at->toJSON()
+                            'slug' => $cities[2]->slug,
+                            'active' => $cities[2]->active,
+                            'created_at' => $cities[2]->created_at->toJSON(),
+                            'updated_at' => $cities[2]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'organizations' => [
@@ -574,13 +574,13 @@ class RegionCRUDTest extends TestCase
                         'id' => $cities[3]->id,
                         'type' => City::TYPE_RESOURCE,
                         'attributes' => [
-                            'region_id'   => $regions[1]->id,
-                            'name'        => $cities[3]->name,
+                            'region_id' => $regions[1]->id,
+                            'name' => $cities[3]->name,
                             'description' => $cities[3]->description,
-                            'slug'        => $cities[3]->slug,
-                            'active'      => $cities[3]->active,
-                            'created_at'  => $cities[3]->created_at->toJSON(),
-                            'updated_at'  => $cities[3]->created_at->toJSON()
+                            'slug' => $cities[3]->slug,
+                            'active' => $cities[3]->active,
+                            'created_at' => $cities[3]->created_at->toJSON(),
+                            'updated_at' => $cities[3]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'organizations' => [
@@ -598,15 +598,15 @@ class RegionCRUDTest extends TestCase
                         ]
                     ],
                     [
-                        'id'   => $federalDistricts[0]->id,
+                        'id' => $federalDistricts[0]->id,
                         'type' => FederalDistrict::TYPE_RESOURCE,
-                        'attributes'      => [
-                            'name'        => $federalDistricts[0]->name,
+                        'attributes' => [
+                            'name' => $federalDistricts[0]->name,
                             'description' => $federalDistricts[0]->description,
-                            'slug'        => $federalDistricts[0]->slug,
-                            'active'      => $federalDistricts[0]->active,
-                            'created_at'  => $federalDistricts[0]->created_at->toJSON(),
-                            'updated_at'  => $federalDistricts[0]->created_at->toJSON()
+                            'slug' => $federalDistricts[0]->slug,
+                            'active' => $federalDistricts[0]->active,
+                            'created_at' => $federalDistricts[0]->created_at->toJSON(),
+                            'updated_at' => $federalDistricts[0]->created_at->toJSON()
                         ],
                         'relationships' => [
                             'regions' => [
@@ -631,9 +631,9 @@ class RegionCRUDTest extends TestCase
                 'type' => 'regions',
                 'attributes' => [
                     'federal_district_id' => $federalDistrict->id,
-                    'name'                => 'test region',
-                    'description'         => 'test region description',
-                    'active'              => true,
+                    'name' => 'test region',
+                    'description' => 'test region description',
+                    'active' => true,
                 ]
             ]
         ], [
@@ -647,14 +647,70 @@ class RegionCRUDTest extends TestCase
                     'type' => 'regions',
                     'attributes' => [
                         'federal_district_id' => $federalDistrict->id,
-                        'name'                => 'test region',
-                        'description'         => 'test region description',
-                        'slug'                => 'test-region',
-                        'active'              => true,
-                        'created_at'          => now()->setMilliseconds(0)->toJSON(),
-                        'updated_at'          => now() ->setMicroseconds(0)->toJSON(),
+                        'name' => 'test region',
+                        'description' => 'test region description',
+                        'slug' => 'test-region',
+                        'active' => true,
+                        'created_at' => now()->setMilliseconds(0)->toJSON(),
+                        'updated_at' => now()->setMicroseconds(0)->toJSON(),
                     ]
                 ]
             ]);
+    }
+
+    public function test_store_region_with_federal_district_relationships()
+    {
+        $federalDistrict = FederalDistrict::factory()->create();
+
+        $this->postJson('/api/v1/regions', [
+            'data' => [
+                'type' => 'regions',
+                'attributes' => [
+                    'federal_district_id' => $federalDistrict->id,
+                    'name' => 'test region',
+                    'description' => 'test region description',
+                    'active' => true,
+                ],
+                'relationships' => [
+                    'federalDistrict' => [
+                        'data' => [
+                            'id' => $federalDistrict->id,
+                            'type' => FederalDistrict::TYPE_RESOURCE
+                        ]
+                    ]
+                ]
+            ]
+        ], [
+            'accept' => 'application/vnd.api+json',
+            'content-type' => 'application/vnd.api+json',
+        ])
+            ->assertStatus(201)
+            ->assertJson([
+                'data' => [
+                    'id' => Region::firstOrFail()->id,
+                    'type' => 'regions',
+                    'attributes' => [
+                        'name' => 'test region',
+                        'description' => 'test region description',
+                        'slug' => 'test-region',
+                        'active' => true,
+                        'created_at' => now()->setMilliseconds(0)->toJSON(),
+                        'updated_at' => now()->setMicroseconds(0)->toJSON(),
+                    ],
+                    'relationships' => [
+                        'federalDistrict' => [
+                            'links' => [
+                                'self' => route('regions.relationships.federal-district', ['id' => Region::firstOrFail()->id]),
+                                'related' => route('regions.federal-district', ['id' => Region::firstOrFail()->id])
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
+    public function test_store_region_with_cities_relationships()
+    {
+
     }
 }

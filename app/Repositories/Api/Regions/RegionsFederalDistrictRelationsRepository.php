@@ -28,7 +28,7 @@ final class RegionsFederalDistrictRelationsRepository extends AbstractRelationsh
 
     public function updateToOneRelationship(array $data): void
     {
-        $federalDistrictId = data_get($data, 'data.*.id');
+        $federalDistrictId = data_get($data, 'data.id');
         $regionId = data_get($data,'region_id');
 
         if ($federalDistrictId){
