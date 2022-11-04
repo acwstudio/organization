@@ -31,6 +31,8 @@ final class RegionStorePipe
 
         $data = data_set($data, 'model', $region);
 
+        $data = data_set($data, 'region_id', $region->id);
+
         return $next($data);
     }
 }

@@ -15,10 +15,10 @@ abstract class AbstractCRUDRepository
     abstract public function index(): QueryBuilder;
 
     /**
-     * @param array $data
+     * @param array $attributes
      * @return Model
      */
-    abstract public function store(array $data): Model;
+    abstract public function store(array $attributes): Model;
 
     /**
      * @param int $id
@@ -27,11 +27,11 @@ abstract class AbstractCRUDRepository
     abstract public function show(int $id): QueryBuilder;
 
     /**
-     * @param array $data
+     * @param array $attributes
      * @param int $id
      * @return void
      */
-    abstract public function update(array $data, int $id): void;
+    abstract public function update(array $attributes, int $id): void;
 
     /**
      * @param int $id

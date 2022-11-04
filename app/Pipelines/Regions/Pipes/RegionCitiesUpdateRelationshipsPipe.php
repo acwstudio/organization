@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Pipelines\Regions\Pipes;
 
 use App\Repositories\Api\Regions\RegionCitiesRelationsRepository;
-use App\Repositories\Api\Regions\RegionRepository;
 
-final class RegionCitiesStoreRelationPipe
+final class RegionCitiesUpdateRelationshipsPipe
 {
     protected RegionCitiesRelationsRepository $regionCitiesRelationsRepository;
 
     /**
-     * @param RegionRepository $regionRepository
+     * @param RegionCitiesRelationsRepository $regionCitiesRelationsRepository
      */
     public function __construct(RegionCitiesRelationsRepository $regionCitiesRelationsRepository)
     {
@@ -28,9 +27,12 @@ final class RegionCitiesStoreRelationPipe
     {
         $relationshipsData = data_get($data, 'data.relationships.cities');
 
-        data_set($relationshipsData, 'region_id', data_get($data, 'model')->id);
+        if ($relationshipsData) {
 
-//        $this->regionCitiesRelationsRepository->anyFineMethod($relationshipsData);
+            data_set($relationshipsData, 'region_id', data_get($data, 'region_id'));
+
+            $this->regionCitiesRelationsRepository->updateToOneRelationship($relationshipsData);
+        }
 
         return $next($data);
     }

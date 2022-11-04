@@ -45,7 +45,7 @@ class RegionStoreRequest extends FormRequest
             'data.relationships.cities.data.*.id'   => ['present','required','integer', 'distinct', 'exists:cities,id'],
             // federalDistrict many-to-one
             'data.relationships.federalDistrict'           => ['sometimes','required','array'],
-            'data.relationships.federalDistrict.data'      => ['sometimes','required','array'],
+            'data.relationships.federalDistrict.data'      => ['sometimes','array'],
             'data.relationships.federalDistrict.data.type' => ['sometimes','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
             'data.relationships.federalDistrict.data.id'   => ['sometimes','required','integer', 'exists:federal_districts,id'],
         ];
