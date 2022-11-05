@@ -703,10 +703,28 @@ class RegionCRUDTest extends TestCase
                                 'self' => route('regions.relationships.federal-district', ['id' => Region::firstOrFail()->id]),
                                 'related' => route('regions.federal-district', ['id' => Region::firstOrFail()->id])
                             ]
+                        ],
+                        'cities' => [
+                            'links' => [
+                                'self' => route('region.relationships.cities', ['id' => Region::firstOrFail()->id]),
+                                'related' => route('region.cities', ['id' => Region::firstOrFail()->id])
+                            ]
                         ]
                     ]
                 ]
             ]);
+
+        $this->getJson(route('regions.relationships.federal-district', ['id' => Region::firstOrFail()->id]),[
+            'accept' => 'application/vnd.api+json',
+            'content-type' => 'application/vnd.api+json',
+        ])
+        ->assertStatus(200)
+        ->assertJson([
+            'data' => [
+                'id' => $federalDistrict->id,
+                'type' => FederalDistrict::TYPE_RESOURCE
+            ]
+        ]);
     }
 
     public function test_store_region_with_cities_relationships()
@@ -757,12 +775,35 @@ class RegionCRUDTest extends TestCase
                         'updated_at' => now()->setMicroseconds(0)->toJSON(),
                     ],
                     'relationships' => [
+                        'federalDistrict' => [
+                            'links' => [
+                                'self' => route('regions.relationships.federal-district', ['id' => Region::firstOrFail()->id]),
+                                'related' => route('regions.federal-district', ['id' => Region::firstOrFail()->id])
+                            ]
+                        ],
                         'cities' => [
                             'links' => [
                                 'self' => route('region.relationships.cities', ['id' => Region::firstOrFail()->id]),
                                 'related' => route('region.cities', ['id' => Region::firstOrFail()->id])
                             ]
                         ]
+                    ]
+                ]
+            ]);
+        City::firstOrFail()->update([
+            'region_id' => Region::firstOrFail()->id
+        ]);
+
+        $this->getJson(route('region.relationships.cities', ['id' => Region::firstOrFail()->id]),[
+            'accept' => 'application/vnd.api+json',
+            'content-type' => 'application/vnd.api+json',
+        ])
+        ->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    [
+                        'id' => $cities[0]->id,
+                        'type' => City::TYPE_RESOURCE
                     ]
                 ]
             ]);

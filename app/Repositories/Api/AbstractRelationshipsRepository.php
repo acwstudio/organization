@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Api;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 abstract class AbstractRelationshipsRepository
@@ -12,7 +13,13 @@ abstract class AbstractRelationshipsRepository
      * @param int $id
      * @return HasMany
      */
-    abstract public function indexRelationships(int $id): HasMany;
+    abstract public function indexToManyRelationships(int $id): HasMany;
+
+    /**
+     * @param int $id
+     * @return Model
+     */
+    abstract public function indexToOneRelationships(int $id): Model;
 
     /**
      * @param array $data

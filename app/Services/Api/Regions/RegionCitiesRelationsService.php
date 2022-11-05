@@ -6,6 +6,7 @@ namespace App\Services\Api\Regions;
 
 use App\Models\Region;
 use App\Repositories\Api\Regions\RegionCitiesRelationsRepository;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class RegionCitiesRelationsService
 {
@@ -21,11 +22,11 @@ final class RegionCitiesRelationsService
 
     /**
      * @param int $id
-     * @return mixed
+     * @return HasMany
      */
-    public function indexRelations(int $id): mixed
+    public function indexRelations(int $id): HasMany
     {
-        return $this->regionCitiesRelationsRepository->indexRelationships($id);
+        return $this->regionCitiesRelationsRepository->indexToManyRelationships($id);
     }
 
     /**

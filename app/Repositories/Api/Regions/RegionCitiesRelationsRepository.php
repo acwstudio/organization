@@ -5,28 +5,28 @@ declare(strict_types=1);
 namespace App\Repositories\Api\Regions;
 
 use App\Models\City;
+use App\Models\FederalDistrict;
 use App\Models\Region;
 use App\Repositories\Api\AbstractRelationshipsRepository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class RegionCitiesRelationsRepository extends AbstractRelationshipsRepository
 {
     /**
      * @param int $id
-     * @return void
+     * @return FederalDistrict|Model
      */
-    public function destroyRelatedModels(int $id): void
+    public function indexToOneRelationships(int $id): FederalDistrict|Model
     {
-        foreach (Region::findOrFail($id)->cities as $item) {
-            $item->delete();
-        }
+        return Region::findOrFail($id)->federalDistrict;
     }
 
     /**
      * @param int $id
      * @return HasMany
      */
-    public function indexRelationships(int $id): HasMany
+    public function indexToManyRelationships(int $id): HasMany
     {
         return Region::findOrFail($id)->cities();
     }

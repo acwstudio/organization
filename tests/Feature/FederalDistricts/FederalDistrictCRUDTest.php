@@ -465,6 +465,20 @@ class FederalDistrictCRUDTest extends TestCase
                     ]
                 ]
             ]);
+
+        $this->getJson(route('federal-district.relationships.regions', ['id' => FederalDistrict::firstOrFail()->id]),[
+            'accept'       => 'application/vnd.api+json',
+            'content-type' => 'application/vnd.api+json',
+        ])
+        ->assertStatus(200)
+        ->assertJson([
+            'data' => [
+                [
+                    'id' => $regions[0]->id,
+                    'type' => Region::TYPE_RESOURCE
+                ]
+            ]
+        ]);
     }
 
     public function test_update_federal_district_without_relationships()

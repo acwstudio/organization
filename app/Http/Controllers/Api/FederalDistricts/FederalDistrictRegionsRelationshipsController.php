@@ -32,7 +32,7 @@ class FederalDistrictRegionsRelationshipsController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function index(Request $request, $id): JsonResponse
+    public function index(Request $request, int $id): JsonResponse
     {
         $perPage = $request->get('per_page');
 
