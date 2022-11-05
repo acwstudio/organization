@@ -8,6 +8,7 @@ use App\Models\FederalDistrict;
 use App\Repositories\Api\Regions\RegionsFederalDistrictRelationsRepository;
 use App\Services\Api\AbstractCRUDService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class RegionsFederalDistrictRelationsService
 {
@@ -23,11 +24,11 @@ final class RegionsFederalDistrictRelationsService
 
     /**
      * @param int $id
-     * @return Model|FederalDistrict
+     * @return FederalDistrict
      */
-    public function indexRelations(int $id): Model|FederalDistrict
+    public function indexRelations(int $id): FederalDistrict
     {
-        return $this->regionsFederalDistrictRelationsRepository->indexRelationships($id);
+        return $this->regionsFederalDistrictRelationsRepository->indexToOneRelationships($id);
     }
 
     /**

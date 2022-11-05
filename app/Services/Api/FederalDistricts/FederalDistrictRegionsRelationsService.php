@@ -26,7 +26,7 @@ final class FederalDistrictRegionsRelationsService
      */
     public function indexRelations(int $id): mixed
     {
-        return $this->federalDistrictRelationsRepository->indexRelationships($id);
+        return $this->federalDistrictRelationsRepository->indexToManyRelationships($id);
     }
 
     /**

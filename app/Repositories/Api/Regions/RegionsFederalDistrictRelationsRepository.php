@@ -14,11 +14,16 @@ final class RegionsFederalDistrictRelationsRepository extends AbstractRelationsh
 {
     /**
      * @param int $id
-     * @return mixed
+     * @return Model|FederalDistrict
      */
-    public function indexRelationships(int $id): HasMany
+    public function indexToOneRelationships(int $id): Model|FederalDistrict
     {
         return Region::findOrFail($id)->federalDistrict;
+    }
+
+    public function indexToManyRelationships(int $id): HasMany
+    {
+        // TODO: Implement indexRelationships() method.
     }
 
     public function updateToManyRelationships(array $data): void
