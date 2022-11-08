@@ -38,6 +38,6 @@ final class RegionCitiesRelationsService
     {
         data_set($data, 'region_id', $id);
 
-        $this->regionCitiesRelationsRepository->updateRelations($data);
+        $this->regionCitiesRelationsRepository->updateToManyRelationships($data);
     }
 }

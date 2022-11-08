@@ -31,7 +31,7 @@ final class RegionCitiesUpdateRelationshipsPipe
 
             data_set($relationshipsData, 'region_id', data_get($data, 'region_id'));
 
-            $this->regionCitiesRelationsRepository->updateToOneRelationship($relationshipsData);
+            $this->regionCitiesRelationsRepository->updateToManyRelationships($relationshipsData);
         }
 
         return $next($data);
