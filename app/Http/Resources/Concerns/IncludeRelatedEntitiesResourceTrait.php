@@ -11,17 +11,25 @@ use Illuminate\Support\Collection;
 
 trait IncludeRelatedEntitiesResourceTrait
 {
-    protected function prepareRelations()
+    /**
+     * @return array
+     */
+    protected function prepareRelations(): array
     {
         $relations = $this->relations();
+        $newRelations = [];
 
         /** @var ResourceCollection $key */
         /** @var Model|MissingValue|Collection $relation */
         foreach ($relations as $key => $relation) {
             if ($relation instanceof Model) {
-                $newRelations[] = $key::collection([$relation]);
+                $newRelations[] = $key::collection([$relation->setAttribute('glob_id',$relation->getTable() . '-' . $relation->id)]);
             }
             if ($relation instanceof Collection) {
+                foreach ($relation as $keyItem => $item) {
+                    $item->setAttribute('glob_id',$item->getTable() . '-' . $item->id);
+                }
+
                 $newRelations[] = new $key($relation);
             }
             if ($relation instanceof MissingValue) {
@@ -44,7 +52,7 @@ trait IncludeRelatedEntitiesResourceTrait
             })
             ->flatMap(function ($resource) use ($request) {
                 return $resource->flatten($request);
-            });
+            })->unique('glob_id')->values();
     }
 
     /**
@@ -62,4 +70,25 @@ trait IncludeRelatedEntitiesResourceTrait
         return $with;
     }
 
+    /**
+     * relations array
+     * for ProductResource example
+     *
+     * return [
+     *      PersonResource::class          => $this->whenLoaded('persons'),
+     *      LevelResource::class           => $this->whenLoaded('levels'),
+     *      FormatResource::class          => $this->whenLoaded('formats'),
+     *      ProductPlaceResource::class    => $this->whenLoaded('productPlaces'),
+     *      OfferResource::class           => $this->whenLoaded('offers'),
+     *      EntitySectionResource::class   => $this->whenLoaded('entitySection'),
+     *      ProductTypeResource::class     => $this->whenLoaded('productType'),
+     *      CategoryResource::class        => $this->whenLoaded('category'),
+     *      OrganizationResource::class    => $this->whenLoaded('organization'),
+     *      FacultyResource::class         => $this->whenLoaded('faculty'),
+     *      SeoTagResource::class          => $this->whenLoaded('seoTag'),
+     *      LandVersionResource::class     => $this->whenLoaded('landVersion'),
+     * ];
+     */
+
+    abstract function relations(): array;
 }

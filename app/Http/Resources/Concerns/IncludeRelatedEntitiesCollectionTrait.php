@@ -15,7 +15,7 @@ trait IncludeRelatedEntitiesCollectionTrait
     {
         $includes = $this->collection->flatMap(function ($resource) use($request){
             return $resource->included($request);
-        })->unique('slug')->values();
+        });
 
         return $includes->isNotEmpty() ? $includes : new MissingValue();
     }

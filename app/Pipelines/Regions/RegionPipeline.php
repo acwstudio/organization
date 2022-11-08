@@ -8,6 +8,7 @@ use App\Models\Region;
 use App\Pipelines\AbstractPipeline;
 use App\Pipelines\Regions\Pipes\RegionCitiesDestroyRelatedPipe;
 use App\Pipelines\Regions\Pipes\RegionCitiesUpdateRelationshipsPipe;
+use App\Pipelines\Regions\Pipes\RegionDestroyPipe;
 use App\Pipelines\Regions\Pipes\RegionsFederalDistrictUpdateRelationshipsPipe;
 use App\Pipelines\Regions\Pipes\RegionStorePipe;
 use App\Pipelines\Regions\Pipes\RegionUpdatePipe;
@@ -90,7 +91,7 @@ final class RegionPipeline extends AbstractPipeline
             $this->pipeline
                 ->send($id)
                 ->through([
-                    RegionCitiesDestroyRelatedPipe::class
+                    RegionDestroyPipe::class
                 ])
                 ->thenReturn();
 

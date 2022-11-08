@@ -85,7 +85,7 @@ class OrganizationResource extends JsonResource
         ];
     }
 
-    protected function relations()
+    protected function relations(): array
     {
         return [
             CityResource::class             => $this->whenLoaded('city'),
