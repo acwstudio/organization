@@ -13,7 +13,13 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 final class RegionService extends AbstractCRUDService
 {
+    /**
+     * @var RegionRepository
+     */
     protected RegionRepository $regionRepository;
+    /**
+     * @var RegionPipeline
+     */
     protected RegionPipeline $regionPipeline;
 
     /**

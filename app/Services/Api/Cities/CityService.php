@@ -18,6 +18,9 @@ final class CityService extends AbstractCRUDService
      * @var CityRepository
      */
     protected CityRepository $cityRepository;
+    /**
+     * @var CityPipeline
+     */
     protected CityPipeline $cityPipeline;
 
     /**

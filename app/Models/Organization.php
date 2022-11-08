@@ -16,6 +16,8 @@ class Organization extends Model
 
     public const TYPE_RESOURCE = 'organizations';
 
+    protected $fillable = ['city_id','organization_type_id','name','abbreviation','description','slug','active'];
+
     /**
      * @return BelongsTo
      */

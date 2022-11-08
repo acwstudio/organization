@@ -42,8 +42,11 @@ final class CityRepository extends AbstractCRUDRepository
      */
     public function show(int $id): QueryBuilder
     {
+        // it is just only for ModelNotFoundException
+        $region = City::findOrFail($id);
+
         return QueryBuilder::for(City::class)
-            ->where('id', $id)
+            ->where('id', $region->id)
             ->allowedIncludes(['organizations','region']);
     }
 

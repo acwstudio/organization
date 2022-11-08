@@ -20,7 +20,14 @@ final class CityOrganizationsStoreRelationPipe
 
     public function handle(array $data, \Closure $next)
     {
-        // to do something
+        $relationshipsData = data_get($data, 'data.relationships.organizations');
+
+        if ($relationshipsData) {
+
+            data_set($relationshipsData, 'city_id', data_get($data, 'city_id'));
+
+            $this->cityOrganizationsRelaionsRepository->updateToManyRelationships($relationshipsData);
+        }
 
         return $next($data);
     }

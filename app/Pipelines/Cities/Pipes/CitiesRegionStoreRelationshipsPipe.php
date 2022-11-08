@@ -6,7 +6,7 @@ namespace App\Pipelines\Cities\Pipes;
 
 use App\Repositories\Api\Cities\CitiesRegionRelationsRepository;
 
-final class CitiesRegionStoreRelationPipe
+final class CitiesRegionStoreRelationshipsPipe
 {
     protected CitiesRegionRelationsRepository $citiesRegionRelationsRepository;
 
@@ -20,7 +20,14 @@ final class CitiesRegionStoreRelationPipe
 
     public function handle(array $data, \Closure $next): mixed
     {
-        // to do something
+        $relationshipsData = data_get($data, 'data.relationships.region');
+
+        if ($relationshipsData) {
+
+            data_set($relationshipsData, 'city_id', data_get($data, 'city_id'));
+
+            $this->citiesRegionRelationsRepository->updateToOneRelationship($relationshipsData);
+        }
 
         return $next($data);
     }
