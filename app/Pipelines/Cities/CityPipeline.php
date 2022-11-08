@@ -7,7 +7,7 @@ namespace App\Pipelines\Cities;
 use App\Exceptions\PipelineException;
 use App\Models\City;
 use App\Pipelines\AbstractPipeline;
-use App\Pipelines\Cities\Pipes\CitiesRegionStoreRelationPipe;
+use App\Pipelines\Cities\Pipes\CitiesRegionStoreRelationshipsPipe;
 use App\Pipelines\Cities\Pipes\CitiesRegionUpdateRelationPipe;
 use App\Pipelines\Cities\Pipes\CityDestroyPipe;
 use App\Pipelines\Cities\Pipes\CityOrganizationsDestroyRelatedPipe;
@@ -29,7 +29,7 @@ final class CityPipeline  extends AbstractPipeline
                 ->send($data)
                 ->through([
                     CityStorePipe::class,
-                    CitiesRegionStoreRelationPipe::class,
+                    CitiesRegionStoreRelationshipsPipe::class,
                     CityOrganizationsStoreRelationPipe::class
                 ])
                 ->thenReturn();

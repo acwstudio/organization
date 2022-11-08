@@ -27,9 +27,11 @@ final class CityStorePipe
     {
         $attributes = data_get($data, 'data.attributes');
 
-        $model = $this->cityRepository->store($attributes);
+        $city = $this->cityRepository->store($attributes);
 
-        $data = data_set($data, 'model', $model);
+        $data = data_set($data, 'model', $city);
+
+        $data = data_set($data, 'city_id', $city->id);
 
         return $next($data);
     }

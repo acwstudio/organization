@@ -20,7 +20,7 @@ class CityController extends Controller
     private CityService $cityService;
 
     /**
-     * @param \App\Services\Api\Cities\CityService $cityService
+     * @param CityService $cityService
      */
     public function __construct(CityService $cityService)
     {
@@ -47,7 +47,7 @@ class CityController extends Controller
      *
      * @param CityStoreRequest $request
      * @return JsonResponse
-     * @throws PipelineException
+     * @throws \Throwable
      */
     public function store(CityStoreRequest $request): JsonResponse
     {
@@ -66,7 +66,7 @@ class CityController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function show($id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $city = $this->cityService->show($id)->first();
 
