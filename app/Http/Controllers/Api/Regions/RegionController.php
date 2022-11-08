@@ -91,8 +91,9 @@ class RegionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function destroy($id): JsonResponse
     {

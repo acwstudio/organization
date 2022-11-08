@@ -42,9 +42,4 @@ final class RegionsFederalDistrictRelationsService
 
         $this->regionsFederalDistrictRelationsRepository->updateToOneRelationship($data);
     }
-
-    public function destroyRelations(int $id): void
-    {
-
-    }
 }

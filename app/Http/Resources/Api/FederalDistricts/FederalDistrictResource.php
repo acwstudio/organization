@@ -44,7 +44,10 @@ class FederalDistrictResource extends JsonResource
         ];
     }
 
-    protected function relations()
+    /**
+     * @return array
+     */
+    protected function relations(): array
     {
         return [
             RegionCollection::class => $this->whenLoaded('regions')

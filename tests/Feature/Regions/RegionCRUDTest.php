@@ -13,7 +13,7 @@ class RegionCRUDTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_index_regions_without_parameters()
+    public function test_index_regions_without_parameters(): void
     {
         /** @var FederalDistrict $federalDistrict */
         $federalDistrict = FederalDistrict::factory()->count(1)->create();
@@ -658,7 +658,7 @@ class RegionCRUDTest extends TestCase
             ]);
     }
 
-    public function test_store_region_with_federal_district_relationships()
+    public function test_store_region_with_federal_district_relationships(): void
     {
         $federalDistrict = FederalDistrict::factory()->create();
 
@@ -727,7 +727,7 @@ class RegionCRUDTest extends TestCase
         ]);
     }
 
-    public function test_store_region_with_cities_relationships()
+    public function test_store_region_with_cities_relationships(): void
     {
         $federalDistrict = FederalDistrict::factory()->create();
 
@@ -807,5 +807,142 @@ class RegionCRUDTest extends TestCase
                     ]
                 ]
             ]);
+    }
+
+    public function test_update_region_without_relationships(): void
+    {
+        /** @var Region $region */
+        $region = Region::factory()->count(3)->create([
+            'federal_district_id' => null
+        ])->first();
+
+        $this->patchJson('/api/v1/regions/' . $region->id, [
+            'data' => [
+                'type' => Region::TYPE_RESOURCE,
+                'attributes' => [
+                    'name'        => 'another name'
+                ]
+            ]
+        ], [
+            'accept' => 'application/vnd.api+json',
+            'content-type' => 'application/vnd.api+json',
+        ])
+            ->assertStatus(204);
+
+        $this->assertDatabaseHas('regions', [
+            'id'          => $region->id,
+            'name'        => 'another name',
+            'description' => $region->description,
+            'slug'        => $region->slug,
+            'active'      => 1,
+        ]);
+    }
+
+    public function test_update_region_with_federal_district_relationships(): void
+    {
+        /** FederalDistrict $federalDistrict */
+        $federalDistrict = FederalDistrict::factory()->create();
+
+        /** @var Region $region */
+        $region = Region::factory()->create([
+            'federal_district_id' => $federalDistrict->id
+        ]);
+
+        $this->patchJson('/api/v1/regions/' . $region->id, [
+            'data' => [
+                'type' => 'regions',
+                'attributes' => [
+                    'active'      => false,
+                ],
+                'relationships' => [
+                    'federalDistrict' => [
+                        'data' => [
+                            'id' => $federalDistrict->id,
+                            'type' => 'federalDistricts'
+                        ],
+                    ]
+                ]
+            ]
+        ],
+            [
+                'accept' => 'application/vnd.api+json',
+                'content-type' => 'application/vnd.api+json',
+            ])
+        ->assertStatus(204);
+    }
+
+    public function test_update_region_with_cities_relationships(): void
+    {
+        /** @var Region $regions */
+        $regions = Region::factory()->count(3)->create([
+            'federal_district_id' => null
+        ]);
+
+        foreach ($regions as $region) {
+            /** @var City $city */
+            $cities = City::factory()->count(3)->create([
+                'region_id' => $region->id
+            ]);
+
+            $this->patchJson('/api/v1/regions/' . $region->id, [
+                'data' => [
+                    'type' => 'regions',
+                    'attributes' => [
+                        'active'      => false,
+                    ],
+                    'relationships' => [
+                        'cities' => [
+                            'data' => [
+                                [
+                                    'id' => $cities->firstOrFail()->id,
+                                    'type' => 'cities'
+                                ]
+                            ],
+                        ]
+                    ]
+                ]
+            ], [
+                'accept' => 'application/vnd.api+json',
+                'content-type' => 'application/vnd.api+json',
+            ])
+                ->assertStatus(204);
+
+            $this->assertDatabaseHas('regions', [
+                'id'          => $region->id,
+                'name'        => $region->name,
+                'description' => $region->description,
+                'slug'        => $region->slug,
+                'active'      => 0,
+            ]);
+
+            $this->assertDatabaseHas('cities', [
+                'region_id' => $region->id,
+            ]);
+        }
+    }
+
+    public function test_destroy_region_without_relationships(): void
+    {
+        /** @var Region $regions */
+        $regions = Region::factory()->count(3)->create([
+            'federal_district_id' => null
+        ]);
+
+        foreach ($regions as $region) {
+
+            $this->delete('/api/v1/regions/' . $region->id, [], [
+                'Accept' => 'application/vnd.api+json',
+                'Content-Type' => 'application/vnd.api+json',
+            ])->assertStatus(204);
+
+            $this->assertSoftDeleted('regions', [
+                'id' => $region->id
+            ]);
+        }
+    }
+
+    public function test_destroy_region_with_relationships(): void
+    {
+
     }
 }

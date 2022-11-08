@@ -71,7 +71,6 @@ final class FederalDistrictService extends AbstractCRUDService
     /**
      * @param int $id
      * @return void
-     * @throws PipelineException
      * @throws \Throwable
      */
     public function destroy(int $id): void
