@@ -6,7 +6,7 @@ namespace App\Pipelines\Cities\Pipes;
 
 use App\Repositories\Api\Cities\CityOrganizationsRelationsRepository;
 
-final class CityOrganizationsStoreRelationPipe
+final class CityOrganizationsUpdateRelationshipsPipe
 {
     protected CityOrganizationsRelationsRepository $cityOrganizationsRelaionsRepository;
 
@@ -18,16 +18,18 @@ final class CityOrganizationsStoreRelationPipe
         $this->cityOrganizationsRelaionsRepository = $cityOrganizationsRelaionsRepository;
     }
 
+    /**
+     * @param array $data
+     * @param \Closure $next
+     * @return mixed
+     */
     public function handle(array $data, \Closure $next)
     {
         $relationshipsData = data_get($data, 'data.relationships.organizations');
+        data_set($relationshipsData, 'city_id', data_get($data, 'city_id'));
 
-        if ($relationshipsData) {
+        $this->cityOrganizationsRelaionsRepository->updateToManyRelationships($relationshipsData);
 
-            data_set($relationshipsData, 'city_id', data_get($data, 'city_id'));
-
-            $this->cityOrganizationsRelaionsRepository->updateToManyRelationships($relationshipsData);
-        }
 
         return $next($data);
     }

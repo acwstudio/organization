@@ -26,13 +26,13 @@ final class CitiesRegionRelationsService
      */
     public function indexRelations(int $id): Model|Region
     {
-        return $this->citiesRegionRelationsRepository->indexRelations($id);
+        return $this->citiesRegionRelationsRepository->indexToOneRelationships($id);
     }
 
     public function updateRelations(array $data, int $id): void
     {
         data_set($data, 'city_id', $id);
 
-        $this->citiesRegionRelationsRepository->updateRelations($data);
+        $this->citiesRegionRelationsRepository->updateToOneRelationship($data);
     }
 }

@@ -11,7 +11,7 @@ final class CityDestroyPipe
     protected CityRepository $cityRepository;
 
     /**
-     * @param CityRepository $regionRepository
+     * @param CityRepository $cityRepository
      */
     public function __construct(CityRepository $cityRepository)
     {
@@ -19,14 +19,14 @@ final class CityDestroyPipe
     }
 
     /**
-     * @param array $data
+     * @param int $id
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(array $data, \Closure $next): mixed
+    public function handle(int $id, \Closure $next): mixed
     {
-        $this->cityRepository->destroy($data);
+        $this->cityRepository->destroy($id);
 
-        return $next($data);
+        return $next($id);
     }
 }

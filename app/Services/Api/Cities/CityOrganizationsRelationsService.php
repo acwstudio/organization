@@ -24,7 +24,7 @@ final class CityOrganizationsRelationsService
      */
     public function indexRelations(int $id)
     {
-        return $this->cityOrganizationsRelationsRepository->indexRelations($id);
+        return $this->cityOrganizationsRelationsRepository->indexToManyRelationships($id);
     }
 
     /**
@@ -36,6 +36,6 @@ final class CityOrganizationsRelationsService
     {
         data_set($data, 'city_id', $id);
 
-        $this->cityOrganizationsRelationsRepository->updateRelations($data);
+        $this->cityOrganizationsRelationsRepository->updateToManyRelationships($data);
     }
 }

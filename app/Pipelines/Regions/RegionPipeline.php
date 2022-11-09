@@ -6,7 +6,6 @@ namespace App\Pipelines\Regions;
 
 use App\Models\Region;
 use App\Pipelines\AbstractPipeline;
-use App\Pipelines\Regions\Pipes\RegionCitiesDestroyRelatedPipe;
 use App\Pipelines\Regions\Pipes\RegionCitiesUpdateRelationshipsPipe;
 use App\Pipelines\Regions\Pipes\RegionDestroyPipe;
 use App\Pipelines\Regions\Pipes\RegionsFederalDistrictUpdateRelationshipsPipe;
