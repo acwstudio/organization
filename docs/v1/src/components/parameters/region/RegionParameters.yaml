@@ -1,0 +1,28 @@
+RegionIncludeParameter:
+  in: query
+  name: include
+  schema:
+    type: string
+  example: cities
+  description: Inclusion of related resources
+RegionSortParameter:
+  in: query
+  name: sort
+  schema:
+    type: string
+    enum:
+      - id
+      - -id
+      - name
+      - -name
+      - created_at
+      - -created_at
+  example: id
+  description: Sorting of resource collections
+RegionFilterParameter:
+  in: query
+  name: filter
+  schema:
+    type: string
+  example: [name]=Карелия
+  description: Filtering of resource collections

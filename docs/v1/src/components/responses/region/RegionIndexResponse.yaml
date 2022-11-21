@@ -1,0 +1,25 @@
+RegionIndexResponse:
+  description: OK
+  headers:
+    Content-Type:
+      schema:
+        type: string
+      description: application/vnd.api+json
+  content:
+    application/vnd.api+json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/RegionId'
+                type:
+                  $ref: '#/components/schemas/RegionType'
+                attributes:
+                  $ref: '#/components/schemas/RegionAttributes'
+                relationships:
+                  $ref: '#/components/schemas/RegionRelationships'

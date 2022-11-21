@@ -1,0 +1,39 @@
+RegionId:
+  type: integer
+  example: 5
+  description: ID
+RegionType:
+  type: string
+  example: regions
+  description: Type of resource
+RegionAttributes:
+  type: object
+  properties:
+    federal_district_id:
+      type: integer
+      example: 10
+      description: ID of related Federal District resource
+    name:
+      type: string
+      example: Карелия
+      description: Region's name
+    description:
+      type: text
+      example: Описание региона
+      description: A few words about the region
+    slug:
+      type: string
+      example: karelia
+      description: Slug of region's name
+    active:
+      type: boolean
+      example: 1
+      description: Activated or not
+    created_at:
+      type: string
+      example: "2021-10-08 09:17:36"
+      description: Created at ... (Autofill)
+    updated_at:
+      type: string
+      example: "2022-04-06 07:19:42"
+      description: Updated at ... (Autofill)

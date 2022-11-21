@@ -1,0 +1,37 @@
+get:
+  tags:
+    - Region
+  summary: Get relationship cities
+  0: Getting relationships cities
+  parameters:
+    - $ref: '#/components/parameters/RegionIdParameter'
+  responses:
+    200:
+      $ref: '#/components/responses/RegionRelationshipCitiesResponse'
+    404:
+      $ref: '#/components/responses/NotFound'
+    406:
+      $ref: '#/components/responses/NotAcceptable'
+    500:
+      $ref: '#/components/responses/InternalServerError'
+patch:
+  tags:
+    - Region
+  summary: Change relationship cities
+  parameters:
+    - $ref: '#/components/parameters/RegionIdParameter'
+  requestBody:
+    $ref: '#/components/requestBodies/RegionRelationshipCitiesRequestBody'
+  responses:
+    200:
+      $ref: '#/components/responses/RegionRelationshipCitiesResponse'
+    404:
+      $ref: '#/components/responses/NotFound'
+    406:
+      $ref: '#/components/responses/NotAcceptable'
+    415:
+      $ref: '#/components/responses/UnsupportedMediaType'
+    422:
+      $ref: '#/components/responses/UnprocessableContent'
+    500:
+      $ref: '#/components/responses/InternalServerError'

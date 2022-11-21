@@ -1,0 +1,19 @@
+get:
+  tags:
+    - Region
+  summary: Get Region collection
+  parameters:
+    - $ref: '#/components/parameters/RegionIncludeParameter'
+    - $ref: '#/components/parameters/RegionSortParameter'
+    - $ref: '#/components/parameters/RegionFilterNameParameter'
+    - $ref: '#/components/parameters/RegionFilterIdParameter'
+    - $ref: '#/components/parameters/RegionFilterFederalDistrictIdParameter'
+  responses:
+    200:
+      $ref: '#/components/responses/RegionIndexResponse'
+    400:
+      $ref: '#/components/responses/BadRequest'
+    406:
+      $ref: '#/components/responses/UnprocessableContent'
+    500:
+      $ref: '#/components/responses/InternalServerError'

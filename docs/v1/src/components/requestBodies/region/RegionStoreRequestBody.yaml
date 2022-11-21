@@ -1,0 +1,15 @@
+RegionStoreRequestBody:
+  content:
+    application/vnd.api+json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              type:
+                $ref: '#/components/schemas/RegionType'
+              attributes:
+                $ref: '#/components/schemas/RegionAttributes'
+              relationships:
+                $ref: '#/components/schemas/RegionRelationshipsData'

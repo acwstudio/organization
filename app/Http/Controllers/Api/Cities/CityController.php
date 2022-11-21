@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Cities;
 
-use App\Exceptions\PipelineException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Cities\CityStoreRequest;
 use App\Http\Requests\Api\V1\Cities\CityUpdateRequest;
@@ -37,7 +36,7 @@ class CityController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $cities = $this->cityService->index()->paginate($perPage);
+        $cities = $this->cityService->index()->simplePaginate($perPage);
 
         return (new CityCollection($cities))->response();
     }

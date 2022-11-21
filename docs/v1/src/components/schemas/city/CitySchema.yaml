@@ -1,0 +1,39 @@
+CityId:
+  type: integer
+  example: 10
+  description: ID
+CityType:
+  type: string
+  example: cities
+  description: Type of resource
+CityAttributes:
+  type: object
+  properties:
+    region_id:
+      type: integer
+      example: 10
+      description: ID of related Region resource
+    name:
+      type: string
+      example: Петрозаводск
+      description: City's name
+    description:
+      type: text
+      example: Описание города
+      description: A few words about the city
+    slug:
+      type: string
+      example: petrozavodsk
+      description: Slug of city's name
+    active:
+      type: boolean
+      example: 1
+      description: Activated or not
+    created_at:
+      type: string
+      example: "2021-10-08 09:17:36"
+      description: Created at ... (Autofill)
+    updated_at:
+      type: string
+      example: "2022-04-06 07:19:42"
+      description: Updated at ... (Autofill)
