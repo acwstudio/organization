@@ -1,0 +1,18 @@
+RegionFilterIdParameter:
+  in: query
+  name: filter[id]
+  schema:
+    type: string
+  description: ID of Region resource
+RegionFilterFederalDistrictIdParameter:
+  in: query
+  name: filter[federalDistrictId]
+  schema:
+    type: string
+  description: ID of related Federal District resource
+RegionFilterNameParameter:
+  in: query
+  name: filter[name]
+  schema:
+    type: string
+  description: field name of Region resource

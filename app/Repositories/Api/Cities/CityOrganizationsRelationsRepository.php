@@ -13,32 +13,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 final class CityOrganizationsRelationsRepository extends AbstractRelationshipsRepository
 {
     /**
-     * @param array $data
-     * @return void
-     */
-    public  function updateRelations(array $data): void
-    {
-        $organizations = [];
-
-        foreach (data_get($data, 'data.*.id') as $organizationId) {
-//            dd($organizationId);
-            $organizations[] = Organization::findOrFail($organizationId);
-        }
-
-        City::findOrFail(data_get($data,'city_id'))->organizations()->saveMany($organizations);
-    }
-
-    /**
      * @param int $id
-     * @return void
+     * @return HasMany
      */
-    public function destroyRelatedModels(int $id): void
-    {
-        foreach (City::findOrFail($id)->organizations as $item) {
-            $item->delete();
-        }
-    }
-
     public function indexToManyRelationships(int $id): HasMany
     {
         return City::findOrFail($id)->organizations();

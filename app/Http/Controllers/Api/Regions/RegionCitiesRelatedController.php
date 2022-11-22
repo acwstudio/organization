@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api\Regions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Cities\CityCollection;
-use App\Models\Region;
 use App\Services\Api\Regions\RegionCitiesRelationsService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class RegionCitiesRelatedController extends Controller
 {
@@ -27,7 +25,7 @@ class RegionCitiesRelatedController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $cities = $this->regionCitiesRelationsService->indexRelations($id)->paginate();
+        $cities = $this->regionCitiesRelationsService->indexRelations($id)->simplePaginate();
 
         return (new CityCollection($cities))->response();
     }

@@ -24,7 +24,7 @@ final class CityRepository extends AbstractCRUDRepository
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('region_id'),
             ])
-            ->allowedSorts(['name']);
+            ->allowedSorts(['name','id']);
     }
 
     /**

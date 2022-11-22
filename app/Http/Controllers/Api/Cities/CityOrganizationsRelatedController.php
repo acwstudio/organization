@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Organizations\OrganizationCollection;
 use App\Services\Api\Cities\CityOrganizationsRelationsService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CityOrganizationsRelatedController extends Controller
 {
@@ -26,7 +25,7 @@ class CityOrganizationsRelatedController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $organizations = $this->cityOrganizationsRelationsService->indexRelations($id)->paginate();
+        $organizations = $this->cityOrganizationsRelationsService->indexRelations($id)->simplePaginate();
 
         return (new OrganizationCollection($organizations))->response();
     }

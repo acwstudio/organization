@@ -1,0 +1,52 @@
+CityData:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+      description: ID
+    type:
+      type: string
+      example: cities
+      description: Type of resource
+CityIdentifierData:
+  type: array
+  items:
+    $ref: '#/components/schemas/CityData'
+CitiesRegionLinks:
+  type: object
+  properties:
+    self:
+      type: string
+      example: https://release-011-2327.c4.syndev.ru/api/v1/cities/1/relationships/region
+      description: Relationships link.
+    related:
+      type: string
+      example: https://release-011-2327.c4.syndev.ru/api/v1/cities/1/region
+      description: Related resource link.
+CityRelationshipsLinks:
+  type: object
+  properties:
+    products:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/CitiesRegionLinks'
+CityRelationships:
+  type: object
+  properties:
+    products:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ProductListData'
+        links:
+          $ref: '#/components/schemas/FormatProductsLinks'
+FormatRelationshipsData:
+  type: object
+  properties:
+    products:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ProductListData'

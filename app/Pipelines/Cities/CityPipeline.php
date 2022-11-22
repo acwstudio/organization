@@ -7,12 +7,10 @@ namespace App\Pipelines\Cities;
 use App\Exceptions\PipelineException;
 use App\Models\City;
 use App\Pipelines\AbstractPipeline;
-use App\Pipelines\Cities\Pipes\CitiesRegionStoreRelationshipsPipe;
-use App\Pipelines\Cities\Pipes\CitiesRegionUpdateRelationPipe;
+use App\Pipelines\Cities\Pipes\CitiesRegionUpdateRelationshipsPipe;
 use App\Pipelines\Cities\Pipes\CityDestroyPipe;
 use App\Pipelines\Cities\Pipes\CityOrganizationsDestroyRelatedPipe;
-use App\Pipelines\Cities\Pipes\CityOrganizationsStoreRelationPipe;
-use App\Pipelines\Cities\Pipes\CityOrganizationsUpdateRelationPipe;
+use App\Pipelines\Cities\Pipes\CityOrganizationsUpdateRelationshipsPipe;
 use App\Pipelines\Cities\Pipes\CityStorePipe;
 use App\Pipelines\Cities\Pipes\CityUpdatePipe;
 use Illuminate\Support\Facades\DB;
@@ -29,8 +27,8 @@ final class CityPipeline  extends AbstractPipeline
                 ->send($data)
                 ->through([
                     CityStorePipe::class,
-                    CitiesRegionStoreRelationshipsPipe::class,
-                    CityOrganizationsStoreRelationPipe::class
+                    CitiesRegionUpdateRelationshipsPipe::class,
+                    CityOrganizationsUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
@@ -61,8 +59,8 @@ final class CityPipeline  extends AbstractPipeline
                 ->send($data)
                 ->through([
                     CityUpdatePipe::class,
-                    CityOrganizationsUpdateRelationPipe::class,
-                    CitiesRegionUpdateRelationPipe::class
+                    CityOrganizationsUpdateRelationshipsPipe::class,
+                    CitiesRegionUpdateRelationshipsPipe::class
                 ])
                 ->thenReturn();
 
@@ -90,7 +88,6 @@ final class CityPipeline  extends AbstractPipeline
             $this->pipeline
                 ->send($id)
                 ->through([
-                    CityOrganizationsDestroyRelatedPipe::class,
                     CityDestroyPipe::class
                 ])
                 ->thenReturn();

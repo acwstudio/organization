@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Api\Cities;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Cities\CityOrganizationsUpdateRelationshipsRequest;
 use App\Http\Resources\Api\Organizations\OrganizationIdentifierResource;
-use App\Models\City;
 use App\Services\Api\Cities\CityOrganizationsRelationsService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CityOrganizationsRelationshipsController extends Controller
 {
@@ -28,7 +26,7 @@ class CityOrganizationsRelationshipsController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $organizations = $this->cityOrganizationsRelationsService->indexRelations($id)->paginate();
+        $organizations = $this->cityOrganizationsRelationsService->indexRelations($id)->simplePaginate();
 
         return (OrganizationIdentifierResource::collection($organizations))->response();
     }

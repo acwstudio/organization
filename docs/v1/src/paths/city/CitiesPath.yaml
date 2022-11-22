@@ -1,0 +1,15 @@
+get:
+  tags:
+    - City
+  summary: Get City collection
+  parameters:
+    - $ref: '#/components/parameters/CityFilterNameParameter'
+    - $ref: '#/components/parameters/CityFilterIdParameter'
+    - $ref: '#/components/parameters/CityRegionIdParameter'
+  responses:
+    200:
+      $ref: '#/components/responses/CityIndexResponse'
+    406:
+      $ref: '#/components/responses/NotAcceptable'
+    500:
+      $ref: '#/components/responses/InternalServerError'

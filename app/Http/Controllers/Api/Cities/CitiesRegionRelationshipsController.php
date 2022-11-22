@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Api\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Cities\CitiesRegionUpdateRelationshipsRequest;
-use App\Http\Requests\Api\V1\Cities\CityOrganizationsUpdateRelationshipsRequest;
 use App\Http\Resources\Api\Regions\RegionIdentifierResource;
 use App\Models\City;
 use App\Services\Api\Cities\CitiesRegionRelationsService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CitiesRegionRelationshipsController extends Controller
 {

@@ -10,7 +10,6 @@ use App\Http\Resources\Api\Regions\RegionResource;
 use App\Services\Api\Regions\RegionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class RegionController extends Controller
 {

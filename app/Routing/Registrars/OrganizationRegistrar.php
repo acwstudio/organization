@@ -80,18 +80,18 @@ final class OrganizationRegistrar implements RouteRegistrar
                 OrganizationsCityRelatedController::class,'index'
             ])->name('organizations.city');
 
-            // Organizations to faculties relationships
+            // Organization to faculties relationships
             $registrar->get('organizations/{id}/relationships/faculties',[
                 OrganizationFacultiesRelationshipsController::class,'index'
-            ])->name('organizations.relationships.faculties');
+            ])->name('organization.relationships.faculties');
 
             $registrar->patch('organizations/{id}/relationships/faculties',[
                 OrganizationFacultiesRelationshipsController::class,'update'
-            ])->name('organizations.relationships.faculties.update');
+            ])->name('organization.relationships.faculties.update');
 
             $registrar->get('organizations/{id}/faculties',[
                 OrganizationFacultiesRelatedController::class,'index'
-            ])->name('organizations.faculties');
+            ])->name('organization.faculties');
 
             // Organization to children relations
             $registrar->get('organizations/{id}/relationships/children', [

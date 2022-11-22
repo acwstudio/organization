@@ -52,7 +52,7 @@ trait IncludeRelatedEntitiesResourceTrait
             })
             ->flatMap(function ($resource) use ($request) {
                 return $resource->flatten($request);
-            })->unique('glob_id')->values();
+            });
     }
 
     /**

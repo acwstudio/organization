@@ -1,0 +1,27 @@
+openapi: 3.0.0
+info:
+  title: Organizations Service API
+  version: 1.0.0
+servers:
+  - url: https://release-011-2327.c4.syndev.ru/api/v1
+    description: Organizations service
+paths:
+  /regions: paths/region/RegionsPath.yaml
+  /cities: paths/city/CitiesPath.yaml
+  /federal-district: paths/federal-district/FederalDistrictPath.yaml
+components:
+  parameters:
+    - components/parameters/region/RegionParameters.yaml
+    - components/parameters/region/RegionFilterParameters.yaml
+  requestBodies:
+    - components/requestBodies/region/RegionStoreRequestBody.yaml
+  responses:
+    - components/responses/region/RegionIndexResponse.yaml
+    - components/responses/ExceptionResponses.yaml
+  schemas:
+    - components/schemas/region/RegionSchema.yaml
+    - components/schemas/region/RegionRelationshipsSchema.yaml
+    - components/schemas/city/CitySchema.yaml
+    - components/schemas/city/CityRelationshipsSchema.yaml
+#    - components/schemas/federal-district/FederalDistrictSchema.yaml
+    - components/schemas/federal-district/FederalDistrictRelationshipsSchema.yaml

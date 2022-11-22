@@ -1,0 +1,35 @@
+FederalDistrictId:
+  type: integer
+  example: 5
+  description: ID
+FederalDistrictType:
+  type: string
+  example: federalDistricts
+  description: Type of resource
+FederalDistrictAttributes:
+  type: object
+  properties:
+    name:
+      type: string
+      example: Северо-западный федеральный округ
+      description: Federal District's name
+    description:
+      type: text
+      example: Описание федерального округа
+      description: A few words about the federal district
+    slug:
+      type: string
+      example: severo-zapadnyy-federalnyy-okrug
+      description: Slug of federal district's name
+    active:
+      type: boolean
+      example: 1
+      description: Activated or not
+    created_at:
+      type: string
+      example: "2021-10-08 09:17:36"
+      description: Created at ... (Autofill)
+    updated_at:
+      type: string
+      example: "2022-04-06 07:19:42"
+      description: Updated at ... (Autofill)

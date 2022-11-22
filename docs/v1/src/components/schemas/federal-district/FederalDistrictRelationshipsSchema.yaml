@@ -1,0 +1,50 @@
+FederalDistrictData:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+      description: ID
+    type:
+      type: string
+      example: federalDistricts
+      description: Type of resource
+FederalDistrictIdentifierData:
+    $ref: '#/components/schemas/FederalDistrictData'
+FederalDistrictRegionsLinks:
+  type: object
+  properties:
+    self:
+      type: string
+      example: https://release-011-2327.c4.syndev.ru/api/v1/federal-districts/1/relationships/regions
+      description: Relationships link.
+    related:
+      type: string
+      example: https://release-011-2327.c4.syndev.ru/api/v1/federal-districts/1/regions
+      description: Related resource link.
+FederalDistrictRelationshipsLinks:
+  type: object
+  properties:
+    products:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/FederalDistrictRegionsLinks'
+FederalDistrictRelationships:
+  type: object
+  properties:
+    products:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/FederalDistrictIdentifierData'
+        links:
+          $ref: '#/components/schemas/FederalDistrictRegionsLinks'
+FederalDistrictRelationshipsData:
+  type: object
+  properties:
+    products:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ProductListData'

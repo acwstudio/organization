@@ -62,8 +62,8 @@ class OrganizationResource extends JsonResource
                 ],
                 'faculties' => [
                     'links' => [
-                        'self' => route('organizations.relationships.faculties', ['id' => $this->id]),
-                        'related' => route('organizations.faculties', ['id' => $this->id])
+                        'self' => route('organization.relationships.faculties', ['id' => $this->id]),
+                        'related' => route('organization.faculties', ['id' => $this->id])
                     ],
                     'data' => FacultyIdentifierResource::collection($this->whenLoaded('faculties'))
                 ],
