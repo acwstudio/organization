@@ -8,10 +8,10 @@ RegionRelationships:
           $ref: '#/components/schemas/CityIdentifierData'
 #        links:
 #          $ref: '#/components/schemas/RegionCitiesLinks'
-#    federalDistrict:
-#      type: object
-#      properties:
-#        data:
-#          $ref: '#/components/schemas/FederalDistrictIdentifierData'
+    federalDistrict:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/FederalDistrictIdentifierData'
 #        links:
 #          $ref: '#/components/schemas/RegionsFederalDistrictLinks'

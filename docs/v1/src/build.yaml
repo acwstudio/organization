@@ -8,6 +8,7 @@ servers:
 paths:
   /regions: paths/region/RegionsPath.yaml
   /cities: paths/city/CitiesPath.yaml
+  /federal-district: paths/federal-district/FederalDistrictPath.yaml
 components:
   parameters:
     - components/parameters/region/RegionParameters.yaml
@@ -22,3 +23,5 @@ components:
     - components/schemas/region/RegionRelationshipsSchema.yaml
     - components/schemas/city/CitySchema.yaml
     - components/schemas/city/CityRelationshipsSchema.yaml
+#    - components/schemas/federal-district/FederalDistrictSchema.yaml
+    - components/schemas/federal-district/FederalDistrictRelationshipsSchema.yaml
