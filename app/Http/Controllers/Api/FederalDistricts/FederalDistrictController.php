@@ -51,7 +51,8 @@ class FederalDistrictController extends Controller
      */
     public function store(FederalDistrictStoreRequest $request): JsonResponse
     {
-        $federalDistrict = $this->federalDistrictService->store($request->all());
+        $data = $request->all();
+        $federalDistrict = $this->federalDistrictService->store($data);
 
         return (new FederalDistrictResource($federalDistrict))
             ->response()
@@ -83,7 +84,10 @@ class FederalDistrictController extends Controller
      */
     public function update(FederalDistrictUpdateRequest $request, int $id): JsonResponse
     {
-        $this->federalDistrictService->update($request->all(), $id);
+        $data = $request->all();
+        data_set($data, 'id', $id);
+
+        $this->federalDistrictService->update($data);
 
         return response()->json(null, 204);
     }

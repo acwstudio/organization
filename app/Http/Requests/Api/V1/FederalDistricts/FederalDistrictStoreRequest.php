@@ -35,14 +35,13 @@ class FederalDistrictStoreRequest extends FormRequest
             'data.attributes.slug'        => ['prohibited'],
             'data.attributes.active'      => ['required','boolean'],
             // relationships
-            'data.relationships'                     => ['sometimes','required','array'],
+            'data.relationships'                     => ['sometimes','required','array:regions'],
             // regions one-to-many
-            'data.relationships.regions'             => ['sometimes','required','array'],
+            'data.relationships.regions'             => ['sometimes','required','array:data'],
             'data.relationships.regions.data'        => ['sometimes','required','array'],
-            'data.relationships.regions.data.*'      => ['sometimes','required','array'],
-            'data.relationships.regions.data.*.type' => ['present','required','string','in:' . Region::TYPE_RESOURCE],
+            'data.relationships.regions.data.*.type' => ['present','string','in:' . Region::TYPE_RESOURCE],
             'data.relationships.regions.data.*.id'   => [
-                'present','required','integer', 'distinct', 'exists:regions,id',
+                'present','integer', 'distinct', 'exists:regions,id',
                 new ForeignKeyNull(Region::class, 'federal_district_id')
             ],
         ];

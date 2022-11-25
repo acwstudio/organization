@@ -115,6 +115,10 @@ final class CityRegistrar implements RouteRegistrar
                 FederalDistrictRegionsRelationshipsController::class, 'update'
             ])->name('federal-district.relationships.regions.update');
 
+            $registrar->post('federal-districts/{id}/relationships/regions',[
+                FederalDistrictRegionsRelationshipsController::class, 'store'
+            ])->name('federal-district.relationships.regions.store');
+
             $registrar->get('federal-districts/{id}/regions',[
                 FederalDistrictRegionsRelatedController::class, 'index'
             ])->name('federal-district.regions');

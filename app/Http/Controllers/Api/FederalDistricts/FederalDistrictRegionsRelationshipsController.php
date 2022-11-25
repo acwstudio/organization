@@ -30,7 +30,10 @@ class FederalDistrictRegionsRelationshipsController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $regions = $this->federalDistrictRegionsRelationService->indexRelations($id)->simplePaginate($perPage);
+        data_set($data, 'relation', 'regions');
+        data_set($data, 'id', $id);
+
+        $regions = $this->federalDistrictRegionsRelationService->indexRelation($data)->simplePaginate($perPage);
 
         return (RegionIdentifierResource::collection($regions))->response();
     }
@@ -42,7 +45,22 @@ class FederalDistrictRegionsRelationshipsController extends Controller
      */
     public function update(FederalDistrictRegionsUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        $this->federalDistrictRegionsRelationService->updateRelations($request->all(), $id);
+        data_set($data, 'request', $request->all());
+        data_set($data, 'relation', 'regions');
+        data_set($data, 'id', $id);
+
+        $this->federalDistrictRegionsRelationService->updateRelations($data);
+
+        return response()->json(null, 204);
+    }
+
+    public function store(FederalDistrictRegionsUpdateRelationshipsRequest $request, int $id): JsonResponse
+    {
+        data_set($data, 'relation_data', $request->all());
+        data_set($data, 'relation_method', 'regions');
+        data_set($data, 'id', $id);
+
+        $this->federalDistrictRegionsRelationService->storeRelations($data);
 
         return response()->json(null, 204);
     }

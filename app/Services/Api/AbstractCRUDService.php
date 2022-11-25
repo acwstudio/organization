@@ -31,7 +31,7 @@ abstract class AbstractCRUDService
      * @param int $id
      * @return void
      */
-    abstract protected function update(array $data, int $id): void;
+    abstract protected function update(array $data): void;
 
     /**
      * @param int $id

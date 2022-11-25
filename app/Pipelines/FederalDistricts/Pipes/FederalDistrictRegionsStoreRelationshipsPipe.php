@@ -6,7 +6,7 @@ namespace App\Pipelines\FederalDistricts\Pipes;
 
 use App\Repositories\Api\FederalDistricts\FederalDistrictRelationsRepository;
 
-final class FederalDistrictRegionsUpdateRelationshipsPipe
+final class FederalDistrictRegionsStoreRelationshipsPipe
 {
     protected FederalDistrictRelationsRepository $federalDistrictRelationRepository;
 
@@ -31,10 +31,9 @@ final class FederalDistrictRegionsUpdateRelationshipsPipe
             data_set($data, 'relation_data', $relationData);
             data_set($data, 'relation_method', 'regions');
 
-            $this->federalDistrictRelationRepository->updateRelations($data);
+            $this->federalDistrictRelationRepository->storeRelations($data);
         }
 
         return $next($data);
     }
-
 }

@@ -25,11 +25,8 @@ final class FederalDistrictUpdatePipe
      */
     public function handle(array $data, \Closure $next): mixed
     {
-        $attributes = data_get($data, 'data.attributes');
-
-        if ($attributes) {
-            $this->federalDistrictRepository->update($attributes, data_get($data,'federal_district_id'));
-        }
+        $model = $this->federalDistrictRepository->update($data);
+        data_set($data, 'model', $model);
 
         return $next($data);
     }
