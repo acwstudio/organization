@@ -35,13 +35,12 @@ class FederalDistrictUpdateRequest extends FormRequest
             'data.attributes.slug'        => ['prohibited'],
             'data.attributes.active'      => ['sometimes','boolean'],
             // relationships
-            'data.relationships'                     => ['sometimes','required','array'],
+            'data.relationships'                     => ['sometimes','required','array:regions'],
             // regions
-            'data.relationships.regions'             => ['sometimes','required','array'],
-            'data.relationships.regions.data'        => ['sometimes','required','array'],
-            'data.relationships.regions.data.*'      => ['sometimes','required','array'],
-            'data.relationships.regions.data.*.type' => ['present','required','string','in:' . Region::TYPE_RESOURCE],
-            'data.relationships.regions.data.*.id'   => ['present','required','integer','distinct', 'exists:regions,id'],
+            'data.relationships.regions'             => ['sometimes','required','array:data'],
+            'data.relationships.regions.data'        => ['sometimes','array'],
+            'data.relationships.regions.data.*.type' => ['sometimes', 'string','in:' . Region::TYPE_RESOURCE],
+            'data.relationships.regions.data.*.id'   => ['sometimes','integer','distinct', 'exists:regions,id'],
         ];
     }
 }

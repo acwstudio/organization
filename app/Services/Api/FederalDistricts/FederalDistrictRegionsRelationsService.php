@@ -4,40 +4,44 @@ declare(strict_types=1);
 
 namespace App\Services\Api\FederalDistricts;
 
-use App\Models\FederalDistrict;
-use App\Models\Region;
-use App\Repositories\Api\FederalDistricts\FederalDistrictRegionsRelationsRepository;
+use App\Repositories\Api\FederalDistricts\FederalDistrictRelationsRepository;
 
 final class FederalDistrictRegionsRelationsService
 {
-    protected FederalDistrictRegionsRelationsRepository $federalDistrictRelationsRepository;
+    protected FederalDistrictRelationsRepository $federalDistrictRelationsRepository;
 
     /**
-     * @param FederalDistrictRegionsRelationsRepository $federalDistrictRelationsRepository
+     * @param FederalDistrictRelationsRepository $federalDistrictRelationsRepository
      */
-    public function __construct(FederalDistrictRegionsRelationsRepository $federalDistrictRelationsRepository)
+    public function __construct(FederalDistrictRelationsRepository $federalDistrictRelationsRepository)
     {
         $this->federalDistrictRelationsRepository = $federalDistrictRelationsRepository;
     }
 
     /**
-     * @param int $id
+     * @param array $data
      * @return mixed
      */
-    public function indexRelations(int $id): mixed
+    public function indexRelation(array $data): mixed
     {
-        return $this->federalDistrictRelationsRepository->indexToManyRelationships($id);
+        return $this->federalDistrictRelationsRepository->indexRelations($data);
     }
 
     /**
      * @param array $data
-     * @param int $id
      * @return void
      */
-    public function updateRelations(array $data, int $id): void
+    public function updateRelations(array $data): void
     {
-        data_set($data, 'federal_district_id', $id);
+        $this->federalDistrictRelationsRepository->updateRelations($data);
+    }
 
-        $this->federalDistrictRelationsRepository->updateToManyRelationships($data);
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function storeRelations(array $data): void
+    {
+        $this->federalDistrictRelationsRepository->storeRelations($data);
     }
 }

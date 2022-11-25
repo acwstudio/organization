@@ -27,11 +27,10 @@ abstract class AbstractCRUDRepository
     abstract public function show(int $id): QueryBuilder;
 
     /**
-     * @param array $attributes
-     * @param int $id
-     * @return void
+     * @param array $data
+     * @return Model
      */
-    abstract public function update(array $attributes, int $id): void;
+    abstract public function update(array $data): Model;
 
     /**
      * @param int $id

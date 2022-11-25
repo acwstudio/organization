@@ -28,12 +28,12 @@ final class FederalDistrictRepository extends AbstractCRUDRepository
     }
 
     /**
-     * @param array $attributes
+     * @param array $data
      * @return Model|FederalDistrict
      */
-    public function store(array $attributes): Model|FederalDistrict
+    public function store(array $data): Model|FederalDistrict
     {
-        return FederalDistrict::create($attributes);
+        return FederalDistrict::create(data_get($data, 'data.attributes'));
     }
 
     /**
@@ -51,13 +51,16 @@ final class FederalDistrictRepository extends AbstractCRUDRepository
     }
 
     /**
-     * @param array $attributes
-     * @param int $id
-     * @return void
+     * @param array $data
+     * @return Model
      */
-    public function update(array $attributes, int $id): void
+    public function update(array $data): Model
     {
-        FederalDistrict::findOrFail($id)->update($attributes);
+        $model = FederalDistrict::findOrFail(data_get($data, 'id'));
+
+        $model->update(data_get($data, 'data.attributes'));
+
+        return $model;
     }
 
     /**

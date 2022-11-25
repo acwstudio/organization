@@ -11,7 +11,7 @@ final class FederalDistrictStorePipe
     protected FederalDistrictRepository $federalDistrictRepository;
 
     /**
-     * @param \App\Repositories\Api\FederalDistricts\FederalDistrictRepository $federalDistrictRepository
+     * @param FederalDistrictRepository $federalDistrictRepository
      */
     public function __construct(FederalDistrictRepository $federalDistrictRepository)
     {
@@ -25,12 +25,9 @@ final class FederalDistrictStorePipe
      */
     public function handle(array $data, \Closure $next): mixed
     {
-        $attributes = data_get($data, 'data.attributes');
-
-        $federalDistrict = $this->federalDistrictRepository->store($attributes);
-
-        $data = data_set($data, 'model', $federalDistrict);
-        $data = data_set($data, 'federal_district_id', $federalDistrict->id);
+        $model = $this->federalDistrictRepository->store($data);
+        data_set($data, 'model', $model);
+        data_set($data, 'id', $model->id);
 
         return $next($data);
     }
