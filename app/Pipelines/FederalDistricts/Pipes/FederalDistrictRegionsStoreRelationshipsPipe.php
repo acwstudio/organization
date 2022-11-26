@@ -31,7 +31,7 @@ final class FederalDistrictRegionsStoreRelationshipsPipe
             data_set($data, 'relation_data', $relationData);
             data_set($data, 'relation_method', 'regions');
 
-            $this->federalDistrictRelationRepository->storeRelations($data);
+            $this->federalDistrictRelationRepository->updateRelations($data);
         }
 
         return $next($data);

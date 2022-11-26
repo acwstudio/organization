@@ -29,10 +29,10 @@ class FederalDistrictRegionsRelatedController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        data_set($data, 'relation', 'regions');
+        data_set($data, 'relation_method', 'regions');
         data_set($data, 'id', $id);
 
-        $regions = $this->federalDistrictRegionsRelationService->indexRelation($data)->simplePaginate($perPage);
+        $regions = $this->federalDistrictRegionsRelationService->indexRelations($data)->simplePaginate($perPage);
 
         return (new RegionCollection($regions))->response();
     }
