@@ -4,7 +4,6 @@ namespace App\Http\Requests\Api\V1\FederalDistricts;
 
 use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class FederalDistrictRegionsUpdateRelationshipsRequest extends FormRequest
 {

@@ -36,10 +36,12 @@ class ForeignKeyNull implements InvokableRule
 
         $nameModel = $explodedModelName[array_key_last($explodedModelName)];
 
-        $test = app()->make($this->model)::findOrFail($value)->{$this->foreignKey};
+        $exist = app()->make($this->model)::where('id', $value)->first();
 
-        if (!is_null($test)) {
-            $fail("The $nameModel (id=$value) $this->foreignKey field must be null");
+        if ($exist) {
+            if (!is_null($exist->{$this->foreignKey})) {
+                $fail("The $nameModel (id=$value) $this->foreignKey field must be null");
+            }
         }
     }
 }

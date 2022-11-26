@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Api\FederalDistricts;
 
 use App\Repositories\Api\FederalDistricts\FederalDistrictRelationsRepository;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class FederalDistrictRegionsRelationsService
 {
@@ -20,9 +21,9 @@ final class FederalDistrictRegionsRelationsService
 
     /**
      * @param array $data
-     * @return mixed
+     * @return HasMany
      */
-    public function indexRelation(array $data): mixed
+    public function indexRelations(array $data): HasMany
     {
         return $this->federalDistrictRelationsRepository->indexRelations($data);
     }
@@ -30,18 +31,10 @@ final class FederalDistrictRegionsRelationsService
     /**
      * @param array $data
      * @return void
+     * @throws \ReflectionException
      */
     public function updateRelations(array $data): void
     {
         $this->federalDistrictRelationsRepository->updateRelations($data);
-    }
-
-    /**
-     * @param array $data
-     * @return void
-     */
-    public function storeRelations(array $data): void
-    {
-        $this->federalDistrictRelationsRepository->storeRelations($data);
     }
 }

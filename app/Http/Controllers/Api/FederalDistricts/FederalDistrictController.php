@@ -37,7 +37,7 @@ class FederalDistrictController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $federalDistricts = $this->federalDistrictService->index()->paginate($perPage);
+        $federalDistricts = $this->federalDistrictService->index()->simplePaginate($perPage);
 
         return (new FederalDistrictCollection($federalDistricts))->response();
     }
@@ -52,6 +52,7 @@ class FederalDistrictController extends Controller
     public function store(FederalDistrictStoreRequest $request): JsonResponse
     {
         $data = $request->all();
+
         $federalDistrict = $this->federalDistrictService->store($data);
 
         return (new FederalDistrictResource($federalDistrict))

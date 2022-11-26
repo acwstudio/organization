@@ -6,31 +6,16 @@ namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use App\Repositories\Api\AbstractRelationsRepository;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class FederalDistrictRelationsRepository extends AbstractRelationsRepository
 {
-    public function indexRelations(array $data): Model|Collection
+    public function indexRelations(array $data): HasMany
     {
-        $relation = data_get($data, 'relation');
+        $relation = data_get($data, 'relation_method');
         $id = data_get($data, 'id');
 
-        return FederalDistrict::findOrFail($id)->{$relation};
-    }
-
-    /**
-     * @param array $data
-     * @return void
-     * @throws \ReflectionException
-     */
-    public function storeRelations(array $data): void
-    {
-        // HasOne, HasMany, morphOne, morphMany
-        // belongsTo, morphTo
-        // belongsToMany, morphedToMany, morphedByMany
-
-        $this->handleStoreRelations($data);
+        return FederalDistrict::findOrFail($id)->{$relation}();
     }
 
     /**
@@ -44,6 +29,7 @@ final class FederalDistrictRelationsRepository extends AbstractRelationsReposito
         // belongsTo, morphTo
         // belongsToMany, morphedToMany, morphedByMany
 
+        data_get($data, 'model') ?? data_set($data, 'model' ,FederalDistrict::findOrFail(data_get($data, 'id')));
         $this->handleUpdateRelations($data);
 
     }
