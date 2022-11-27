@@ -28,12 +28,12 @@ final class RegionRepository extends AbstractCRUDRepository
     }
 
     /**
-     * @param array $attributes
+     * @param array $data
      * @return Model|Region
      */
-    public function store(array $attributes): Model|Region
+    public function store(array $data): Model|Region
     {
-        return Region::create($attributes);
+        return Region::create(data_get($data, 'data.attributes'));
     }
 
     /**
@@ -51,11 +51,10 @@ final class RegionRepository extends AbstractCRUDRepository
     }
 
     /**
-     * @param array $attributes
-     * @param int $id
-     * @return void
+     * @param array $data
+     * @return Model|Region
      */
-    public function update(array $data): Model
+    public function update(array $data): Model|Region
     {
         $model = Region::findOrFail(data_get($data, 'id'));
 

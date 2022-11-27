@@ -6,22 +6,23 @@ namespace App\Pipelines\Regions\Pipes;
 
 use App\Repositories\Api\Regions\RegionRelationsRepository;
 
-final class RegionCitiesUpdateRelationshipsPipe
+final class RegionCitiesStoreRelationshipsPipe
 {
-    protected RegionRelationsRepository $regionRelationsRepository;
+    protected RegionRelationsRepository $regionRelationRepository;
 
     /**
-     * @param RegionRelationsRepository $regionRelationsRepository
+     * @param RegionRelationsRepository $regionRelationRepository
      */
-    public function __construct(RegionRelationsRepository $regionRelationsRepository)
+    public function __construct(RegionRelationsRepository $regionRelationRepository)
     {
-        $this->regionRelationsRepository = $regionRelationsRepository;
+        $this->regionRelationRepository = $regionRelationRepository;
     }
 
     /**
      * @param array $data
      * @param \Closure $next
      * @return mixed
+     * @throws \ReflectionException
      */
     public function handle(array $data, \Closure $next): mixed
     {
@@ -31,7 +32,7 @@ final class RegionCitiesUpdateRelationshipsPipe
             data_set($data, 'relation_data', $relationData);
             data_set($data, 'relation_method', 'cities');
 
-            $this->regionRelationsRepository->updateRelations($data);
+            $this->regionRelationRepository->updateRelations($data);
         }
 
         return $next($data);

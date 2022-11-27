@@ -50,7 +50,9 @@ class RegionController extends Controller
      */
     public function store(RegionStoreRequest $request): JsonResponse
     {
-        $region = $this->regionService->store($request->all());
+        $data = $request->all();
+
+        $region = $this->regionService->store($data);
 
         return (new RegionResource($region))
             ->response()
@@ -82,7 +84,10 @@ class RegionController extends Controller
      */
     public function update(RegionUpdateRequest $request, int $id): JsonResponse
     {
-        $this->regionService->update($request->all(), $id);
+        $data = $request->all();
+        data_set($data, 'id', $id);
+
+        $this->regionService->update($data);
 
         return response()->json(null, 204);
     }
