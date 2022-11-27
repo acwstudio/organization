@@ -36,7 +36,7 @@ class RegionController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $regions = $this->regionService->index()->paginate($perPage);
+        $regions = $this->regionService->index()->simplePaginate($perPage);
 
         return (new RegionCollection($regions))->response();
     }

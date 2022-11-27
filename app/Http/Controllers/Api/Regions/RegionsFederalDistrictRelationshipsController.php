@@ -23,9 +23,13 @@ class RegionsFederalDistrictRelationshipsController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $federalDistrict = $this->regionsFederalDistrictRelationsService->indexRelations($id);
+        data_set($data, 'relation_method', 'federalDistrict');
+        data_set($data, 'id', $id);
 
-        return (new FederalDistrictIdentifierResource($federalDistrict))->response();
+        $federalDistrict = $this->regionsFederalDistrictRelationsService->indexRelations($data)->first();
+
+        return $federalDistrict ?
+            (new FederalDistrictIdentifierResource($federalDistrict))->response() : response()->json(null, 204);
     }
 
     /**
@@ -35,7 +39,11 @@ class RegionsFederalDistrictRelationshipsController extends Controller
      */
     public function update(RegionsFederalDistrictUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        $this->regionsFederalDistrictRelationsService->updateRelations($request->all(), $id);
+        data_set($data, 'relation_data', $request->all());
+        data_set($data, 'relation_method', 'federalDistrict');
+        data_set($data, 'id', $id);
+
+        $this->regionsFederalDistrictRelationsService->updateRelations($data);
 
         return response()->json(null, 204);
     }

@@ -2,20 +2,26 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Api\FederalDistricts;
+namespace App\Repositories\Api\Regions;
 
-use App\Models\FederalDistrict;
+use App\Models\Region;
 use App\Repositories\Api\AbstractRelationsRepository;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class FederalDistrictRelationsRepository extends AbstractRelationsRepository
+final class RegionRelationsRepository extends AbstractRelationsRepository
 {
-    public function indexRelations(array $data): HasMany
+
+    /**
+     * @param array $data
+     * @return HasMany|BelongsTo
+     */
+    public function indexRelations(array $data): HasMany|BelongsTo
     {
         $relation = data_get($data, 'relation_method');
         $id = data_get($data, 'id');
 
-        return FederalDistrict::findOrFail($id)->{$relation}();
+        return Region::findOrFail($id)->{$relation}();
     }
 
     /**
@@ -29,7 +35,7 @@ final class FederalDistrictRelationsRepository extends AbstractRelationsReposito
         // BelongsTo, MorphTo
         // BelongsToMany, MorphedToMany, MorphedByMany
 
-        data_get($data, 'model') ?? data_set($data, 'model', FederalDistrict::findOrFail(data_get($data, 'id')));
+        data_get($data, 'model') ?? data_set($data, 'model', Region::findOrFail(data_get($data, 'id')));
         $this->handleUpdateRelations($data);
     }
 }

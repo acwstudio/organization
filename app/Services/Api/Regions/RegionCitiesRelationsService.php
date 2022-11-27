@@ -6,38 +6,37 @@ namespace App\Services\Api\Regions;
 
 use App\Models\Region;
 use App\Repositories\Api\Regions\RegionCitiesRelationsRepository;
+use App\Repositories\Api\Regions\RegionRelationsRepository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class RegionCitiesRelationsService
 {
-    protected RegionCitiesRelationsRepository $regionCitiesRelationsRepository;
+    protected RegionRelationsRepository $regionRelationsRepository;
 
     /**
-     * @param RegionCitiesRelationsRepository $regionCitiesRelationsRepository
+     * @param RegionRelationsRepository $regionRelationsRepository
      */
-    public function __construct(RegionCitiesRelationsRepository $regionCitiesRelationsRepository)
+    public function __construct(RegionRelationsRepository $regionRelationsRepository)
     {
-        $this->regionCitiesRelationsRepository = $regionCitiesRelationsRepository;
+        $this->regionRelationsRepository = $regionRelationsRepository;
     }
 
     /**
      * @param int $id
      * @return HasMany
      */
-    public function indexRelations(int $id): HasMany
+    public function indexRelations(array $data): HasMany
     {
-        return $this->regionCitiesRelationsRepository->indexToManyRelationships($id);
+        return $this->regionRelationsRepository->indexRelations($data);
     }
 
     /**
      * @param array $data
-     * @param int $id
      * @return void
+     * @throws \ReflectionException
      */
-    public function updateRelations(array $data, int $id): void
+    public function updateRelations(array $data): void
     {
-        data_set($data, 'region_id', $id);
-
-        $this->regionCitiesRelationsRepository->updateToManyRelationships($data);
+        $this->regionRelationsRepository->updateRelations($data);
     }
 }

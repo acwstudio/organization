@@ -27,8 +27,8 @@ class FederalDistrictRegionsUpdateRelationshipsRequest extends FormRequest
         return [
             'data'        => ['present','array'],
             'data.*'      => ['required','array','size:2'],
-            'data.*.id'   => ['sometimes','required','integer','distinct','exists:regions,id'],
-            'data.*.type' => ['sometimes','required','string','in:' . Region::TYPE_RESOURCE],
+            'data.*.id'   => ['required','integer','distinct','exists:regions,id'],
+            'data.*.type' => ['required','string','in:' . Region::TYPE_RESOURCE],
         ];
     }
 }
