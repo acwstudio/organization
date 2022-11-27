@@ -4,27 +4,28 @@ declare(strict_types=1);
 
 namespace App\Repositories\Api;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 abstract class AbstractRelationsRepository
 {
-    private array $relationToMany = ['HasMany', 'morphMany','HasOne','morphOne'];
-    private array $relationToOne = ['belongsTo', 'morphTo'];
-    private array $relationManyToMany = ['belongsToMany', 'morphedToMany', 'morphedByMany'];
+    private array $relationToMany = ['HasMany', 'MorphMany','HasOne','MorphOne'];
+    private array $relationToOne = ['BelongsTo', 'MorphTo'];
+    private array $relationManyToMany = ['BelongsToMany', 'MorphedToMany', 'MorphedByMany'];
 
     private string $nameRelationClass;
 
     /**
      * @param array $data
-     * @return HasMany
+     * @return HasMany|BelongsTo
      */
-    abstract protected function indexRelations(array $data): HasMany;
+    abstract public function indexRelations(array $data): HasMany|BelongsTo;
 
     /**
      * @param array $data
      * @return void
      */
-    abstract protected function updateRelations(array $data): void;
+    abstract public function updateRelations(array $data): void;
 
     /**
      * @param array $data
@@ -81,9 +82,26 @@ abstract class AbstractRelationsRepository
         ]);
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
     private function updateRelationToOne($data): void
     {
+        $model = data_get($data, 'model');
+        $relationMethod = data_get($data, 'relation_method');
+        $id = data_get($data, 'relation_data.data.id');
 
+        $relatedModel = $model->$relationMethod()->getRelated();
+
+        $model->$relationMethod()->dissociate();
+
+        if($id){
+            $newModel = $relatedModel->newQuery()->findOrFail($id);
+            $model->$relationMethod()->associate($newModel);
+        }
+
+        $model->save();
     }
 
     private function updateRelationManyToMany($data): void

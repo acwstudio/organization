@@ -55,9 +55,13 @@ final class RegionRepository extends AbstractCRUDRepository
      * @param int $id
      * @return void
      */
-    public function update(array $attributes, int $id): void
+    public function update(array $data): Model
     {
-        Region::findOrFail($id)->update($attributes);
+        $model = Region::findOrFail(data_get($data, 'id'));
+
+        $model->update(data_get($data, 'data.attributes'));
+
+        return $model;
     }
 
     /**

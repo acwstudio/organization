@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Api\FederalDistricts;
 
-use App\Exceptions\PipelineException;
 use App\Models\FederalDistrict;
 use App\Pipelines\FederalDistricts\FederalDistrictPipeline;
 use App\Repositories\Api\FederalDistricts\FederalDistrictRepository;

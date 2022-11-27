@@ -25,7 +25,10 @@ class RegionsFederalDistrictRelatedController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $federalDistrict = $this->regionsFederalDistrictRelationsService->indexRelations($id);
+        data_set($data, 'relation_method', 'federalDistrict');
+        data_set($data, 'id', $id);
+
+        $federalDistrict = $this->regionsFederalDistrictRelationsService->indexRelations($data)->first();
 
         return $federalDistrict ?
             (new FederalDistrictResource($federalDistrict))->response() : response()->json(null, 204);

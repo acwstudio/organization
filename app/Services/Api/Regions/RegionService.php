@@ -61,14 +61,11 @@ final class RegionService extends AbstractCRUDService
 
     /**
      * @param array $data
-     * @param int $id
      * @return void
      * @throws \Throwable
      */
-    public function update(array $data, int $id): void
+    public function update(array $data): void
     {
-        data_set($data, 'region_id', $id);
-
         $this->regionPipeline->update($data);
     }
 

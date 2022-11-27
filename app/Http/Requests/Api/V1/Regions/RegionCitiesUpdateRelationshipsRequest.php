@@ -27,7 +27,7 @@ class RegionCitiesUpdateRelationshipsRequest extends FormRequest
     {
         return [
             'data'        => ['present','array'],
-            'data.*'      => ['required','array'],
+            'data.*'      => ['required','array','size:2'],
             'data.*.id'   => ['required','integer','distinct','exists:cities,id'],
             'data.*.type' => ['required','string','in:' . City::TYPE_RESOURCE],
         ];

@@ -5,41 +5,42 @@ declare(strict_types=1);
 namespace App\Services\Api\Regions;
 
 use App\Models\FederalDistrict;
+use App\Models\Region;
+use App\Repositories\Api\Regions\RegionRelationsRepository;
 use App\Repositories\Api\Regions\RegionsFederalDistrictRelationsRepository;
 use App\Services\Api\AbstractCRUDService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class RegionsFederalDistrictRelationsService
 {
-    protected RegionsFederalDistrictRelationsRepository $regionsFederalDistrictRelationsRepository;
+    protected RegionRelationsRepository $regionRelationsRepository;
 
     /**
-     * @param RegionsFederalDistrictRelationsRepository $regionsFederalDistrictRelationsRepository
+     * @param RegionRelationsRepository $regionRelationsRepository
      */
-    public function __construct(RegionsFederalDistrictRelationsRepository $regionsFederalDistrictRelationsRepository)
+    public function __construct(RegionRelationsRepository $regionRelationsRepository)
     {
-        $this->regionsFederalDistrictRelationsRepository = $regionsFederalDistrictRelationsRepository;
-    }
-
-    /**
-     * @param int $id
-     * @return FederalDistrict
-     */
-    public function indexRelations(int $id): FederalDistrict
-    {
-        return $this->regionsFederalDistrictRelationsRepository->indexToOneRelationships($id);
+        $this->regionRelationsRepository = $regionRelationsRepository;
     }
 
     /**
      * @param array $data
-     * @param int $id
-     * @return void
+     * @return HasMany
      */
-    public function updateRelations(array $data, int $id): void
+    public function indexRelations(array $data): BelongsTo
     {
-        data_set($data, 'region_id', $id);
+        return $this->regionRelationsRepository->indexRelations($data);
+    }
 
-        $this->regionsFederalDistrictRelationsRepository->updateToOneRelationship($data);
+    /**
+     * @param array $data
+     * @return void
+     * @throws \ReflectionException
+     */
+    public function updateRelations(array $data): void
+    {
+        $this->regionRelationsRepository->updateRelations($data);
     }
 }
