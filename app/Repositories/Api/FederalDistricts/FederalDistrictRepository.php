@@ -54,7 +54,7 @@ final class FederalDistrictRepository extends AbstractCRUDRepository
      * @param array $data
      * @return Model
      */
-    public function update(array $data): Model
+    public function update(array $data): Model|FederalDistrict
     {
         $model = FederalDistrict::findOrFail(data_get($data, 'id'));
 

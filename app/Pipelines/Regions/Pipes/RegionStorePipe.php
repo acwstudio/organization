@@ -25,13 +25,9 @@ final class RegionStorePipe
      */
     public function handle(array $data, \Closure $next): mixed
     {
-        $attributes = data_get($data, 'data.attributes');
-
-        $region = $this->regionRepository->store($attributes);
-
-        $data = data_set($data, 'model', $region);
-
-        $data = data_set($data, 'region_id', $region->id);
+        $model = $this->regionRepository->store($data);
+        data_set($data, 'model', $model);
+        data_set($data, 'id', $model->id);
 
         return $next($data);
     }

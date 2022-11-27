@@ -6,16 +6,16 @@ namespace App\Pipelines\Regions\Pipes;
 
 use App\Repositories\Api\Regions\RegionRelationsRepository;
 
-final class RegionsFederalDistrictUpdateRelationshipsPipe
+final class RegionsFederalDistrictStoreRelationshipsPipe
 {
-    protected RegionRelationsRepository $regionRelationsRepository;
+    protected RegionRelationsRepository $regionRelationRepository;
 
     /**
-     * @param RegionRelationsRepository $regionRelationsRepository
+     * @param RegionRelationsRepository $regionRelationRepository
      */
-    public function __construct(RegionRelationsRepository $regionRelationsRepository)
+    public function __construct(RegionRelationsRepository $regionRelationRepository)
     {
-        $this->regionRelationsRepository = $regionRelationsRepository;
+        $this->regionRelationRepository = $regionRelationRepository;
     }
 
     /**
@@ -32,7 +32,7 @@ final class RegionsFederalDistrictUpdateRelationshipsPipe
             data_set($data, 'relation_data', $relationData);
             data_set($data, 'relation_method', 'federalDistrict');
 
-            $this->regionRelationsRepository->updateRelations($data);
+            $this->regionRelationRepository->updateRelations($data);
         }
 
         return $next($data);

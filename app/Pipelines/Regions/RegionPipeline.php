@@ -6,8 +6,10 @@ namespace App\Pipelines\Regions;
 
 use App\Models\Region;
 use App\Pipelines\AbstractPipeline;
+use App\Pipelines\Regions\Pipes\RegionCitiesStoreRelationshipsPipe;
 use App\Pipelines\Regions\Pipes\RegionCitiesUpdateRelationshipsPipe;
 use App\Pipelines\Regions\Pipes\RegionDestroyPipe;
+use App\Pipelines\Regions\Pipes\RegionsFederalDistrictStoreRelationshipsPipe;
 use App\Pipelines\Regions\Pipes\RegionsFederalDistrictUpdateRelationshipsPipe;
 use App\Pipelines\Regions\Pipes\RegionStorePipe;
 use App\Pipelines\Regions\Pipes\RegionUpdatePipe;
@@ -30,8 +32,8 @@ final class RegionPipeline extends AbstractPipeline
                 ->send($data)
                 ->through([
                     RegionStorePipe::class,
-                    RegionsFederalDistrictUpdateRelationshipsPipe::class,
-                    RegionCitiesUpdateRelationshipsPipe::class
+                    RegionsFederalDistrictStoreRelationshipsPipe::class,
+                    RegionCitiesStoreRelationshipsPipe::class
                 ])
                 ->thenReturn();
 

@@ -25,11 +25,8 @@ final class RegionUpdatePipe
      */
     public function handle(array $data, \Closure $next): mixed
     {
-        $attributes = data_get($data, 'data.attributes');
-
-        if ($attributes) {
-            $this->regionRepository->update($attributes, data_get($data,'region_id'));
-        }
+        $model = $this->regionRepository->update($data);
+        data_set($data, 'model', $model);
 
         return $next($data);
     }
