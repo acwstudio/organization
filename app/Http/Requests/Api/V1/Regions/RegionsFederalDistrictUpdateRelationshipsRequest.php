@@ -25,9 +25,9 @@ class RegionsFederalDistrictUpdateRelationshipsRequest extends FormRequest
     public function rules()
     {
         return [
-            'data'      => ['required', 'array'],
-            'data.id'   => ['required','integer','exists:federal_districts,id'],
-            'data.type' => ['required','string','in:' . FederalDistrict::TYPE_RESOURCE],
+            'data'      => ['present', 'array'],
+            'data.id'   => ['sometimes','required','integer','exists:federal_districts,id'],
+            'data.type' => ['sometimes','required','string','in:' . FederalDistrict::TYPE_RESOURCE],
         ];
     }
 }
