@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Pipelines\Cities\Pipes;
 
-use App\Repositories\Api\Cities\CitiesRegionRelationsRepository;
 use App\Repositories\Api\Cities\CityRelationsRepository;
 
-final class CitiesRegionUpdateRelationshipsPipe
+final class CitiesRegionStoreRelationshipsPipe
 {
     protected CityRelationsRepository $cityRelationsRepository;
 
@@ -25,7 +24,7 @@ final class CitiesRegionUpdateRelationshipsPipe
      * @return mixed
      * @throws \ReflectionException
      */
-    public function handle(array $data, \Closure $next)
+    public function handle(array $data, \Closure $next): mixed
     {
         $relationData = data_get($data, 'data.relationships.region');
 

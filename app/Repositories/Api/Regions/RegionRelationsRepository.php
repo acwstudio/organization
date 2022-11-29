@@ -31,9 +31,11 @@ final class RegionRelationsRepository extends AbstractRelationsRepository
      */
     public function updateRelations(array $data): void
     {
-        // HasOne, HasMany, MorphOne, MorphMany
-        // BelongsTo, MorphTo
-        // BelongsToMany, MorphedToMany, MorphedByMany
+        /**
+         * HasOne, HasMany, MorphOne, MorphMany
+         * BelongsTo, MorphTo
+         * BelongsToMany, MorphedToMany, MorphedByMany
+         */
 
         data_get($data, 'model') ?? data_set($data, 'model', Region::findOrFail(data_get($data, 'id')));
         $this->handleUpdateRelations($data);

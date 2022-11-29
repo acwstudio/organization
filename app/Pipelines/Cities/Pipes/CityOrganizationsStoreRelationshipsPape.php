@@ -6,7 +6,7 @@ namespace App\Pipelines\Cities\Pipes;
 
 use App\Repositories\Api\Cities\CityRelationsRepository;
 
-final class CityOrganizationsUpdateRelationshipsPipe
+final class CityOrganizationsStoreRelationshipsPape
 {
     protected CityRelationsRepository $cityRelaionsRepository;
 

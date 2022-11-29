@@ -50,7 +50,9 @@ class CityController extends Controller
      */
     public function store(CityStoreRequest $request): JsonResponse
     {
-        $city = $this->cityService->store($request->all());
+        $data = $request->all();
+
+        $city = $this->cityService->store($data);
 
         return (new CityResource($city))
             ->response()
@@ -82,7 +84,10 @@ class CityController extends Controller
      */
     public function update(CityUpdateRequest $request, $id)
     {
-        $this->cityService->update($request->all(), $id);
+        $data = $request->all();
+        data_set($data, 'id', $id);
+
+        $this->cityService->update($data);
 
         return response()->json(null, 204);
     }

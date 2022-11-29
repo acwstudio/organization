@@ -36,6 +36,7 @@ class RegionsFederalDistrictRelationshipsController extends Controller
      * @param RegionsFederalDistrictUpdateRelationshipsRequest $request
      * @param int $id
      * @return JsonResponse
+     * @throws \ReflectionException
      */
     public function update(RegionsFederalDistrictUpdateRelationshipsRequest $request, int $id): JsonResponse
     {

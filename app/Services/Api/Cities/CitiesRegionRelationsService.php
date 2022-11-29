@@ -4,35 +4,37 @@ declare(strict_types=1);
 
 namespace App\Services\Api\Cities;
 
-use App\Models\Region;
-use App\Repositories\Api\Cities\CitiesRegionRelationsRepository;
-use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Api\Cities\CityRelationsRepository;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class CitiesRegionRelationsService
 {
-    protected CitiesRegionRelationsRepository $citiesRegionRelationsRepository;
+    protected CityRelationsRepository $cityRelationsRepository;
 
     /**
-     * @param CitiesRegionRelationsRepository $citiesRegionRelationsRepository
+     * @param CityRelationsRepository $cityRelationsRepository
      */
-    public function __construct(CitiesRegionRelationsRepository $citiesRegionRelationsRepository)
+    public function __construct(CityRelationsRepository $cityRelationsRepository)
     {
-        $this->citiesRegionRelationsRepository = $citiesRegionRelationsRepository;
+        $this->cityRelationsRepository = $cityRelationsRepository;
     }
 
     /**
-     * @param int $id
-     * @return Model|Region
+     * @param array $data
+     * @return BelongsTo
      */
-    public function indexRelations(int $id): Model|Region
+    public function indexRelations(array $data): BelongsTo
     {
-        return $this->citiesRegionRelationsRepository->indexToOneRelationships($id);
+        return $this->cityRelationsRepository->indexRelations($data);
     }
 
-    public function updateRelations(array $data, int $id): void
+    /**
+     * @param array $data
+     * @return void
+     * @throws \ReflectionException
+     */
+    public function updateRelations(array $data): void
     {
-        data_set($data, 'city_id', $id);
-
-        $this->citiesRegionRelationsRepository->updateToOneRelationship($data);
+        $this->cityRelationsRepository->updateRelations($data);
     }
 }

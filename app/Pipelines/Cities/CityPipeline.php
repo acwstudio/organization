@@ -7,9 +7,10 @@ namespace App\Pipelines\Cities;
 use App\Exceptions\PipelineException;
 use App\Models\City;
 use App\Pipelines\AbstractPipeline;
+use App\Pipelines\Cities\Pipes\CitiesRegionStoreRelationshipsPipe;
 use App\Pipelines\Cities\Pipes\CitiesRegionUpdateRelationshipsPipe;
 use App\Pipelines\Cities\Pipes\CityDestroyPipe;
-use App\Pipelines\Cities\Pipes\CityOrganizationsDestroyRelatedPipe;
+use App\Pipelines\Cities\Pipes\CityOrganizationsStoreRelationshipsPape;
 use App\Pipelines\Cities\Pipes\CityOrganizationsUpdateRelationshipsPipe;
 use App\Pipelines\Cities\Pipes\CityStorePipe;
 use App\Pipelines\Cities\Pipes\CityUpdatePipe;
@@ -18,6 +19,11 @@ use Illuminate\Support\Facades\Log;
 
 final class CityPipeline  extends AbstractPipeline
 {
+    /**
+     * @param array $data
+     * @return City
+     * @throws \Throwable
+     */
     public function store(array $data): City
     {
         try {
@@ -27,8 +33,8 @@ final class CityPipeline  extends AbstractPipeline
                 ->send($data)
                 ->through([
                     CityStorePipe::class,
-                    CitiesRegionUpdateRelationshipsPipe::class,
-                    CityOrganizationsUpdateRelationshipsPipe::class
+                    CitiesRegionStoreRelationshipsPipe::class,
+                    CityOrganizationsStoreRelationshipsPape::class
                 ])
                 ->thenReturn();
 

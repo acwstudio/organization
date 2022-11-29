@@ -5,37 +5,36 @@ declare(strict_types=1);
 namespace App\Services\Api\Cities;
 
 use App\Repositories\Api\Cities\CityOrganizationsRelationsRepository;
+use App\Repositories\Api\Cities\CityRelationsRepository;
 
 final class CityOrganizationsRelationsService
 {
-    protected CityOrganizationsRelationsRepository $cityOrganizationsRelationsRepository;
+    protected CityRelationsRepository $cityRelationsRepository;
 
     /**
-     * @param CityOrganizationsRelationsRepository $cityOrganizationsRelationsRepository
+     * @param CityRelationsRepository $cityRelationsRepository
      */
-    public function __construct(CityOrganizationsRelationsRepository $cityOrganizationsRelationsRepository)
+    public function __construct(CityRelationsRepository $cityRelationsRepository)
     {
-        $this->cityOrganizationsRelationsRepository = $cityOrganizationsRelationsRepository;
+        $this->cityRelationsRepository = $cityRelationsRepository;
     }
 
     /**
      * @param int $id
      * @return mixed
      */
-    public function indexRelations(int $id)
+    public function indexRelations(array $data)
     {
-        return $this->cityOrganizationsRelationsRepository->indexToManyRelationships($id);
+        return $this->cityRelationsRepository->indexRelations($data);
     }
 
     /**
      * @param array $data
-     * @param int $id
      * @return void
+     * @throws \ReflectionException
      */
-    public function updateRelations(array $data, int $id): void
+    public function updateRelations(array $data): void
     {
-        data_set($data, 'city_id', $id);
-
-        $this->cityOrganizationsRelationsRepository->updateToManyRelationships($data);
+        $this->cityRelationsRepository->updateRelations($data);
     }
 }

@@ -65,7 +65,6 @@ abstract class AbstractRelationsRepository
             $ids = data_get($data, 'relation_data.data.*.id');
         }
 
-
         if ($this->nameRelationClass === 'HasOne') {
             $ids = [data_get($data, 'relation_data.data.id')];
         }
