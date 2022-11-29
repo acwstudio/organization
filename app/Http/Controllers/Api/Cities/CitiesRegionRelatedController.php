@@ -25,7 +25,10 @@ class CitiesRegionRelatedController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $region = $this->citiesRegionRelationsService->indexRelations($id);
+        data_set($data, 'relation_method', 'region');
+        data_set($data, 'id', $id);
+
+        $region = $this->citiesRegionRelationsService->indexRelations($data)->first();
 
         return $region ? (new RegionResource($region))->response() : response()->json(null, 204);
     }

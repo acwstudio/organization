@@ -4,12 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Api\Regions;
 
-use App\Models\FederalDistrict;
-use App\Models\Region;
 use App\Repositories\Api\Regions\RegionRelationsRepository;
-use App\Repositories\Api\Regions\RegionsFederalDistrictRelationsRepository;
-use App\Services\Api\AbstractCRUDService;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

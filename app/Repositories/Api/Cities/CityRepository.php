@@ -28,12 +28,12 @@ final class CityRepository extends AbstractCRUDRepository
     }
 
     /**
-     * @param array $attributes
+     * @param array $data
      * @return Model|City
      */
-    public function store(array $attributes): Model|City
+    public function store(array $data): Model|City
     {
-        return City::create($attributes);
+        return City::create(data_get($data, 'data.attributes'));
     }
 
     /**
@@ -43,21 +43,24 @@ final class CityRepository extends AbstractCRUDRepository
     public function show(int $id): QueryBuilder
     {
         // it is just only for ModelNotFoundException
-        $region = City::findOrFail($id);
+        $city = City::findOrFail($id);
 
         return QueryBuilder::for(City::class)
-            ->where('id', $region->id)
+            ->where('id', $city->id)
             ->allowedIncludes(['organizations','region']);
     }
 
     /**
-     * @param array $attributes
-     * @param int $id
-     * @return void
+     * @param array $data
+     * @return Model|City
      */
-    public function update(array $attributes, int $id): void
+    public function update(array $data): Model|City
     {
-        City::findOrFail($id)->update($attributes);
+        $model = City::findOrFail(data_get($data, 'id'));
+
+        $model->update(data_get($data, 'data.attributes'));
+
+        return $model;
     }
 
     /**

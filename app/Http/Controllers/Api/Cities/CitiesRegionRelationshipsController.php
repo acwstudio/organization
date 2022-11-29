@@ -27,19 +27,27 @@ class CitiesRegionRelationshipsController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $region = City::findOrFail($id)->region;
+        data_set($data, 'relation_method', 'region');
+        data_set($data, 'id', $id);
 
-        return $region ? (new RegionIdentifierResource($region))->response() : response()->json();
+        $region = $this->citiesRegionRelationsService->indexRelations($data)->first();
+
+        return $region ? (new RegionIdentifierResource($region))->response() : response()->json(null, 204);
     }
 
     /**
      * @param CitiesRegionUpdateRelationshipsRequest $request
      * @param int $id
      * @return JsonResponse
+     * @throws \ReflectionException
      */
     public function update(CitiesRegionUpdateRelationshipsRequest $request, int $id): JsonResponse
     {
-        $this->citiesRegionRelationsService->updateRelations($request->all(), $id);
+        data_set($data, 'relation_data', $request->all());
+        data_set($data, 'relation_method', 'region');
+        data_set($data, 'id', $id);
+
+        $this->citiesRegionRelationsService->updateRelations($data);
 
         return response()->json(null, 204);
     }

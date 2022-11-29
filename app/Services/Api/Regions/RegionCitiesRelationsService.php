@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Api\Regions;
 
-use App\Models\Region;
-use App\Repositories\Api\Regions\RegionCitiesRelationsRepository;
 use App\Repositories\Api\Regions\RegionRelationsRepository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

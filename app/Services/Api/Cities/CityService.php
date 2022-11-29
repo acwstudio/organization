@@ -24,7 +24,7 @@ final class CityService extends AbstractCRUDService
     protected CityPipeline $cityPipeline;
 
     /**
-     * @param \App\Repositories\Api\Cities\CityRepository $cityRepository
+     * @param CityRepository $cityRepository
      */
     public function __construct(CityRepository $cityRepository, CityPipeline $cityPipeline)
     {
@@ -61,14 +61,12 @@ final class CityService extends AbstractCRUDService
 
     /**
      * @param array $data
-     * @param int $id
      * @return void
+     * @throws PipelineException
      * @throws \Throwable
      */
-    public function update(array $data, int $id): void
+    public function update(array $data): void
     {
-        data_set($data, 'city_id', $id);
-
         $this->cityPipeline->update($data);
     }
 
