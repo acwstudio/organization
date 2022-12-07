@@ -6,6 +6,7 @@ namespace App\Repositories\Api;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 abstract class AbstractRelationsRepository
 {
@@ -17,9 +18,9 @@ abstract class AbstractRelationsRepository
 
     /**
      * @param array $data
-     * @return HasMany|BelongsTo
+     * @return HasMany|BelongsTo|HasOne
      */
-    abstract public function indexRelations(array $data): HasMany|BelongsTo;
+    abstract public function indexRelations(array $data): HasMany|BelongsTo|HasOne;
 
     /**
      * @param array $data

@@ -32,9 +32,9 @@ class OrganizationSeeder extends Seeder
         $i = 0;
         foreach ($organizations as $key_org => $organization) {
 //            dump(str_contains($organization->name, 'Российский университет дружбы народов'));
-            if (str_contains($organization->name, 'ниверситет')) {
-                if (!str_contains($organization->name, 'илиал')) {
-//                    dump('**  ' . $organization->name . '  ' . $i++);
+            if (str_contains($organization->name, 'ниверситет ')) {
+//                if (!str_contains($organization->name, 'илиал')) {
+                    dump('**  ' . $organization->name . '  ' . $i++);
 
                     $organizationId = DB::table('organizations')->insertGetId([
                         'id'                   => Str::uuid()->toString(),
@@ -54,9 +54,9 @@ class OrganizationSeeder extends Seeder
                         'base_image'           => '',
                         'created_at'           => now(),
                     ]);
-                }
+//                }
             } elseif (str_contains($organization->name, 'кадемия')) {
-//                dump('**  ' . $organization->name . '  ' . $i++);
+                dump('****  ' . $organization->name . '  ' . $i++);
                 $organizationId = DB::table('organizations')->insertGetId([
                     'id'                   => Str::uuid()->toString(),
                     'parent_id'            => null,
@@ -77,12 +77,15 @@ class OrganizationSeeder extends Seeder
                 ]);
             } elseif (str_contains($organization->name, 'нститут')) {
 //                dump(str_contains($organization->name, 'нститут экологии'));
+                dump('******  ' . $organization->name . '  ' . $i++);
                 if (!str_contains($organization->name, 'илиал')) {
 //                    dump('**  ' . $organization->name . '  ' . $i++);
                 }
+            } else {
+                dump('********  ' . $organization->name . '  ' . $i++);
             }
 
-            if (str_contains($organization->name, 'ниверситета')) {
+            if (str_contains($organization->name, 'филиал')) {
 //                dump('**  ' . $organization->name . '  ' . $i++);
             }
 
@@ -119,7 +122,7 @@ class OrganizationSeeder extends Seeder
         } elseif ($organization->town === 'Большие Вяземы') {
             return City::where('name', 'Одинцово')->first()->id;
         } else {
-            dump($organization->town);
+//            dump($organization->town);
             return City::where('name', $organization->town)->first()->id;
         }
     }
@@ -144,15 +147,21 @@ class OrganizationSeeder extends Seeder
 
     private function test($organizations)
     {
+
         $i = 0;
         foreach ($organizations as $organization) {
+//            dd($organization->name);
 //            dump($i++);
-            if (str_contains($organization->name, 'Российский университет дружбы народов')) {
-//                dd($organization->levels[0]->directions);
-                foreach ($organization->levels[0]->directions as $key => $item) {
-//                    dump($item->faculties[0]->spetialty);
-                    dump($item->name . '  ' . $i++);
+            if (str_contains($organization->name, 'кадемия')) {
+                if (!str_contains($organization->name, 'илиал')){
+//                    dump($organization->name . '  ' . $i++);
                 }
+
+//                dd($organization->levels[0]->directions);
+//                foreach ($organization->levels[0]->directions as $key => $item) {
+////                    dump($item->faculties[0]->spetialty);
+//                    dump($item->name . '  ' . $i++);
+//                }
             }
         }
     }

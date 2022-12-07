@@ -53,6 +53,7 @@ final class OrganizationRegistrar implements RouteRegistrar
 
             /*****************  ORGANIZATION ROUTES **************/
             $registrar->resource('organizations', OrganizationController::class);
+            $registrar->get('organizations/{id}',[OrganizationController::class, 'show'])->name('organizations.show');
 
             // Organizations to Organization Type relations
             $registrar->get('organizations/{id}/relationships/organization-type', [
