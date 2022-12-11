@@ -41,14 +41,22 @@ class CityResource extends JsonResource
                         'self' => route('cities.relationships.region', ['id' => $this->id]),
                         'related' => route('cities.region', ['id' => $this->id]),
                     ],
-                    'data' => new RegionIdentifierResource($this->whenLoaded('region'))
+                    'data' => new RegionIdentifierResource(
+                        $this->relatedData($this->relations()[RegionResource::class])
+                    )
                 ],
                 'organizations' => [
                     'links' => [
                         'self' => route('city.relationships.organizations', ['id' => $this->id]),
                         'related' => route('city.organizations', ['id' => $this->id]),
                     ],
-                    'data' => OrganizationIdentifierResource::collection($this->whenLoaded('organizations'))
+                    'data' => OrganizationIdentifierResource::collection(
+                        $this->relatedData($this->relations()[OrganizationCollection::class])
+                    ),
+                    'meta' => [
+                        'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
+                        'limit' => config('api-settings.limit-included')
+                    ]
                 ]
             ]
         ];

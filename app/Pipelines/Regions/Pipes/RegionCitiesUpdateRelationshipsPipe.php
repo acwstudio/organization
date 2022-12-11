@@ -22,6 +22,7 @@ final class RegionCitiesUpdateRelationshipsPipe
      * @param array $data
      * @param \Closure $next
      * @return mixed
+     * @throws \ReflectionException
      */
     public function handle(array $data, \Closure $next): mixed
     {

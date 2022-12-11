@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'limit-included' => 3
+    'limit-included' => 5
 ];

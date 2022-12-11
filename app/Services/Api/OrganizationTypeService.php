@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Api;
 
-use App\Repositories\Api\OrganizationTypeRepository;
+use App\Repositories\Api\OrganizationTypes\OrganizationTypeRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class OrganizationTypeService

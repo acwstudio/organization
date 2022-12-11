@@ -53,4 +53,9 @@ class OrganizationType extends Model
             ]
         ];
     }
+
+    public function allFields()
+    {
+        $this->getAttributes();
+    }
 }

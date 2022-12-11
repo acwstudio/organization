@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Organizations\OrganizationStoreRequest;
 use App\Http\Resources\Api\Organizations\OrganizationCollection;
 use App\Http\Resources\Api\Organizations\OrganizationResource;
-use App\Models\Organization;
-use App\Services\Api\OrganizationService;
+use App\Services\Api\Organizations\OrganizationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -22,13 +22,14 @@ class OrganizationController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
         $perPage = $request->get('per_page');
 
-        $organizations = $this->organizationService->index()->paginate($perPage);
+        $organizations = $this->organizationService->index()->simplePaginate($perPage);
 
         return (new OrganizationCollection($organizations))->response();
     }
@@ -36,12 +37,21 @@ class OrganizationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param OrganizationStoreRequest $request
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    public function store(Request $request)
+    public function store(OrganizationStoreRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $organization = $this->organizationService->store($data);
+
+        return (new OrganizationResource($organization))
+            ->response()
+            ->header('Location', route('organizations.show', [
+                'id' => $organization->id
+            ]));
     }
 
     /**

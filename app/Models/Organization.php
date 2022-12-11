@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,11 +13,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Organization extends Model
 {
-    use HasFactory, Sluggable, SoftDeletes;
+    use HasFactory, Sluggable, SoftDeletes, HasUuids;
 
     public const TYPE_RESOURCE = 'organizations';
 
-    protected $fillable = ['city_id','organization_type_id','name','abbreviation','description','slug','active'];
+    protected $fillable = [
+        'city_id','organization_type_id','name','abbreviation','description','site','slug','email','phone','address',
+        'plaque_image','preview_image','base_image'
+    ];
 
     /**
      * @return BelongsTo
@@ -61,10 +65,10 @@ class Organization extends Model
     /**
      * @return string
      */
-    public function getKeyType(): string
-    {
-        return 'string';
-    }
+//    public function getKeyType(): string
+//    {
+//        return 'string';
+//    }
 
     /**
      * Return the sluggable configuration array for this model.

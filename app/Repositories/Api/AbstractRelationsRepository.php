@@ -6,20 +6,21 @@ namespace App\Repositories\Api;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 abstract class AbstractRelationsRepository
 {
     private array $relationToMany = ['HasMany', 'MorphMany','HasOne','MorphOne'];
     private array $relationToOne = ['BelongsTo', 'MorphTo'];
-    private array $relationManyToMany = ['BelongsToMany', 'MorphedToMany', 'MorphedByMany'];
+    private array $relationManyToMany = ['BelongsToMany', 'MorphToMany', 'MorphedToMany', 'MorphedByMany'];
 
     private string $nameRelationClass;
 
     /**
      * @param array $data
-     * @return HasMany|BelongsTo
+     * @return HasMany|BelongsTo|HasOne
      */
-    abstract public function indexRelations(array $data): HasMany|BelongsTo;
+    abstract public function indexRelations(array $data): HasMany|BelongsTo|HasOne;
 
     /**
      * @param array $data

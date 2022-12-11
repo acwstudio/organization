@@ -25,7 +25,7 @@ final class CitiesRegionUpdateRelationshipsPipe
      * @return mixed
      * @throws \ReflectionException
      */
-    public function handle(array $data, \Closure $next)
+    public function handle(array $data, \Closure $next): mixed
     {
         $relationData = data_get($data, 'data.relationships.region');
 
