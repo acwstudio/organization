@@ -4,7 +4,6 @@ namespace App\Http\Resources\Api\OrganizationTypes;
 
 use App\Http\Resources\Api\Organizations\OrganizationCollection;
 use App\Http\Resources\Api\Organizations\OrganizationIdentifierResource;
-use App\Http\Resources\Api\Organizations\OrganizationResource;
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
 use App\Models\OrganizationType;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -26,7 +25,7 @@ class OrganizationTypeResource extends JsonResource
             'id'         => $this->id,
             'type'       => OrganizationType::TYPE_RESOURCE,
             'attributes' => [
-                'parent_id'    => $this->parent_id,
+                'parent_id'   => $this->parent_id,
                 'name'        => $this->name,
                 'description' => $this->description,
                 'slug'        => $this->slug,
@@ -40,21 +39,32 @@ class OrganizationTypeResource extends JsonResource
                         'self'    => route('organization-types.relationships.parent',[$this->id]),
                         'related' => route('organization-types.parent',[$this->id]),
                     ],
-                    'data' => new OrganizationTypeIdentifierResource($this->whenLoaded('parent'))
+                    'data' => new OrganizationTypeIdentifierResource(
+                        $this->relatedData($this->relations()[OrganizationTypeResource::class])
+                    )
                 ],
                 'children' => [
                     'links' => [
                         'self' => route('organization-type.relationships.children',[$this->id]),
                         'related' => route('organization-type.children',[$this->id]),
                     ],
-                    'data' => OrganizationTypeIdentifierResource::collection($this->whenLoaded('children'))
+                    'data' => OrganizationTypeIdentifierResource::collection(
+                        $this->relatedData($this->relations()[OrganizationTypeCollection::class])
+                    )
                 ],
                 'organizations' => [
                     'links' => [
                         'self' => route('organization-type.relationships.organizations',[$this->id]),
                         'related' => route('organization-type.organizations',[$this->id]),
                     ],
-                    'data' => OrganizationIdentifierResource::collection($this->whenLoaded('organizations'))
+                    'data' => OrganizationIdentifierResource::collection(
+                        $this->relatedData($this->relations()[OrganizationCollection::class])
+                    ),
+
+                    'meta' => [
+                        'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
+                        'limit' => config('api-settings.limit-included')
+                    ]
                 ]
             ]
         ];
@@ -64,7 +74,7 @@ class OrganizationTypeResource extends JsonResource
     {
         return [
             OrganizationCollection::class     => $this->whenLoaded('organizations'),
-            OrganizationTypeResource::class => $this->whenLoaded('parent'),
+            OrganizationTypeResource::class   => $this->whenLoaded('parent'),
             OrganizationTypeCollection::class => $this->whenLoaded('children'),
         ];
     }

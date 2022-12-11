@@ -12,7 +12,7 @@ abstract class AbstractRelationsRepository
 {
     private array $relationToMany = ['HasMany', 'MorphMany','HasOne','MorphOne'];
     private array $relationToOne = ['BelongsTo', 'MorphTo'];
-    private array $relationManyToMany = ['BelongsToMany', 'MorphedToMany', 'MorphedByMany'];
+    private array $relationManyToMany = ['BelongsToMany', 'MorphToMany', 'MorphedToMany', 'MorphedByMany'];
 
     private string $nameRelationClass;
 

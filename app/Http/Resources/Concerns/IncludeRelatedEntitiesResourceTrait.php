@@ -3,14 +3,30 @@
 namespace App\Http\Resources\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Collection;
 
-
 trait IncludeRelatedEntitiesResourceTrait
 {
+    /**
+     * @var array $newRelations
+     */
+    protected array $newRelations = [];
+
+    /**
+     * relations array
+     *
+     * return [
+     *      PersonResource::class          => $this->whenLoaded('persons'),
+     *      LevelResource::class           => $this->whenLoaded('levels'),
+     *      -----------------
+     *      LandVersionResource::class     => $this->whenLoaded('landVersion'),
+     * ];
+     */
+
+    abstract function relations(): array;
+
     /**
      * @return array
      */
@@ -22,15 +38,21 @@ trait IncludeRelatedEntitiesResourceTrait
         /** @var ResourceCollection $key */
         /** @var Model|MissingValue|Collection $relation */
         foreach ($relations as $key => $relation) {
+
             if ($relation instanceof Model) {
-                $newRelations[] = $key::collection([$relation->setAttribute('glob_id',$relation->getTable() . '-' . $relation->id)]);
+                // set glob_id unique virtual attribute to exclude duplicates into included section
+                $relation->setAttribute('glob_id',$relation->getTable() . '-' . $relation->id);
+
+                $newRelations[] = $key::collection([$relation]);
             }
             if ($relation instanceof Collection) {
-                foreach ($relation as $keyItem => $item) {
-                    $item->setAttribute('glob_id',$item->getTable() . '-' . $item->id);
+                $limitedRelations = $relation->take(config('api-settings.limit-included'));
+                // set glob_id unique virtual attribute to exclude duplicates into included section
+                foreach ($limitedRelations as $keyItem => $item) {
+                    $item->setAttribute('glob_id', $item->getTable() . '-' . $item->id);
                 }
 
-                $newRelations[] = new $key($relation);
+                $newRelations[] = new $key($limitedRelations);
             }
             if ($relation instanceof MissingValue) {
                 $newRelations[] = $key::collection($relation);
@@ -41,54 +63,61 @@ trait IncludeRelatedEntitiesResourceTrait
     }
 
     /**
-     * @param $request
      * @return array|Collection
      */
-    public function included($request): array|Collection
+    public function included(): array|Collection
     {
         return collect($this->prepareRelations())
             ->filter(function ($resource) {
                 return $resource->collection !== null;
             })
-            ->flatMap(function ($resource) use ($request) {
-                return $resource->flatten($request);
+            ->flatMap(function ($resource) {
+                return $resource->flatten();
             });
     }
 
     /**
-     * @param Request $request
+     * @param $request
      * @return array
      */
-    public function with($request)
+    public function with($request): array
     {
         $with = [];
 
-        if ($this->included($request)->isNotEmpty()) {
-            $with['included'] = $this->included($request);
+        if ($this->included()->isNotEmpty()) {
+            $with['included'] = $this->included();
         }
 
         return $with;
     }
 
     /**
-     * relations array
-     * for ProductResource example
-     *
-     * return [
-     *      PersonResource::class          => $this->whenLoaded('persons'),
-     *      LevelResource::class           => $this->whenLoaded('levels'),
-     *      FormatResource::class          => $this->whenLoaded('formats'),
-     *      ProductPlaceResource::class    => $this->whenLoaded('productPlaces'),
-     *      OfferResource::class           => $this->whenLoaded('offers'),
-     *      EntitySectionResource::class   => $this->whenLoaded('entitySection'),
-     *      ProductTypeResource::class     => $this->whenLoaded('productType'),
-     *      CategoryResource::class        => $this->whenLoaded('category'),
-     *      OrganizationResource::class    => $this->whenLoaded('organization'),
-     *      FacultyResource::class         => $this->whenLoaded('faculty'),
-     *      SeoTagResource::class          => $this->whenLoaded('seoTag'),
-     *      LandVersionResource::class     => $this->whenLoaded('landVersion'),
-     * ];
+     * @param Model|Collection|MissingValue $whenLoaded
+     * @return Model|Collection|MissingValue
      */
+    protected function relatedData(Model|Collection|MissingValue $whenLoaded): Model|Collection|MissingValue
+    {
+        if ($whenLoaded instanceof Collection) {
+            return $whenLoaded->take(config('api-settings.limit-included'));
+        }
 
-    abstract function relations(): array;
+        if ($whenLoaded instanceof Model) {
+            return $whenLoaded;
+        }
+
+        return $whenLoaded;
+    }
+
+    /**
+     * @param Model|Collection|MissingValue $whenLoaded
+     * @return int
+     */
+    protected function totalRelatedData(Model|Collection|MissingValue $whenLoaded): int
+    {
+        if ($whenLoaded instanceof Collection) {
+            return $whenLoaded->count();
+        }
+
+        return 0;
+    }
 }

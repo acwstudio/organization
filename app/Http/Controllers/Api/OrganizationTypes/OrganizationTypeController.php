@@ -34,7 +34,7 @@ class OrganizationTypeController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $organizationTypes = $this->organizationTypeService->index()->paginate($perPage);
+        $organizationTypes = $this->organizationTypeService->index()->simplePaginate($perPage);
 
         return (new OrganizationTypeCollection($organizationTypes))->response();
     }
