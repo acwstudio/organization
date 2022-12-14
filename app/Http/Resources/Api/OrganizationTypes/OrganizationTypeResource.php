@@ -21,18 +21,17 @@ class OrganizationTypeResource extends JsonResource
      */
     public function toArray($request)
     {
-        $attributes = $this->getAttributes();
-        unset($attributes['id']);
-
         return [
             'id'         => $this->id,
             'type'       => OrganizationType::TYPE_RESOURCE,
-            'attributes' => $attributes,
+            'attributes' => $this->attributeItems(),
             'relationships' => [
                 'parent' => [
                     'links' => [
                         'self'    => route('organization-types.relationships.parent',[$this->id]),
-                        'related' => route('organization-types.parent',[$this->id]),
+                        'related' => [
+                            'href' => route('organization-types.parent',[$this->id])
+                        ],
                     ],
                     'data' => new OrganizationTypeIdentifierResource(
                         $this->relatedData($this->relations()[OrganizationTypeResource::class])
@@ -41,7 +40,13 @@ class OrganizationTypeResource extends JsonResource
                 'children' => [
                     'links' => [
                         'self' => route('organization-type.relationships.children',[$this->id]),
-                        'related' => route('organization-type.children',[$this->id]),
+                        'related' => [
+                            'href' => route('organization-type.children',[$this->id]),
+                            'meta' => [
+                                'total' => $this->totalRelatedData($this->relations()[OrganizationTypeCollection::class]),
+                                'limit' => config('api-settings.limit-included')
+                            ]
+                        ],
                     ],
                     'data' => OrganizationTypeIdentifierResource::collection(
                         $this->relatedData($this->relations()[OrganizationTypeCollection::class])
@@ -50,15 +55,17 @@ class OrganizationTypeResource extends JsonResource
                 'organizations' => [
                     'links' => [
                         'self' => route('organization-type.relationships.organizations',[$this->id]),
-                        'related' => route('organization-type.organizations',[$this->id]),
+                        'related' => [
+                            'href' => route('organization-type.organizations',[$this->id]),
+                            'meta' => [
+                                'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
+                                'limit' => config('api-settings.limit-included')
+                            ]
+                        ],
                     ],
                     'data' => OrganizationIdentifierResource::collection(
                         $this->relatedData($this->relations()[OrganizationCollection::class])
                     ),
-                    'meta' => [
-                        'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
-                        'limit' => config('api-settings.limit-included')
-                    ]
                 ]
             ]
         ];

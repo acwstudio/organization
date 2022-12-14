@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Organizations\OrganizationIndexRequest;
 use App\Http\Requests\Api\V1\Organizations\OrganizationStoreRequest;
 use App\Http\Resources\Api\Organizations\OrganizationCollection;
 use App\Http\Resources\Api\Organizations\OrganizationResource;
@@ -25,7 +26,7 @@ class OrganizationController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(OrganizationIndexRequest $request): JsonResponse
     {
         $perPage = $request->get('per_page');
 
