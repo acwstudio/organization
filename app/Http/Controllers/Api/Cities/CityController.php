@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Cities;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Cities\CityIndexRequest;
 use App\Http\Requests\Api\V1\Cities\CityStoreRequest;
 use App\Http\Requests\Api\V1\Cities\CityUpdateRequest;
 use App\Http\Resources\Api\Cities\CityCollection;
@@ -32,7 +33,7 @@ class CityController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(CityIndexRequest $request): JsonResponse
     {
         $perPage = $request->get('per_page');
 

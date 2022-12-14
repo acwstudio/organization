@@ -21,6 +21,7 @@ class CityOrganizationsRelatedController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */

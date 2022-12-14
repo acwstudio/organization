@@ -18,6 +18,7 @@ final class CityRepository extends AbstractCRUDRepository
     public function index(): QueryBuilder
     {
         return QueryBuilder::for(City::class)
+            ->allowedFields(['id','region_id','name'])
             ->allowedIncludes(['organizations','region'])
             ->allowedFilters([
                 AllowedFilter::exact('name'),

@@ -28,58 +28,70 @@ class OrganizationResource extends JsonResource
         return [
             'id' => $this->id,
             'type' => Organization::TYPE_RESOURCE,
-            'attributes' => [
-                'parent_id'            => $this->parent_id,
-                'city_id'              => $this->city_id,
-                'organization_type_id' => $this->organization_type_id,
-                'name'                 => $this->name,
-                'description'          => $this->description,
-                'site'                 => $this->site,
-                'email'                => $this->email,
-                'phone'                => $this->phone,
-                'address'              => $this->address,
-                'slug'                 => $this->slug,
-                'plaque_image'         => $this->plaque_image,
-                'preview_image'        => $this->plaque_image,
-                'base_image'           => $this->plaque_image,
-                'created_at'           => $this->created_at,
-                'updated_at'           => $this->updated_at,
-            ],
+            'attributes' => $this->attributeItems(),
             'relationships' => [
                 'city' => [
                     'links' => [
                         'self' => route('organizations.relationships.city', ['id' => $this->id]),
-                        'related' => route('organizations.city', ['id' => $this->id])
+                        'related' => [
+                            'href' => route('organizations.city', ['id' => $this->id])
+                        ],
                     ],
-                    'data' => new CityIdentifierResource($this->whenLoaded('city'))
+                    'data' => new CityIdentifierResource(
+                        $this->relatedData($this->relations()[CityResource::class])
+                    )
                 ],
                 'organizationType' => [
                     'links' => [
                         'self' => route('organizations.relationships.organization-type', ['id' => $this->id]),
-                        'related' => route('organizations.organization-type', ['id' => $this->id])
+                        'related' => [
+                            'href' => route('organizations.organization-type', ['id' => $this->id])
+                        ]
                     ],
-                    'data' => new OrganizationTypeIdentifierResource($this->whenLoaded('organizationType'))
+                    'data' => new OrganizationTypeIdentifierResource(
+                        $this->relatedData($this->relations()[OrganizationTypeResource::class])
+                    )
                 ],
                 'faculties' => [
                     'links' => [
                         'self' => route('organization.relationships.faculties', ['id' => $this->id]),
-                        'related' => route('organization.faculties', ['id' => $this->id])
+                        'related' => [
+                            'href' => route('organization.faculties', ['id' => $this->id]),
+                            'meta' => [
+                                'total' => $this->totalRelatedData($this->relations()[FacultyCollection::class]),
+                                'limit' => config('api-settings.limit-included')
+                            ]
+                        ],
                     ],
-                    'data' => FacultyIdentifierResource::collection($this->whenLoaded('faculties'))
+                    'data' => FacultyIdentifierResource::collection(
+                        $this->relatedData($this->relations()[FacultyCollection::class])
+                    )
                 ],
                 'parent' => [
                     'links' => [
                         'self' => route('organizations.relationships.parent', ['id' => $this->id]),
-                        'related' => route('organizations.parent', ['id' => $this->id])
+                        'related' => [
+                            'href' => route('organizations.parent', ['id' => $this->id])
+                        ]
                     ],
-                    'data' => new OrganizationIdentifierResource($this->whenLoaded('parent'))
+                    'data' => new OrganizationIdentifierResource(
+                        $this->relatedData($this->relations()[OrganizationResource::class])
+                    )
                 ],
                 'children' => [
                     'links' => [
                         'self' => route('organization.relationships.children', ['id' => $this->id]),
-                        'related' => route('organization.children', ['id' => $this->id])
+                        'related' => [
+                            'href' => route('organization.children', ['id' => $this->id]),
+                            'meta' => [
+                                'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
+                                'limit' => config('api-settings.limit-included')
+                            ]
+                        ]
                     ],
-                    'data' => OrganizationIdentifierResource::collection($this->whenLoaded('children'))
+                    'data' => OrganizationIdentifierResource::collection(
+                        $this->relatedData($this->relations()[OrganizationCollection::class])
+                    )
                 ]
             ]
         ];

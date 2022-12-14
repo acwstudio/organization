@@ -16,6 +16,7 @@ final class OrganizationRepository
     public function index(): QueryBuilder
     {
         return QueryBuilder::for(Organization::class)
+            ->allowedFields(['parent_id','city_id','organization_type_id','id','name'])
             ->allowedIncludes(['organizationType','city','faculties','parent','children'])
             ->allowedFilters(['name','id'])
             ->allowedSorts(['name']);

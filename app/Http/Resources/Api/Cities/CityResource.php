@@ -26,20 +26,14 @@ class CityResource extends JsonResource
         return [
             'id' => $this->id,
             'type' => City::TYPE_RESOURCE,
-            'attributes' => [
-                'region_id' => $this->region_id,
-                'name' => $this->name,
-                'description' => $this->description,
-                'slug' => $this->slug,
-                'active' => $this->active,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
-            ],
+            'attributes' => $this->attributeItems(),
             'relationships' => [
                 'region' => [
                     'links' => [
                         'self' => route('cities.relationships.region', ['id' => $this->id]),
-                        'related' => route('cities.region', ['id' => $this->id]),
+                        'related' => [
+                            'href' => route('cities.region', ['id' => $this->id]),
+                        ]
                     ],
                     'data' => new RegionIdentifierResource(
                         $this->relatedData($this->relations()[RegionResource::class])
@@ -48,15 +42,17 @@ class CityResource extends JsonResource
                 'organizations' => [
                     'links' => [
                         'self' => route('city.relationships.organizations', ['id' => $this->id]),
-                        'related' => route('city.organizations', ['id' => $this->id]),
+                        'related' => [
+                            'href' => route('city.organizations', ['id' => $this->id]),
+                            'meta' => [
+                                'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
+                                'limit' => config('api-settings.limit-included')
+                            ]
+                        ],
                     ],
                     'data' => OrganizationIdentifierResource::collection(
-                        $this->relatedData($this->relations()[OrganizationCollection::class])
+                        $this->relatedData($this->relations()[OrganizationCollection::class]),
                     ),
-                    'meta' => [
-                        'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
-                        'limit' => config('api-settings.limit-included')
-                    ]
                 ]
             ]
         ];

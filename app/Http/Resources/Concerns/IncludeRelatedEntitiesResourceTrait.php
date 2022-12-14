@@ -95,7 +95,7 @@ trait IncludeRelatedEntitiesResourceTrait
      * @param Model|Collection|MissingValue $whenLoaded
      * @return Model|Collection|MissingValue
      */
-    protected function relatedData(Model|Collection|MissingValue $whenLoaded): Model|Collection|MissingValue
+    protected function relatedData(Model|Collection|MissingValue|null $whenLoaded): Model|Collection|MissingValue|null
     {
         if ($whenLoaded instanceof Collection) {
             return $whenLoaded->take(config('api-settings.limit-included'));
@@ -112,12 +112,20 @@ trait IncludeRelatedEntitiesResourceTrait
      * @param Model|Collection|MissingValue $whenLoaded
      * @return int
      */
-    protected function totalRelatedData(Model|Collection|MissingValue $whenLoaded): int
+    protected function totalRelatedData(Model|Collection|MissingValue $whenLoaded): mixed
     {
         if ($whenLoaded instanceof Collection) {
             return $whenLoaded->count();
         }
 
-        return 0;
+        return new MissingValue();
+    }
+
+    protected function attributeItems()
+    {
+        $attributes = $this->getAttributes();
+        unset($attributes['id']);
+
+        return $attributes;
     }
 }
