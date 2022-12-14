@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\V1\FederalDistricts;
 
 use App\Models\FederalDistrict;
 use App\Models\Region;
-use App\Rules\ForeignKeyNull;
+use App\Rules\ForeignKeyNullRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FederalDistrictStoreRequest extends FormRequest
@@ -42,7 +42,7 @@ class FederalDistrictStoreRequest extends FormRequest
             'data.relationships.regions.data.*.type' => ['present','string','in:' . Region::TYPE_RESOURCE],
             'data.relationships.regions.data.*.id'   => [
                 'present','integer', 'distinct', 'exists:regions,id',
-                new ForeignKeyNull(Region::class, 'federal_district_id')
+                new ForeignKeyNullRule(Region::class, 'federal_district_id')
             ],
         ];
     }

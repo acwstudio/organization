@@ -21,18 +21,13 @@ class OrganizationTypeResource extends JsonResource
      */
     public function toArray($request)
     {
+        $attributes = $this->getAttributes();
+        unset($attributes['id']);
+
         return [
             'id'         => $this->id,
             'type'       => OrganizationType::TYPE_RESOURCE,
-            'attributes' => [
-                'parent_id'   => $this->parent_id,
-                'name'        => $this->name,
-                'description' => $this->description,
-                'slug'        => $this->slug,
-                'active'      => $this->active,
-                'created_at'  => $this->created_at,
-                'updated_at'  => $this->updated_at,
-            ],
+            'attributes' => $attributes,
             'relationships' => [
                 'parent' => [
                     'links' => [
@@ -60,7 +55,6 @@ class OrganizationTypeResource extends JsonResource
                     'data' => OrganizationIdentifierResource::collection(
                         $this->relatedData($this->relations()[OrganizationCollection::class])
                     ),
-
                     'meta' => [
                         'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
                         'limit' => config('api-settings.limit-included')

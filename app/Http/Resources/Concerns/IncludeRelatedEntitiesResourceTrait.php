@@ -18,8 +18,8 @@ trait IncludeRelatedEntitiesResourceTrait
      * relations array
      *
      * return [
-     *      PersonResource::class          => $this->whenLoaded('persons'),
-     *      LevelResource::class           => $this->whenLoaded('levels'),
+     *      PersonCollection::class          => $this->whenLoaded('persons'),
+     *      LevelCollection::class           => $this->whenLoaded('levels'),
      *      -----------------
      *      LandVersionResource::class     => $this->whenLoaded('landVersion'),
      * ];

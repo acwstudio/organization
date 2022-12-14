@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Api;
+namespace App\Services\Api\OrganizationTypes;
 
 use App\Repositories\Api\OrganizationTypes\OrganizationTypeRepository;
 use Spatie\QueryBuilder\QueryBuilder;

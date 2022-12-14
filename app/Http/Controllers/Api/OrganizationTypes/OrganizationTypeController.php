@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\OrganizationTypes;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\OrganizationTypes\OrganizationTypeIndexRequest;
 use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeCollection;
-use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeResource;
-use App\Services\Api\OrganizationTypeService;
+use App\Services\Api\OrganizationTypes\OrganizationTypeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -30,7 +30,7 @@ class OrganizationTypeController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(OrganizationTypeIndexRequest $request): JsonResponse
     {
         $perPage = $request->get('per_page');
 
