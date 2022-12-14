@@ -17,7 +17,7 @@ final class OrganizationTypeRepository extends AbstractCRUDRepository
     public function index(): QueryBuilder
     {
         return QueryBuilder::for(OrganizationType::class)
-            ->allowedFields(['id','name','parent_id'])
+            ->allowedFields(['id','parent_id','name'])
             ->allowedIncludes(['parent','children','organizations'])
             ->allowedFilters(['id','parent_id'])
             ->allowedSorts(['id','name']);

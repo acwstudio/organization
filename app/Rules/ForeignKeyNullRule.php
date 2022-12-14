@@ -6,7 +6,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Validation\InvokableRule;
 use Illuminate\Database\Eloquent\Model;
 
-class ForeignKeyNull implements InvokableRule
+class ForeignKeyNullRule implements InvokableRule
 {
     private string $model;
     private string $foreignKey;
