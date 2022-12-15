@@ -14,7 +14,8 @@ class FacultiesOrganizationRelationshipsController extends Controller
     {
         $organization = Faculty::findOrFail($id)->organization;
 
-        return $organization ? (new OrganizationIdentifierResource($organization))->response() : response()->json(null, 204);
+        return $organization ?
+            (new OrganizationIdentifierResource($organization))->response() : response()->json(null, 204);
     }
 
     public function update(int $id)

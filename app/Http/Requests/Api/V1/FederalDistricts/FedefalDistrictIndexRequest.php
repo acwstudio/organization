@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Cities;
+namespace App\Http\Requests\Api\V1\FederalDistricts;
 
 use App\Rules\CorrectQueryFieldsParameterRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CityIndexRequest extends FormRequest
+class FedefalDistrictIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,11 @@ class CityIndexRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'fields'        => ['sometimes','required'],
-            'fields.cities' => ['sometimes','required', new CorrectQueryFieldsParameterRule('region_id,id')]
+            'fields.federal_districts' => ['sometimes','required', new CorrectQueryFieldsParameterRule('id')]
         ];
     }
 }

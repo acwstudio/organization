@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\FederalDistricts;
 
 use App\Exceptions\PipelineException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\FederalDistricts\FedefalDistrictIndexRequest;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictStoreRequest;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictUpdateRequest;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictCollection;
@@ -33,7 +34,7 @@ class FederalDistrictController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(FedefalDistrictIndexRequest $request): JsonResponse
     {
         $perPage = $request->get('per_page');
 

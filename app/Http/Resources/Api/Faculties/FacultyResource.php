@@ -24,22 +24,18 @@ class FacultyResource extends JsonResource
         return [
             'id' => $this->id,
             'type' => Faculty::TYPE_RESOURCE,
-            'attributes' => [
-                'organization_id' => $this->organization_id,
-                'name' => $this->name,
-                'description' => $this->description,
-                'slug' => $this->slug,
-                'active' => $this->active,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
-            ],
+            'attributes' => $this->getAttributes(),
             'relationships' => [
                 'organization' => [
                     'links' => [
                         'self' => route('faculties.relationships.organization', ['id' => $this->id]),
-                        'related' => route('faculties.organization', ['id' => $this->id]),
+                        'related' => [
+                            'href' => route('faculties.organization', ['id' => $this->id]),
+                        ],
                     ],
-                    'data' => new OrganizationTypeIdentifierResource($this->whenLoaded('organization'))
+                    'data' => new OrganizationTypeIdentifierResource(
+                        $this->relatedData($this->relations()[OrganizationResource::class])
+                    )
                 ]
             ]
         ];

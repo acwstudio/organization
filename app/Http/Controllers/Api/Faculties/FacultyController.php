@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Faculties;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Faculties\FacultyIndexRequest;
 use App\Http\Resources\Api\Faculties\FacultyCollection;
 use App\Http\Resources\Api\Faculties\FacultyResource;
 use App\Models\Faculty;
@@ -29,11 +30,11 @@ class FacultyController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(FacultyIndexRequest $request): JsonResponse
     {
         $perPage = $request->get('per_page');
 
-        $faculties = $this->facultyService->index()->paginate($perPage);
+        $faculties = $this->facultyService->index()->simplePaginate($perPage);
 
         return (new FacultyCollection($faculties))->response();
     }

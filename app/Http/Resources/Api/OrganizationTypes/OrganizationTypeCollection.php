@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api\OrganizationTypes;
 
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesCollectionTrait;
+use App\Models\OrganizationType;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class OrganizationTypeCollection extends ResourceCollection
@@ -10,16 +11,10 @@ class OrganizationTypeCollection extends ResourceCollection
     use IncludeRelatedEntitiesCollectionTrait;
 
     /**
-     * Transform the resource collection into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return int
      */
-    public function toArray($request)
+    protected function total(): int
     {
-        return [
-            'data'     => $this->collection,
-            'included' => $this->mergeIncludedRelations($request),
-        ];
+        return OrganizationType::where('active', true)->count();
     }
 }

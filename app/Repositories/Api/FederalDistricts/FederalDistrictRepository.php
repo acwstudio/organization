@@ -18,6 +18,7 @@ final class FederalDistrictRepository extends AbstractCRUDRepository
     public function index(): QueryBuilder
     {
         return QueryBuilder::for(FederalDistrict::class)
+            ->allowedFields(['id','name'])
             ->allowedIncludes(['regions'])
             ->allowedFilters([
                 AllowedFilter::exact('name'),
