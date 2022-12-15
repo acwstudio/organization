@@ -44,7 +44,7 @@ class OrganizationTypeResource extends JsonResource
                             'href' => route('organization-type.children',[$this->id]),
                             'meta' => [
                                 'total' => $this->totalRelatedData($this->relations()[OrganizationTypeCollection::class]),
-                                'limit' => config('api-settings.limit-included')
+                                'limit' => $this->limitRelatedItems()
                             ]
                         ],
                     ],
@@ -59,7 +59,7 @@ class OrganizationTypeResource extends JsonResource
                             'href' => route('organization-type.organizations',[$this->id]),
                             'meta' => [
                                 'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
-                                'limit' => config('api-settings.limit-included')
+                                'limit' => $this->limitRelatedItems()
                             ]
                         ],
                     ],

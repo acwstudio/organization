@@ -19,6 +19,7 @@ class OrganizationTypeIndexRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     * This ensures that the required query parameters are in place.
      *
      * @return array<string, mixed>
      */

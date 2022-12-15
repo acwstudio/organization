@@ -46,7 +46,7 @@ class CityResource extends JsonResource
                             'href' => route('city.organizations', ['id' => $this->id]),
                             'meta' => [
                                 'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
-                                'limit' => config('api-settings.limit-included')
+                                'limit' => $this->limitRelatedItems()
                             ]
                         ],
                     ],

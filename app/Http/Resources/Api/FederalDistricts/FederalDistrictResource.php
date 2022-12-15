@@ -24,21 +24,22 @@ class FederalDistrictResource extends JsonResource
         return [
             'id'         => $this->id,
             'type'       => FederalDistrict::TYPE_RESOURCE,
-            'attributes' => [
-                'name'        => $this->name,
-                'description' => $this->description,
-                'slug'        => $this->slug,
-                'active'      => $this->active,
-                'created_at'  => $this->created_at,
-                'updated_at'  => $this->updated_at,
-            ],
+            'attributes' => $this->attributeItems(),
             'relationships' => [
                 'regions' => [
                     'links' => [
                         'self'    => route('federal-district.relationships.regions', ['id' => $this->id]),
-                        'related' => route('federal-district.regions', ['id' => $this->id]),
+                        'related' => [
+                            'href' => route('federal-district.regions', ['id' => $this->id]),
+                            'meta' => [
+                                'total' => $this->totalRelatedData($this->relations()[RegionCollection::class]),
+                                'limit' => $this->limitRelatedItems()
+                            ]
+                        ],
                     ],
-                    'data' => RegionIdentifierResource::collection($this->whenLoaded('regions'))
+                    'data' => RegionIdentifierResource::collection(
+                        $this->relatedData($this->relations()[RegionCollection::class])
+                    )
                 ]
             ]
         ];

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api\Regions;
 
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesCollectionTrait;
+use App\Models\Region;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class RegionCollection extends ResourceCollection
@@ -20,6 +21,14 @@ class RegionCollection extends ResourceCollection
         return [
             'data'     => $this->collection,
             'included' => $this->mergeIncludedRelations($request),
+            'meta' => [
+                'total' => $this->total()
+            ]
         ];
+    }
+
+    protected function total(): int
+    {
+        return Region::count();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Regions;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Regions\RegionIndexRequest;
 use App\Http\Requests\Api\V1\Regions\RegionStoreRequest;
 use App\Http\Requests\Api\V1\Regions\RegionUpdateRequest;
 use App\Http\Resources\Api\Regions\RegionCollection;
@@ -32,7 +33,7 @@ class RegionController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(RegionIndexRequest $request): JsonResponse
     {
         $perPage = $request->get('per_page');
 

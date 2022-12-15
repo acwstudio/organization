@@ -92,13 +92,13 @@ trait IncludeRelatedEntitiesResourceTrait
     }
 
     /**
-     * @param Model|Collection|MissingValue $whenLoaded
-     * @return Model|Collection|MissingValue
+     * @param Model|Collection|MissingValue|null $whenLoaded
+     * @return Model|Collection|MissingValue|null
      */
     protected function relatedData(Model|Collection|MissingValue|null $whenLoaded): Model|Collection|MissingValue|null
     {
         if ($whenLoaded instanceof Collection) {
-            return $whenLoaded->take(config('api-settings.limit-included'));
+            return $this->limitRelatedItems() ? $whenLoaded->take($this->limitRelatedItems()) : $whenLoaded;
         }
 
         if ($whenLoaded instanceof Model) {
@@ -121,11 +121,24 @@ trait IncludeRelatedEntitiesResourceTrait
         return new MissingValue();
     }
 
-    protected function attributeItems()
+    /**
+     * @return array
+     */
+    protected function attributeItems(): array
     {
         $attributes = $this->getAttributes();
         unset($attributes['id']);
 
         return $attributes;
+    }
+
+    /**
+     * @return int|null
+     */
+    protected function limitRelatedItems(): int|null
+    {
+        $limit = config('api-settings.limit-relationships');
+
+        return $limit ? : null;
     }
 }

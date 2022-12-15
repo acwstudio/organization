@@ -26,29 +26,33 @@ class RegionResource extends JsonResource
         return [
             'id'         => $this->id,
             'type'       => Region::TYPE_RESOURCE,
-            'attributes' => [
-                'federal_district_id' => $this->federal_district_id,
-                'name'                => $this->name,
-                'description'         => $this->description,
-                'slug'                => $this->slug,
-                'active'              => $this->active,
-                'created_at'          => $this->created_at,
-                'updated_at'          => $this->updated_at,
-            ],
+            'attributes' => $this->attributeItems(),
             'relationships' => [
                 'cities' => [
                     'links' => [
                         'self'    => route('region.relationships.cities', ['id' => $this->id]),
-                        'related' => route('region.cities', ['id' => $this->id]),
+                        'related' => [
+                            'href' => route('region.cities', ['id' => $this->id]),
+                            'meta' => [
+                                'total' => $this->totalRelatedData($this->relations()[CityCollection::class]),
+                                'limit' => $this->limitRelatedItems()
+                            ]
+                        ],
                     ],
-                    'data' => CityIdentifierResource::collection($this->whenLoaded('cities'))
+                    'data' => CityIdentifierResource::collection(
+                        $this->relatedData($this->relations()[CityCollection::class])
+                    )
                 ],
                 'federalDistrict' => [
                     'links' => [
                         'self'    => route('regions.relationships.federal-district', ['id' => $this->id]),
-                        'related' => route('regions.federal-district', ['id' => $this->id]),
+                        'related' => [
+                            'href' => route('regions.federal-district', ['id' => $this->id])
+                        ],
                     ],
-                    'data' => new FederalDistrictIdentifierResource($this->whenLoaded('federalDistrict'))
+                    'data' => new FederalDistrictIdentifierResource(
+                        $this->relatedData($this->relations()[FederalDistrictResource::class])
+                    )
                 ]
             ]
         ];
