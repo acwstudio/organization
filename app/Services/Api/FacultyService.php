@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Api;
 
 use App\Models\Faculty;
-use App\Repositories\Api\FacultyRepository;
+use App\Repositories\Api\Faculties\FacultyRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 
 final class FacultyService

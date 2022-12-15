@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Faculties\FacultyIndexRequest;
 use App\Http\Resources\Api\Faculties\FacultyCollection;
 use App\Http\Resources\Api\Faculties\FacultyResource;
-use App\Models\Faculty;
-use App\Repositories\Api\FacultyRepository;
 use App\Services\Api\FacultyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

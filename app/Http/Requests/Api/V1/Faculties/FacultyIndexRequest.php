@@ -27,7 +27,7 @@ class FacultyIndexRequest extends FormRequest
     {
         return [
             'fields'        => ['sometimes','required'],
-            'fields.organizations' => ['sometimes','required', new CorrectQueryFieldsParameterRule('organization_id,id')]
+            'fields.faculties' => ['sometimes','required', new CorrectQueryFieldsParameterRule('organization_id,id')]
         ];
     }
 }

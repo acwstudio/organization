@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Pipelines\Cities\Pipes;
 
-use App\Repositories\Api\Cities\CityRelationsRepository;
+use App\Repositories\Api\Cities\CityRelationshipsRepository;
 
 final class CityOrganizationsStoreRelationshipsPape
 {
-    protected CityRelationsRepository $cityRelaionsRepository;
+    protected CityRelationshipsRepository $cityRelaionsRepository;
 
     /**
-     * @param CityRelationsRepository $cityRelaionsRepository
+     * @param CityRelationshipsRepository $cityRelaionsRepository
      */
-    public function __construct(CityRelationsRepository $cityRelaionsRepository)
+    public function __construct(CityRelationshipsRepository $cityRelaionsRepository)
     {
         $this->cityRelaionsRepository = $cityRelaionsRepository;
     }
