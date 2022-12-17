@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Api\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Cities\CitiesRegionUpdateRelationshipsRequest;
-use App\Http\Resources\Api\Regions\RegionIdentifierResource;
-use App\Models\City;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
+use App\Http\Resources\Concerns\EntityIdentifierResourceTrait;
 use App\Services\Api\Cities\CitiesRegionRelationsService;
 use Illuminate\Http\JsonResponse;
 
 class CitiesRegionRelationshipsController extends Controller
 {
+    use EntityIdentifierResourceTrait;
+
     protected CitiesRegionRelationsService $citiesRegionRelationsService;
 
     /**
@@ -30,9 +32,9 @@ class CitiesRegionRelationshipsController extends Controller
         data_set($data, 'relation_method', 'region');
         data_set($data, 'id', $id);
 
-        $region = $this->citiesRegionRelationsService->indexRelations($data)->first();
+        $model = $this->citiesRegionRelationsService->indexRelations($data)->first();
 
-        return $region ? (new RegionIdentifierResource($region))->response() : response()->json(null, 204);
+        return (new ApiEntityIdentifierResource($model))->response();
     }
 
     /**

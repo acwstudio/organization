@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\Faculties\FacultyIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Organizations\OrganizationChildrenRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -35,6 +35,6 @@ class OrganizationFacultiesRelationshipsController extends Controller
 
         $children = $this->organizationChildrenRelationsService->indexRelations($data)->simplePaginate($perPage);
 
-        return (FacultyIdentifierResource::collection($children))->response();
+        return (ApiEntityIdentifierResource::collection($children))->response();
     }
 }

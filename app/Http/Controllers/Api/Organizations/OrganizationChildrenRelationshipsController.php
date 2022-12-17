@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Organizations\OrganizationChildrenUpdateRelationshipsRequest;
-use App\Http\Resources\Api\Organizations\OrganizationIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Organizations\OrganizationChildrenRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class OrganizationChildrenRelationshipsController extends Controller
 
         $children = $this->organizationChildrenRelationsService->indexRelations($data)->simplePaginate($perPage);
 
-        return (OrganizationIdentifierResource::collection($children))->response();
+        return (ApiEntityIdentifierResource::collection($children))->response();
     }
 
     public function update(OrganizationChildrenUpdateRelationshipsRequest $request, string $id)

@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Api\Faculties;
 
 use App\Http\Resources\Api\Organizations\OrganizationResource;
-use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeIdentifierResource;
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
 use App\Models\Faculty;
 use Illuminate\Http\Resources\Json\JsonResource;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Cities\CityOrganizationsUpdateRelationshipsRequest;
-use App\Http\Resources\Api\Organizations\OrganizationIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Cities\CityOrganizationsRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,9 +33,9 @@ class CityOrganizationsRelationshipsController extends Controller
         data_set($data, 'relation_method', 'organizations');
         data_set($data, 'id', $id);
 
-        $organizations = $this->cityOrganizationsRelationsService->indexRelations($data)->simplePaginate($perPage);
+        $model = $this->cityOrganizationsRelationsService->indexRelations($data)->simplePaginate($perPage);
 
-        return (OrganizationIdentifierResource::collection($organizations))->response();
+        return (ApiEntityIdentifierResource::collection($model))->response();
     }
 
     /**

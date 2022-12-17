@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Regions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Regions\RegionCitiesUpdateRelationshipsRequest;
-use App\Http\Resources\Api\Cities\CityIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Regions\RegionCitiesRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class RegionCitiesRelationshipsController extends Controller
 
         $cities = $this->regionCitiesRelationsService->indexRelations($data)->simplePaginate($perPage);
 
-        return (CityIdentifierResource::collection($cities))->response();
+        return (ApiEntityIdentifierResource::collection($cities))->response();
     }
 
     /**

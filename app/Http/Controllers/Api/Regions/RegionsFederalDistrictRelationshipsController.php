@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Regions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Regions\RegionsFederalDistrictUpdateRelationshipsRequest;
-use App\Http\Resources\Api\FederalDistricts\FederalDistrictIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Regions\RegionsFederalDistrictRelationsService;
 use Illuminate\Http\JsonResponse;
 
@@ -29,7 +29,7 @@ class RegionsFederalDistrictRelationshipsController extends Controller
         $federalDistrict = $this->regionsFederalDistrictRelationsService->indexRelations($data)->first();
 
         return $federalDistrict ?
-            (new FederalDistrictIdentifierResource($federalDistrict))->response() : response()->json(null, 204);
+            (new ApiEntityIdentifierResource($federalDistrict))->response() : response()->json(null, 204);
     }
 
     /**
