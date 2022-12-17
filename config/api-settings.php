@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'limit-relationships' => env('API_LIMIT_RELATIONSHIPS_ITEMS', null),
+    'limit-included' => env('API_LIMIT_RELATIONSHIPS_ITEMS', null),
 ];

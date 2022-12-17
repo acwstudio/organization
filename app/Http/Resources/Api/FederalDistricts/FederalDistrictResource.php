@@ -37,9 +37,7 @@ class FederalDistrictResource extends JsonResource
                             ]
                         ],
                     ],
-                    'data' => RegionIdentifierResource::collection(
-                        $this->relatedData($this->relations()[RegionCollection::class])
-                    )
+                    'data' => $this->relatedIdentifiers(RegionCollection::class)
                 ]
             ]
         ];

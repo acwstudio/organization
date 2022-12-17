@@ -33,9 +33,7 @@ class FacultyResource extends JsonResource
                             'href' => route('faculties.organization', ['id' => $this->id]),
                         ],
                     ],
-                    'data' => new OrganizationTypeIdentifierResource(
-                        $this->relatedData($this->relations()[OrganizationResource::class])
-                    )
+                    'data' => $this->relatedIdentifiers(OrganizationResource::class)
                 ]
             ]
         ];

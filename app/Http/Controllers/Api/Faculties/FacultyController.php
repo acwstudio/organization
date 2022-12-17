@@ -32,7 +32,7 @@ class FacultyController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $faculties = $this->facultyService->index()->simplePaginate($perPage);
+        $faculties = $this->facultyService->index()->simplePaginate($perPage)->appends($request->query());
 
         return (new FacultyCollection($faculties))->response();
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Api\Cities;
 
-use App\Repositories\Api\Cities\CityOrganizationsRelationsRepository;
 use App\Repositories\Api\Cities\CityRelationshipsRepository;
 
 final class CityOrganizationsRelationsService

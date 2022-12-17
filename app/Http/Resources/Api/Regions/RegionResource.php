@@ -39,9 +39,7 @@ class RegionResource extends JsonResource
                             ]
                         ],
                     ],
-                    'data' => CityIdentifierResource::collection(
-                        $this->relatedData($this->relations()[CityCollection::class])
-                    )
+                    'data' => $this->relatedIdentifiers(CityCollection::class)
                 ],
                 'federalDistrict' => [
                     'links' => [
@@ -50,9 +48,7 @@ class RegionResource extends JsonResource
                             'href' => route('regions.federal-district', ['id' => $this->id])
                         ],
                     ],
-                    'data' => new FederalDistrictIdentifierResource(
-                        $this->relatedData($this->relations()[FederalDistrictResource::class])
-                    )
+                    'data' => $this->relatedIdentifiers(FederalDistrictResource::class)
                 ]
             ]
         ];
