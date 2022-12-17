@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Api\FederalDistricts;
 
 use App\Http\Resources\Api\Regions\RegionCollection;
-use App\Http\Resources\Api\Regions\RegionIdentifierResource;
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
 use App\Models\FederalDistrict;
 use Illuminate\Http\Resources\Json\JsonResource;

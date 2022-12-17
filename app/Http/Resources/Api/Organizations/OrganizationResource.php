@@ -2,11 +2,8 @@
 
 namespace App\Http\Resources\Api\Organizations;
 
-use App\Http\Resources\Api\Cities\CityIdentifierResource;
 use App\Http\Resources\Api\Cities\CityResource;
 use App\Http\Resources\Api\Faculties\FacultyCollection;
-use App\Http\Resources\Api\Faculties\FacultyIdentifierResource;
-use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeIdentifierResource;
 use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeResource;
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
 use App\Models\Organization;

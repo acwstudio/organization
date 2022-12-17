@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Concerns;
 
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Resources\MissingValue;
@@ -96,27 +97,18 @@ trait IncludeRelatedEntitiesResourceTrait
         $resource = $this->relations()[$nameClassResource];
 
         if ($resource instanceof Model){
-            $data = [
-                'id' => $resource->id,
-                'type' => $resource::TYPE_RESOURCE
-            ];
-
-            return $data;
+            return new ApiEntityIdentifierResource($resource);
         }
+
         if ($resource instanceof Collection){
-
-            $data = $resource->map(function ($item, $key) {
-                return [
-                    'id' => $item['id'],
-                    'type' => $item::TYPE_RESOURCE
-                ];
-            });
-
-            return $data->take(config('api-settings.limit-included'));
+            return ApiEntityIdentifierResource::collection($resource)->take(config('api-settings.limit-included'));
         }
+
         if ($resource instanceof MissingValue) {
             return null;
         }
+
+        return null;
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\OrganizationTypes\OrganizationTypeIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Organizations\OrganizationsOrganizationTypeRelationsService;
 use Illuminate\Http\JsonResponse;
 
@@ -32,6 +32,6 @@ class OrganizationsOrganizationTypeRelationshipsController extends Controller
         $organizationType = $this->organizationsOrganizationTypeRelationsService->indexRelations($data)->first();
 
         return $organizationType ?
-            (new OrganizationTypeIdentifierResource($organizationType))->response() : response()->json(null, 204);
+            (new ApiEntityIdentifierResource($organizationType))->response() : response()->json(null, 204);
     }
 }

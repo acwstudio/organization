@@ -3,8 +3,6 @@
 namespace App\Http\Resources\Api\Cities;
 
 use App\Http\Resources\Api\Organizations\OrganizationCollection;
-use App\Http\Resources\Api\Organizations\OrganizationIdentifierResource;
-use App\Http\Resources\Api\Regions\RegionIdentifierResource;
 use App\Http\Resources\Api\Regions\RegionResource;
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
 use App\Models\City;
@@ -35,7 +33,6 @@ class CityResource extends JsonResource
                             'href' => route('cities.region', ['id' => $this->id]),
                         ]
                     ],
-//                    'data' => new RegionIdentifierResource($this->relations()[RegionResource::class])
                     'data' => $this->relatedIdentifiers(RegionResource::class)
                 ],
                 'organizations' => [
@@ -49,8 +46,7 @@ class CityResource extends JsonResource
                             ]
                         ],
                     ],
-//                    'data' => OrganizationIdentifierResource::collection($this->relations()[OrganizationCollection::class]),
-                    'data' => $this->relatedIdentifiers(OrganizationCollection::class),
+                    'data' => $this->relatedIdentifiers(OrganizationCollection::class )
                 ]
             ]
         ];

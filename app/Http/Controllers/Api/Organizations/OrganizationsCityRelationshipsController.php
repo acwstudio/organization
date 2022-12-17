@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\Cities\CityIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Organizations\OrganizationsCityRelationsService;
 use Illuminate\Http\JsonResponse;
 
@@ -31,6 +31,6 @@ class OrganizationsCityRelationshipsController extends Controller
 
         $city = $this->organizationsCityRelationsService->indexRelations($data)->first();
 
-        return $city ? (new CityIdentifierResource($city))->response() : response()->json(null, 204);
+        return $city ? (new ApiEntityIdentifierResource($city))->response() : response()->json(null, 204);
     }
 }

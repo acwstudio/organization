@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Api\Faculties;
+namespace App\Http\Resources\Api;
 
-use App\Models\Faculty;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin Faculty */
-class FacultyIdentifierResource extends JsonResource
+class ApiEntityIdentifierResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +15,8 @@ class FacultyIdentifierResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'   => $this->id,
-            'type' => Faculty::TYPE_RESOURCE,
+            'id' => $this->id,
+            'type' => $this->resource::TYPE_RESOURCE,
         ];
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Http\Resources\Api\Regions;
 
 use App\Http\Resources\Api\Cities\CityCollection;
-use App\Http\Resources\Api\Cities\CityIdentifierResource;
-use App\Http\Resources\Api\FederalDistricts\FederalDistrictIdentifierResource;
 use App\Http\Resources\Api\FederalDistricts\FederalDistrictResource;
 use App\Http\Resources\Concerns\IncludeRelatedEntitiesResourceTrait;
 use App\Models\Region;

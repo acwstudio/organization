@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api\Faculties;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\Organizations\OrganizationIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Models\Faculty;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class FacultiesOrganizationRelationshipsController extends Controller
 {
@@ -15,7 +14,7 @@ class FacultiesOrganizationRelationshipsController extends Controller
         $organization = Faculty::findOrFail($id)->organization;
 
         return $organization ?
-            (new OrganizationIdentifierResource($organization))->response() : response()->json(null, 204);
+            (new ApiEntityIdentifierResource($organization))->response() : response()->json(null, 204);
     }
 
     public function update(int $id)

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api\Organizations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\Organizations\OrganizationIdentifierResource;
-use App\Models\Organization;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Organizations\OrganizationsParentRelationsService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class OrganizationsParentRelationshipsController extends Controller
 {
@@ -33,6 +31,6 @@ class OrganizationsParentRelationshipsController extends Controller
 
         $organization = $this->organizationsParentRelationsService->indexRelations($data)->first();
 
-        return $organization ? (new OrganizationIdentifierResource($organization))->response() : response()->json(null, 204);
+        return $organization ? (new ApiEntityIdentifierResource($organization))->response() : response()->json(null, 204);
     }
 }

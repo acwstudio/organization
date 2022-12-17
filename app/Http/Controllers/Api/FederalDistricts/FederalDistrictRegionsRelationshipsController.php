@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\FederalDistricts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\FederalDistricts\FederalDistrictRegionsUpdateRelationshipsRequest;
-use App\Http\Resources\Api\Regions\RegionIdentifierResource;
+use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\FederalDistricts\FederalDistrictRegionsRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -35,7 +35,7 @@ class FederalDistrictRegionsRelationshipsController extends Controller
 
         $regions = $this->federalDistrictRegionsRelationService->indexRelations($data)->simplePaginate($perPage);
 
-        return (RegionIdentifierResource::collection($regions))->response();
+        return (ApiEntityIdentifierResource::collection($regions))->response();
     }
 
     /**
