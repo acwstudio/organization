@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Pipelines\Regions\Pipes;
 
-use App\Repositories\Api\Regions\RegionRelationsRepository;
+use App\Repositories\Api\Regions\RegionRelationshipsRepository;
 
 final class RegionCitiesStoreRelationshipsPipe
 {
-    protected RegionRelationsRepository $regionRelationRepository;
+    protected RegionRelationshipsRepository $regionRelationRepository;
 
     /**
-     * @param RegionRelationsRepository $regionRelationRepository
+     * @param RegionRelationshipsRepository $regionRelationRepository
      */
-    public function __construct(RegionRelationsRepository $regionRelationRepository)
+    public function __construct(RegionRelationshipsRepository $regionRelationRepository)
     {
         $this->regionRelationRepository = $regionRelationRepository;
     }

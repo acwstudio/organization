@@ -34,7 +34,7 @@ trait IncludeRelatedEntitiesResourceTrait
     {
         $relations = $this->relations();
         $newRelations = [];
-
+//        dd($relations);
         /** @var ResourceCollection $key */
         /** @var Model|MissingValue|Collection $relation */
         foreach ($relations as $key => $relation) {
@@ -91,21 +91,32 @@ trait IncludeRelatedEntitiesResourceTrait
         return $with;
     }
 
-    /**
-     * @param Model|Collection|MissingValue|null $whenLoaded
-     * @return Model|Collection|MissingValue|null
-     */
-    protected function relatedData(Model|Collection|MissingValue|null $whenLoaded): Model|Collection|MissingValue|null
+    protected function relatedIdentifiers(string $nameClassResource)
     {
-        if ($whenLoaded instanceof Collection) {
-            return $this->limitRelatedItems() ? $whenLoaded->take($this->limitRelatedItems()) : $whenLoaded;
-        }
+        $resource = $this->relations()[$nameClassResource];
 
-        if ($whenLoaded instanceof Model) {
-            return $whenLoaded;
-        }
+        if ($resource instanceof Model){
+            $data = [
+                'id' => $resource->id,
+                'type' => $resource::TYPE_RESOURCE
+            ];
 
-        return $whenLoaded;
+            return $data;
+        }
+        if ($resource instanceof Collection){
+
+            $data = $resource->map(function ($item, $key) {
+                return [
+                    'id' => $item['id'],
+                    'type' => $item::TYPE_RESOURCE
+                ];
+            });
+
+            return $data->take(config('api-settings.limit-included'));
+        }
+        if ($resource instanceof MissingValue) {
+            return null;
+        }
     }
 
     /**
@@ -137,7 +148,7 @@ trait IncludeRelatedEntitiesResourceTrait
      */
     protected function limitRelatedItems(): int|null
     {
-        $limit = config('api-settings.limit-relationships');
+        $limit = config('api-settings.limit-included');
 
         return $limit ? : null;
     }

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Repositories\Api\Regions;
 
 use App\Models\Region;
-use App\Repositories\Api\AbstractRelationsRepository;
+use App\Repositories\Api\AbstractRelationshipsRepository;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class RegionRelationsRepository extends AbstractRelationsRepository
+final class RegionRelationshipsRepository extends AbstractRelationshipsRepository
 {
 
     /**

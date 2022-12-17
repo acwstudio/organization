@@ -35,9 +35,8 @@ class CityResource extends JsonResource
                             'href' => route('cities.region', ['id' => $this->id]),
                         ]
                     ],
-                    'data' => new RegionIdentifierResource(
-                        $this->relatedData($this->relations()[RegionResource::class])
-                    )
+//                    'data' => new RegionIdentifierResource($this->relations()[RegionResource::class])
+                    'data' => $this->relatedIdentifiers(RegionResource::class)
                 ],
                 'organizations' => [
                     'links' => [
@@ -50,9 +49,8 @@ class CityResource extends JsonResource
                             ]
                         ],
                     ],
-                    'data' => OrganizationIdentifierResource::collection(
-                        $this->relatedData($this->relations()[OrganizationCollection::class]),
-                    ),
+//                    'data' => OrganizationIdentifierResource::collection($this->relations()[OrganizationCollection::class]),
+                    'data' => $this->relatedIdentifiers(OrganizationCollection::class),
                 ]
             ]
         ];

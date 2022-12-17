@@ -33,9 +33,7 @@ class OrganizationTypeResource extends JsonResource
                             'href' => route('organization-types.parent',[$this->id])
                         ],
                     ],
-                    'data' => new OrganizationTypeIdentifierResource(
-                        $this->relatedData($this->relations()[OrganizationTypeResource::class])
-                    )
+                    'data' => $this->relatedIdentifiers(OrganizationTypeResource::class)
                 ],
                 'children' => [
                     'links' => [
@@ -48,9 +46,7 @@ class OrganizationTypeResource extends JsonResource
                             ]
                         ],
                     ],
-                    'data' => OrganizationTypeIdentifierResource::collection(
-                        $this->relatedData($this->relations()[OrganizationTypeCollection::class])
-                    )
+                    'data' => $this->relatedIdentifiers(OrganizationTypeCollection::class)
                 ],
                 'organizations' => [
                     'links' => [
@@ -63,9 +59,7 @@ class OrganizationTypeResource extends JsonResource
                             ]
                         ],
                     ],
-                    'data' => OrganizationIdentifierResource::collection(
-                        $this->relatedData($this->relations()[OrganizationCollection::class])
-                    ),
+                    'data' => $this->relatedIdentifiers(OrganizationCollection::class)
                 ]
             ]
         ];

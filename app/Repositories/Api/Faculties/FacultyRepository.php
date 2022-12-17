@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Api;
+namespace App\Repositories\Api\Faculties;
 
 use App\Models\Faculty;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -15,6 +15,7 @@ final class FacultyRepository
     public function index(): QueryBuilder
     {
         return QueryBuilder::for(Faculty::class)
+            ->allowedFields(['id','organization_id','name'])
             ->allowedIncludes(['organization'])
             ->allowedFilters(['name','active'])
             ->allowedSorts(['name']);

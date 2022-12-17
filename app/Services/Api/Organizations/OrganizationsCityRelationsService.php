@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Services\Api\Organizations;
 
-use App\Repositories\Api\Organizations\OrganizationRelationsRepository;
+use App\Repositories\Api\Organizations\OrganizationRelationshipsRepository;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class OrganizationsCityRelationsService
 {
-    protected OrganizationRelationsRepository $organizationRelationsRepository;
+    protected OrganizationRelationshipsRepository $organizationRelationsRepository;
 
     /**
-     * @param OrganizationRelationsRepository $organizationRelationsRepository
+     * @param OrganizationRelationshipsRepository $organizationRelationsRepository
      */
-    public function __construct(OrganizationRelationsRepository $organizationRelationsRepository)
+    public function __construct(OrganizationRelationshipsRepository $organizationRelationsRepository)
     {
         $this->organizationRelationsRepository = $organizationRelationsRepository;
     }

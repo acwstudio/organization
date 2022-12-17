@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Repositories\Api\Cities;
 
 use App\Models\City;
-use App\Repositories\Api\AbstractRelationsRepository;
+use App\Repositories\Api\AbstractRelationshipsRepository;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class CityRelationsRepository extends AbstractRelationsRepository
+final class CityRelationshipsRepository extends AbstractRelationshipsRepository
 {
 
     /**

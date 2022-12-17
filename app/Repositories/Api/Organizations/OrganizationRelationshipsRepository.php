@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Repositories\Api\Organizations;
 
 use App\Models\Organization;
-use App\Repositories\Api\AbstractRelationsRepository;
+use App\Repositories\Api\AbstractRelationshipsRepository;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-final class OrganizationRelationsRepository extends AbstractRelationsRepository
+final class OrganizationRelationshipsRepository extends AbstractRelationshipsRepository
 {
 
     public function indexRelations(array $data): HasMany|BelongsTo|HasOne

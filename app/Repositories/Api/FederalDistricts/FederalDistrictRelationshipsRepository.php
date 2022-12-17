@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\Api\FederalDistricts;
 
 use App\Models\FederalDistrict;
-use App\Repositories\Api\AbstractRelationsRepository;
+use App\Repositories\Api\AbstractRelationshipsRepository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class FederalDistrictRelationsRepository extends AbstractRelationsRepository
+final class FederalDistrictRelationshipsRepository extends AbstractRelationshipsRepository
 {
     public function indexRelations(array $data): HasMany
     {

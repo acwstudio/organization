@@ -37,7 +37,7 @@ class CityController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $cities = $this->cityService->index()->simplePaginate($perPage);
+        $cities = $this->cityService->index()->simplePaginate($perPage)->appends($request->query());
 
         return (new CityCollection($cities))->response();
     }

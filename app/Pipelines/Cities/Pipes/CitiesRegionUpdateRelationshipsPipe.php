@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Pipelines\Cities\Pipes;
 
 use App\Repositories\Api\Cities\CitiesRegionRelationsRepository;
-use App\Repositories\Api\Cities\CityRelationsRepository;
+use App\Repositories\Api\Cities\CityRelationshipsRepository;
 
 final class CitiesRegionUpdateRelationshipsPipe
 {
-    protected CityRelationsRepository $cityRelationsRepository;
+    protected CityRelationshipsRepository $cityRelationsRepository;
 
     /**
-     * @param CityRelationsRepository $cityRelationsRepository
+     * @param CityRelationshipsRepository $cityRelationsRepository
      */
-    public function __construct(CityRelationsRepository $cityRelationsRepository)
+    public function __construct(CityRelationshipsRepository $cityRelationsRepository)
     {
         $this->cityRelationsRepository = $cityRelationsRepository;
     }

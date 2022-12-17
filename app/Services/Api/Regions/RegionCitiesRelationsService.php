@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Services\Api\Regions;
 
-use App\Repositories\Api\Regions\RegionRelationsRepository;
+use App\Repositories\Api\Regions\RegionRelationshipsRepository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class RegionCitiesRelationsService
 {
-    protected RegionRelationsRepository $regionRelationsRepository;
+    protected RegionRelationshipsRepository $regionRelationsRepository;
 
     /**
-     * @param RegionRelationsRepository $regionRelationsRepository
+     * @param RegionRelationshipsRepository $regionRelationsRepository
      */
-    public function __construct(RegionRelationsRepository $regionRelationsRepository)
+    public function __construct(RegionRelationshipsRepository $regionRelationsRepository)
     {
         $this->regionRelationsRepository = $regionRelationsRepository;
     }

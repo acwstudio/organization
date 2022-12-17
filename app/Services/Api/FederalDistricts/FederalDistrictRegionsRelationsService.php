@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Services\Api\FederalDistricts;
 
-use App\Repositories\Api\FederalDistricts\FederalDistrictRelationsRepository;
+use App\Repositories\Api\FederalDistricts\FederalDistrictRelationshipsRepository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class FederalDistrictRegionsRelationsService
 {
-    protected FederalDistrictRelationsRepository $federalDistrictRelationsRepository;
+    protected FederalDistrictRelationshipsRepository $federalDistrictRelationsRepository;
 
     /**
-     * @param FederalDistrictRelationsRepository $federalDistrictRelationsRepository
+     * @param FederalDistrictRelationshipsRepository $federalDistrictRelationsRepository
      */
-    public function __construct(FederalDistrictRelationsRepository $federalDistrictRelationsRepository)
+    public function __construct(FederalDistrictRelationshipsRepository $federalDistrictRelationsRepository)
     {
         $this->federalDistrictRelationsRepository = $federalDistrictRelationsRepository;
     }

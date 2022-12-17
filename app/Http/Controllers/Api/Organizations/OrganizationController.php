@@ -30,7 +30,7 @@ class OrganizationController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $organizations = $this->organizationService->index()->simplePaginate($perPage);
+        $organizations = $this->organizationService->index()->simplePaginate($perPage)->appends($request->query());
 
         return (new OrganizationCollection($organizations))->response();
     }

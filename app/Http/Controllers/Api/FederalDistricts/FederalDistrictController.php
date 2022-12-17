@@ -38,7 +38,7 @@ class FederalDistrictController extends Controller
     {
         $perPage = $request->get('per_page');
 
-        $federalDistricts = $this->federalDistrictService->index()->simplePaginate($perPage);
+        $federalDistricts = $this->federalDistrictService->index()->simplePaginate($perPage)->appends($request->query());
 
         return (new FederalDistrictCollection($federalDistricts))->response();
     }
