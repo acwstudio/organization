@@ -32,9 +32,9 @@ class RegionCitiesRelationshipsController extends Controller
         data_set($data, 'relation_method', 'cities');
         data_set($data, 'id', $id);
 
-        $cities = $this->regionCitiesRelationsService->indexRelations($data)->simplePaginate($perPage);
+        $model = $this->regionCitiesRelationsService->indexRelations($data)->simplePaginate($perPage);
 
-        return (ApiEntityIdentifierResource::collection($cities))->response();
+        return (ApiEntityIdentifierResource::collection($model))->response();
     }
 
     /**

@@ -35,7 +35,7 @@ trait IncludeRelatedEntitiesResourceTrait
     {
         $relations = $this->relations();
         $newRelations = [];
-//        dd($relations);
+
         /** @var ResourceCollection $key */
         /** @var Model|MissingValue|Collection $relation */
         foreach ($relations as $key => $relation) {
@@ -105,10 +105,35 @@ trait IncludeRelatedEntitiesResourceTrait
         }
 
         if ($resource instanceof MissingValue) {
-            return null;
+            return new MissingValue();
         }
 
         return null;
+    }
+
+    protected function sectionLinks(array $values)
+    {
+        $resource = $this->relations()[$values['resourceName']];
+
+        if ($resource instanceof Collection){
+            return [
+                'self' => $values['self'],
+                'related' => [
+                    'href' => $values['href'],
+                    'meta' => [
+                        'total' => $this->totalRelatedData($resource),
+                        'limit' => $this->limitRelatedItems()
+                    ]
+                ],
+            ];
+        }
+
+        return [
+            'self' => $values['self'],
+            'related' => [
+                'href' => $values['href'],
+            ],
+        ];
     }
 
     /**

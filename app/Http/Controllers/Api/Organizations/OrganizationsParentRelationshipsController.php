@@ -29,8 +29,8 @@ class OrganizationsParentRelationshipsController extends Controller
         data_set($data, 'relation_method', 'parent');
         data_set($data, 'id', $id);
 
-        $organization = $this->organizationsParentRelationsService->indexRelations($data)->first();
+        $model = $this->organizationsParentRelationsService->indexRelations($data)->first();
 
-        return $organization ? (new ApiEntityIdentifierResource($organization))->response() : response()->json(null, 204);
+        return $model ? (new ApiEntityIdentifierResource($model))->response() : response()->json(null, 204);
     }
 }

@@ -27,25 +27,19 @@ class RegionResource extends JsonResource
             'attributes' => $this->attributeItems(),
             'relationships' => [
                 'cities' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
                         'self'    => route('region.relationships.cities', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('region.cities', ['id' => $this->id]),
-                            'meta' => [
-                                'total' => $this->totalRelatedData($this->relations()[CityCollection::class]),
-                                'limit' => $this->limitRelatedItems()
-                            ]
-                        ],
-                    ],
+                        'href' => route('region.cities', ['id' => $this->id]),
+                        'resourceName' => CityCollection::class
+                    ]),
                     'data' => $this->relatedIdentifiers(CityCollection::class)
                 ],
                 'federalDistrict' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
                         'self'    => route('regions.relationships.federal-district', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('regions.federal-district', ['id' => $this->id])
-                        ],
-                    ],
+                        'href' => route('regions.federal-district', ['id' => $this->id]),
+                        'resourceName' => FederalDistrictResource::class
+                    ]),
                     'data' => $this->relatedIdentifiers(FederalDistrictResource::class)
                 ]
             ]

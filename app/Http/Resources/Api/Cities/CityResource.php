@@ -27,26 +27,22 @@ class CityResource extends JsonResource
             'attributes' => $this->attributeItems(),
             'relationships' => [
                 'region' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
                         'self' => route('cities.relationships.region', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('cities.region', ['id' => $this->id]),
-                        ]
-                    ],
+                        'href' => route('cities.region', ['id' => $this->id]),
+                        'resourceName' => RegionResource::class
+                    ]),
+
                     'data' => $this->relatedIdentifiers(RegionResource::class)
                 ],
                 'organizations' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
                         'self' => route('city.relationships.organizations', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('city.organizations', ['id' => $this->id]),
-                            'meta' => [
-                                'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
-                                'limit' => $this->limitRelatedItems()
-                            ]
-                        ],
-                    ],
-                    'data' => $this->relatedIdentifiers(OrganizationCollection::class )
+                        'href' => route('city.organizations', ['id' => $this->id]),
+                        'resourceName' => OrganizationCollection::class
+                    ]),
+
+                    'data' => $this->relatedIdentifiers(OrganizationCollection::class)
                 ]
             ]
         ];

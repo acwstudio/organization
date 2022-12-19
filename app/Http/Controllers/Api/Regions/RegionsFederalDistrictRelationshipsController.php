@@ -26,10 +26,10 @@ class RegionsFederalDistrictRelationshipsController extends Controller
         data_set($data, 'relation_method', 'federalDistrict');
         data_set($data, 'id', $id);
 
-        $federalDistrict = $this->regionsFederalDistrictRelationsService->indexRelations($data)->first();
+        $model = $this->regionsFederalDistrictRelationsService->indexRelations($data)->first();
 
-        return $federalDistrict ?
-            (new ApiEntityIdentifierResource($federalDistrict))->response() : response()->json(null, 204);
+        return $model ?
+            (new ApiEntityIdentifierResource($model))->response() : response()->json(null, 204);
     }
 
     /**
