@@ -33,8 +33,8 @@ class OrganizationFacultiesRelationshipsController extends Controller
         data_set($data, 'relation_method', 'faculties');
         data_set($data, 'id', $id);
 
-        $children = $this->organizationChildrenRelationsService->indexRelations($data)->simplePaginate($perPage);
+        $model = $this->organizationChildrenRelationsService->indexRelations($data)->simplePaginate($perPage);
 
-        return (ApiEntityIdentifierResource::collection($children))->response();
+        return (ApiEntityIdentifierResource::collection($model))->response();
     }
 }

@@ -29,8 +29,8 @@ class OrganizationsCityRelationshipsController extends Controller
         data_set($data, 'relation_method', 'city');
         data_set($data, 'id', $id);
 
-        $city = $this->organizationsCityRelationsService->indexRelations($data)->first();
+        $model = $this->organizationsCityRelationsService->indexRelations($data)->first();
 
-        return $city ? (new ApiEntityIdentifierResource($city))->response() : response()->json(null, 204);
+        return $model ? (new ApiEntityIdentifierResource($model))->response() : response()->json(null, 204);
     }
 }

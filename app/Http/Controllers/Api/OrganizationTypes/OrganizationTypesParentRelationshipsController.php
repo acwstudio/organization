@@ -15,9 +15,9 @@ class OrganizationTypesParentRelationshipsController extends Controller
      */
     public function index(int $id): JsonResponse
     {
-        $parent = OrganizationType::find($id)->parent;
+        $model = OrganizationType::find($id)->parent;
 
-        return $parent ? (new ApiEntityIdentifierResource($parent))->response() : response()->json(null, 204);
+        return $model ? (new ApiEntityIdentifierResource($model))->response() : response()->json(null, 204);
     }
 
     public function update(int $id)

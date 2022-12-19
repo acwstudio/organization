@@ -29,9 +29,9 @@ class OrganizationsOrganizationTypeRelationshipsController extends Controller
         data_set($data, 'relation_method', 'organizationType');
         data_set($data, 'id', $id);
 
-        $organizationType = $this->organizationsOrganizationTypeRelationsService->indexRelations($data)->first();
+        $model = $this->organizationsOrganizationTypeRelationsService->indexRelations($data)->first();
 
-        return $organizationType ?
-            (new ApiEntityIdentifierResource($organizationType))->response() : response()->json(null, 204);
+        return $model ?
+            (new ApiEntityIdentifierResource($model))->response() : response()->json(null, 204);
     }
 }

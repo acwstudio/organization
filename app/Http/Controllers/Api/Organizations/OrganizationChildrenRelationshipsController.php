@@ -34,9 +34,9 @@ class OrganizationChildrenRelationshipsController extends Controller
         data_set($data, 'relation_method', 'children');
         data_set($data, 'id', $id);
 
-        $children = $this->organizationChildrenRelationsService->indexRelations($data)->simplePaginate($perPage);
+        $model = $this->organizationChildrenRelationsService->indexRelations($data)->simplePaginate($perPage);
 
-        return (ApiEntityIdentifierResource::collection($children))->response();
+        return (ApiEntityIdentifierResource::collection($model))->response();
     }
 
     public function update(OrganizationChildrenUpdateRelationshipsRequest $request, string $id)

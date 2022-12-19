@@ -26,38 +26,27 @@ class OrganizationTypeResource extends JsonResource
             'attributes' => $this->attributeItems(),
             'relationships' => [
                 'parent' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
                         'self'    => route('organization-types.relationships.parent',[$this->id]),
-                        'related' => [
-                            'href' => route('organization-types.parent',[$this->id])
-                        ],
-                    ],
+                        'href' => route('organization-types.parent',[$this->id]),
+                        'resourceName' => OrganizationTypeResource::class
+                    ]),
                     'data' => $this->relatedIdentifiers(OrganizationTypeResource::class)
                 ],
                 'children' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
                         'self' => route('organization-type.relationships.children',[$this->id]),
-                        'related' => [
-                            'href' => route('organization-type.children',[$this->id]),
-                            'meta' => [
-                                'total' => $this->totalRelatedData($this->relations()[OrganizationTypeCollection::class]),
-                                'limit' => $this->limitRelatedItems()
-                            ]
-                        ],
-                    ],
+                        'href' => route('organization-type.children',[$this->id]),
+                        'resourceName' => OrganizationTypeCollection::class
+                    ]),
                     'data' => $this->relatedIdentifiers(OrganizationTypeCollection::class)
                 ],
                 'organizations' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
                         'self' => route('organization-type.relationships.organizations',[$this->id]),
-                        'related' => [
-                            'href' => route('organization-type.organizations',[$this->id]),
-                            'meta' => [
-                                'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
-                                'limit' => $this->limitRelatedItems()
-                            ]
-                        ],
-                    ],
+                        'href' => route('organization-type.organizations',[$this->id]),
+                        'resourceName' => OrganizationCollection::class
+                    ]),
                     'data' => $this->relatedIdentifiers(OrganizationCollection::class)
                 ]
             ]

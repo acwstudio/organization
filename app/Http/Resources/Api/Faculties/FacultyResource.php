@@ -15,7 +15,7 @@ class FacultyResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -25,15 +25,12 @@ class FacultyResource extends JsonResource
             'type' => Faculty::TYPE_RESOURCE,
             'attributes' => $this->getAttributes(),
             'relationships' => [
-                'organization' => [
-                    'links' => [
-                        'self' => route('faculties.relationships.organization', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('faculties.organization', ['id' => $this->id]),
-                        ],
-                    ],
-                    'data' => $this->relatedIdentifiers(OrganizationResource::class)
-                ]
+                'organization' => $this->sectionLinks([
+                    'self' => route('faculties.relationships.organization', ['id' => $this->id]),
+                    'href' => route('faculties.organization', ['id' => $this->id]),
+                    'resourceName' => OrganizationResource::class
+                ]),
+                'data' => $this->relatedIdentifiers(OrganizationResource::class)
             ]
         ];
     }

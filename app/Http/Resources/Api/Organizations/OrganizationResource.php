@@ -28,56 +28,48 @@ class OrganizationResource extends JsonResource
             'attributes' => $this->attributeItems(),
             'relationships' => [
                 'city' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
+                        'href' => route('organizations.city', ['id' => $this->id]),
                         'self' => route('organizations.relationships.city', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('organizations.city', ['id' => $this->id])
-                        ],
-                    ],
+                        'resourceName' => CityResource::class
+                    ]),
+
                     'data' => $this->relatedIdentifiers(CityResource::class)
                 ],
                 'organizationType' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
+                        'href' => route('organizations.organization-type', ['id' => $this->id]),
                         'self' => route('organizations.relationships.organization-type', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('organizations.organization-type', ['id' => $this->id])
-                        ]
-                    ],
+                        'resourceName' => OrganizationTypeResource::class
+                    ]),
+
                     'data' => $this->relatedIdentifiers(OrganizationTypeResource::class)
                 ],
                 'faculties' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
+                        'href' => route('organization.faculties', ['id' => $this->id]),
                         'self' => route('organization.relationships.faculties', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('organization.faculties', ['id' => $this->id]),
-                            'meta' => [
-                                'total' => $this->totalRelatedData($this->relations()[FacultyCollection::class]),
-                                'limit' => $this->limitRelatedItems()
-                            ]
-                        ],
-                    ],
+                        'resourceName' => FacultyCollection::class
+                    ]),
+
                     'data' => $this->relatedIdentifiers(FacultyCollection::class)
                 ],
                 'parent' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
+                        'href' => route('organizations.parent', ['id' => $this->id]),
                         'self' => route('organizations.relationships.parent', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('organizations.parent', ['id' => $this->id])
-                        ]
-                    ],
+                        'resourceName' => OrganizationResource::class
+                    ]),
+
                     'data' => $this->relatedIdentifiers(OrganizationResource::class)
                 ],
                 'children' => [
-                    'links' => [
+                    'links' => $this->sectionLinks([
+                        'href' => route('organization.children', ['id' => $this->id]),
                         'self' => route('organization.relationships.children', ['id' => $this->id]),
-                        'related' => [
-                            'href' => route('organization.children', ['id' => $this->id]),
-                            'meta' => [
-                                'total' => $this->totalRelatedData($this->relations()[OrganizationCollection::class]),
-                                'limit' => $this->limitRelatedItems()
-                            ]
-                        ]
-                    ],
+                        'resourceName' => OrganizationCollection::class
+                    ]),
+
                     'data' => $this->relatedIdentifiers(OrganizationCollection::class)
                 ]
             ]
