@@ -25,14 +25,7 @@ class FederalDistrictResource extends JsonResource
             'type'       => FederalDistrict::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'regions' => [
-                    'links' => $this->sectionLinks([
-                        'self'    => route('federal-district.relationships.regions', ['id' => $this->id]),
-                        'href' => route('federal-district.regions', ['id' => $this->id]),
-                        'resourceName' => RegionCollection::class
-                    ]),
-                    'data' => $this->relatedIdentifiers(RegionCollection::class)
-                ]
+                'regions' => $this->sectionRelationships('federal-district.regions', RegionCollection::class)
             ]
         ];
     }

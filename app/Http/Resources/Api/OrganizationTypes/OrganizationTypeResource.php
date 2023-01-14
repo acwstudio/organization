@@ -25,30 +25,9 @@ class OrganizationTypeResource extends JsonResource
             'type'       => OrganizationType::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'parent' => [
-                    'links' => $this->sectionLinks([
-                        'self'    => route('organization-types.relationships.parent',[$this->id]),
-                        'href' => route('organization-types.parent',[$this->id]),
-                        'resourceName' => OrganizationTypeResource::class
-                    ]),
-                    'data' => $this->relatedIdentifiers(OrganizationTypeResource::class)
-                ],
-                'children' => [
-                    'links' => $this->sectionLinks([
-                        'self' => route('organization-type.relationships.children',[$this->id]),
-                        'href' => route('organization-type.children',[$this->id]),
-                        'resourceName' => OrganizationTypeCollection::class
-                    ]),
-                    'data' => $this->relatedIdentifiers(OrganizationTypeCollection::class)
-                ],
-                'organizations' => [
-                    'links' => $this->sectionLinks([
-                        'self' => route('organization-type.relationships.organizations',[$this->id]),
-                        'href' => route('organization-type.organizations',[$this->id]),
-                        'resourceName' => OrganizationCollection::class
-                    ]),
-                    'data' => $this->relatedIdentifiers(OrganizationCollection::class)
-                ]
+                'parent' => $this->sectionRelationships('organization-types.parent', OrganizationTypeResource::class),
+                'children' => $this->sectionRelationships('organization-type.children', OrganizationTypeCollection::class),
+                'organizations' => $this->sectionRelationships('organization-type.organizations', OrganizationCollection::class),
             ]
         ];
     }

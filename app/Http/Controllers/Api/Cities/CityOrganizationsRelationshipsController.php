@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Cities\CityOrganizationsUpdateRelationshipsRequest;
+use App\Http\Resources\Api\ApiEntityIdentifierCollection;
 use App\Http\Resources\Api\ApiEntityIdentifierResource;
 use App\Services\Api\Cities\CityOrganizationsRelationsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CityOrganizationsRelationshipsController extends Controller
 {
@@ -33,9 +36,12 @@ class CityOrganizationsRelationshipsController extends Controller
         data_set($data, 'relation_method', 'organizations');
         data_set($data, 'id', $id);
 
-        $model = $this->cityOrganizationsRelationsService->indexRelations($data)->simplePaginate($perPage);
+        /** @var QueryBuilder $query */
+//        $query = $this->cityOrganizationsRelationsService->indexRelations($data);
+//        dd($query->getOriginalParameters());
+        $paginatedQuery = $this->cityOrganizationsRelationsService->indexRelations($data)->paginate($perPage)->onEachSide(0);
 
-        return (ApiEntityIdentifierResource::collection($model))->response();
+        return (new ApiEntityIdentifierCollection($paginatedQuery))->response();
     }
 
     /**

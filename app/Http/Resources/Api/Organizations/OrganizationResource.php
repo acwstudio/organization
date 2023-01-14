@@ -27,51 +27,11 @@ class OrganizationResource extends JsonResource
             'type' => Organization::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'city' => [
-                    'links' => $this->sectionLinks([
-                        'href' => route('organizations.city', ['id' => $this->id]),
-                        'self' => route('organizations.relationships.city', ['id' => $this->id]),
-                        'resourceName' => CityResource::class
-                    ]),
-
-                    'data' => $this->relatedIdentifiers(CityResource::class)
-                ],
-                'organizationType' => [
-                    'links' => $this->sectionLinks([
-                        'href' => route('organizations.organization-type', ['id' => $this->id]),
-                        'self' => route('organizations.relationships.organization-type', ['id' => $this->id]),
-                        'resourceName' => OrganizationTypeResource::class
-                    ]),
-
-                    'data' => $this->relatedIdentifiers(OrganizationTypeResource::class)
-                ],
-                'faculties' => [
-                    'links' => $this->sectionLinks([
-                        'href' => route('organization.faculties', ['id' => $this->id]),
-                        'self' => route('organization.relationships.faculties', ['id' => $this->id]),
-                        'resourceName' => FacultyCollection::class
-                    ]),
-
-                    'data' => $this->relatedIdentifiers(FacultyCollection::class)
-                ],
-                'parent' => [
-                    'links' => $this->sectionLinks([
-                        'href' => route('organizations.parent', ['id' => $this->id]),
-                        'self' => route('organizations.relationships.parent', ['id' => $this->id]),
-                        'resourceName' => OrganizationResource::class
-                    ]),
-
-                    'data' => $this->relatedIdentifiers(OrganizationResource::class)
-                ],
-                'children' => [
-                    'links' => $this->sectionLinks([
-                        'href' => route('organization.children', ['id' => $this->id]),
-                        'self' => route('organization.relationships.children', ['id' => $this->id]),
-                        'resourceName' => OrganizationCollection::class
-                    ]),
-
-                    'data' => $this->relatedIdentifiers(OrganizationCollection::class)
-                ]
+                'city' => $this->sectionRelationships('organizations.city', CityResource::class),
+                'organizationType' => $this->sectionRelationships('organizations.organization-type', OrganizationTypeResource::class),
+                'faculties' => $this->sectionRelationships('organization.faculties', FacultyCollection::class),
+                'parent' => $this->sectionRelationships('organizations.parent', OrganizationResource::class),
+                'children' => $this->sectionRelationships('organization.children', OrganizationCollection::class)
             ]
         ];
     }

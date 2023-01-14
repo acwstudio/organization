@@ -16,16 +16,6 @@ class RegionCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request)
-    {
-        return [
-            'data'     => $this->collection,
-            'included' => $this->mergeIncludedRelations($request),
-            'meta' => [
-                'total' => $this->total()
-            ]
-        ];
-    }
 
     protected function total(): int
     {

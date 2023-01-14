@@ -25,6 +25,7 @@ final class CityService extends AbstractCRUDService
 
     /**
      * @param CityRepository $cityRepository
+     * @param CityPipeline $cityPipeline
      */
     public function __construct(CityRepository $cityRepository, CityPipeline $cityPipeline)
     {
