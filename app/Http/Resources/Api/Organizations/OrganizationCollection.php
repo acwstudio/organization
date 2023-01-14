@@ -15,6 +15,6 @@ class OrganizationCollection extends ResourceCollection
      */
     private function total(): int
     {
-        return Organization::count();
+        return $this->count();
     }
 }

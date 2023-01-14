@@ -26,24 +26,8 @@ class CityResource extends JsonResource
             'type' => City::TYPE_RESOURCE,
             'attributes' => $this->attributeItems(),
             'relationships' => [
-                'region' => [
-                    'links' => $this->sectionLinks([
-                        'self' => route('cities.relationships.region', ['id' => $this->id]),
-                        'href' => route('cities.region', ['id' => $this->id]),
-                        'resourceName' => RegionResource::class
-                    ]),
-
-                    'data' => $this->relatedIdentifiers(RegionResource::class)
-                ],
-                'organizations' => [
-                    'links' => $this->sectionLinks([
-                        'self' => route('city.relationships.organizations', ['id' => $this->id]),
-                        'href' => route('city.organizations', ['id' => $this->id]),
-                        'resourceName' => OrganizationCollection::class
-                    ]),
-
-                    'data' => $this->relatedIdentifiers(OrganizationCollection::class)
-                ]
+                'region' => $this->sectionRelationships('cities.region', RegionResource::class),
+                'organizations' => $this->sectionRelationships('city.organizations', OrganizationCollection::class)
             ]
         ];
     }

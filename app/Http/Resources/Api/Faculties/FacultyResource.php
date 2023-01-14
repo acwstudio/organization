@@ -25,12 +25,7 @@ class FacultyResource extends JsonResource
             'type' => Faculty::TYPE_RESOURCE,
             'attributes' => $this->getAttributes(),
             'relationships' => [
-                'organization' => $this->sectionLinks([
-                    'self' => route('faculties.relationships.organization', ['id' => $this->id]),
-                    'href' => route('faculties.organization', ['id' => $this->id]),
-                    'resourceName' => OrganizationResource::class
-                ]),
-                'data' => $this->relatedIdentifiers(OrganizationResource::class)
+                'organization' => $this->sectionRelationships('faculties.organization', OrganizationResource::class)
             ]
         ];
     }

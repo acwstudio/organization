@@ -25,7 +25,6 @@ trait IncludeRelatedEntitiesResourceTrait
      *      LandVersionResource::class     => $this->whenLoaded('landVersion'),
      * ];
      */
-
     abstract function relations(): array;
 
     /**
@@ -111,28 +110,34 @@ trait IncludeRelatedEntitiesResourceTrait
         return null;
     }
 
-    protected function sectionLinks(array $values)
+    protected function sectionRelationships(string $relatedUrlName, string $relatedResource)
     {
-        $resource = $this->relations()[$values['resourceName']];
+        $resource = $this->relations()[$relatedResource];
 
-        if ($resource instanceof Collection){
-            return [
-                'self' => $values['self'],
-                'related' => [
-                    'href' => $values['href'],
-                    'meta' => [
-                        'total' => $this->totalRelatedData($resource),
-                        'limit' => $this->limitRelatedItems()
-                    ]
-                ],
+        $explodedName = explode('.', $relatedUrlName);
+        array_splice($explodedName, 1, 0, 'relationships');
+        $selfUrlName = implode('.', $explodedName);
+
+        if ($resource instanceof Collection) {
+            $related = [
+                'href' => route($relatedUrlName, ['id' => $this->id]),
+                'meta' => [
+                    'total' => $this->totalRelatedData($resource),
+                    'limit' => $this->limitRelatedItems()
+                ]
+            ];
+        } else {
+            $related = [
+                'href' => route($relatedUrlName, ['id' => $this->id])
             ];
         }
 
         return [
-            'self' => $values['self'],
-            'related' => [
-                'href' => $values['href'],
+            'links' => [
+                'self' => route($selfUrlName, ['id' => $this->id]),
+                'related' => $related
             ],
+            'data' => $this->relatedIdentifiers($relatedResource)
         ];
     }
 
